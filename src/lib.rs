@@ -21,6 +21,9 @@ extern crate embedded_hal as hal;
 extern crate nb;
 pub extern crate stm32l4x6;
 
+use core::ops;
+use core::marker;
+
 pub mod common;
 pub mod flash;
 pub mod time;

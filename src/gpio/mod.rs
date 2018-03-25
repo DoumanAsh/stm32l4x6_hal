@@ -3,7 +3,12 @@
 //! Note that GPIO layout is specific to board
 //! which is configured through features.
 
-use core::marker::PhantomData;
+
+use ::ops::Deref;
+use ::marker::PhantomData;
+
+use hal::digital::OutputPin;
+
 use rcc::AHB;
 
 /// Floating input (type state)
@@ -273,6 +278,55 @@ macro_rules! impl_pins {
         $(
             impl_pin!($GPIOX, $PXi, $ARF, $i);
          )*
+    }
+}
+
+///Generic LED
+pub struct Led<PIN>(PIN);
+impl<PIN: OutputPin> Led<PIN> {
+    #[inline]
+    /// Turns LED off.
+    pub fn off(&mut self) {
+        self.0.set_low();
+    }
+    #[inline]
+    /// Checks whether LED is off
+    pub fn is_off(&mut self) -> bool {
+        self.0.is_low()
+    }
+    #[inline]
+    /// Turns LED on.
+    pub fn on(&mut self) {
+        self.0.set_high()
+    }
+    #[inline]
+    /// Checks whether LED is on
+    pub fn is_on(&mut self) -> bool {
+        self.0.is_high()
+    }
+}
+
+impl<PIN> Deref for Led<PIN> {
+    type Target = PIN;
+
+    #[inline]
+    fn deref(&self) -> &PIN {
+        &self.0
+    }
+}
+
+macro_rules! define_led {
+    ($name:ident, $typ:ty) => {
+        pub type $name = Led<$typ>;
+        impl Led<$typ> {
+            #[inline]
+            ///Creates a new instance of LED.
+            ///
+            ///Defined only for these PINs that can be used as LED.
+            pub fn new(pin: $typ) -> Self {
+                Led(pin)
+            }
+        }
     }
 }
 

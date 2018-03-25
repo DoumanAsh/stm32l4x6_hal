@@ -4,8 +4,6 @@ use ::stm32l4x6;
 
 use super::*;
 
-use hal::digital::OutputPin;
-
 /// Opaque AFRL register
 pub struct AFRL<GPIO>(PhantomData<GPIO>);
 /// Opaque AFRH register
@@ -54,4 +52,17 @@ pub mod gpio {
                AFRH: [PE8, 8; PE9, 9; PE10, 10; PE11, 11; PE12, 12; PE13, 13; PE14, 14; PE15, 15; ]
     );
     impl_gpio!(H, GPIOH, gpiohen, gpiohrst, AFRL: [PH0, 0; PH1, 1;]);
+}
+
+/// Description of LEDs
+pub mod led {
+    use super::{
+        gpio,
+        Output,
+        PushPull,
+        Led
+    };
+
+    define_led!(Led4, gpio::PB2<Output<PushPull>>);
+    define_led!(Led5, gpio::PE8<Output<PushPull>>);
 }
