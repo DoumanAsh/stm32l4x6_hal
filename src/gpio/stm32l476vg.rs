@@ -63,6 +63,19 @@ pub mod led {
         Led
     };
 
-    define_led!(Led4, gpio::PB2<Output<PushPull>>);
-    define_led!(Led5, gpio::PE8<Output<PushPull>>);
+    define_led!(
+        ///User LED with Red color.
+        Led4, gpio::PB2<Output<PushPull>>);
+
+    define_led!(
+        ///User LED with Green color.
+        Led5, gpio::PE8<Output<PushPull>>);
+
+    ///Retrieve all LEDs
+    pub fn leds(mut gpio_b: gpio::B, mut gpio_e: gpio::E) -> (Led4, Led5) {
+        let led4 = gpio_b.PB2.into_push_pull_output(&mut gpio_b.moder, &mut gpio_b.otyper);
+        let led5 = gpio_e.PE8.into_push_pull_output(&mut gpio_e.moder, &mut gpio_e.otyper);
+
+        (Led4::new(led4), Led5::new(led5))
+    }
 }

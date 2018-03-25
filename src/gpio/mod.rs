@@ -316,7 +316,8 @@ impl<PIN> Deref for Led<PIN> {
 }
 
 macro_rules! define_led {
-    ($name:ident, $typ:ty) => {
+    ($(#[$attr:meta])* $name:ident, $typ:ty) => {
+        $(#[$attr])*
         pub type $name = Led<$typ>;
         impl Led<$typ> {
             #[inline]
