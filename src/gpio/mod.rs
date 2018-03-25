@@ -94,36 +94,7 @@ macro_rules! impl_parts {
 
 macro_rules! impl_gpio {
     ($name:ident, $GPIOX:ident) => {
-        ///GPIO
-        pub struct $name {
-            /// Opaque AFRH register
-            pub afrh: AFRH<$GPIOX>,
-            /// Opaque AFRL register
-            pub afrl: AFRL<$GPIOX>,
-            /// Opaque MODER register
-            pub moder: MODER<$GPIOX>,
-            /// Opaque OTYPER register
-            pub otyper: OTYPER<$GPIOX>,
-            /// Opaque PUPDR register
-            pub pupdr: PUPDR<$GPIOX>,
-        }
-
-        impl $name {
-            ///Creates new instance of GPIO by enabling it on AHB register
-            pub fn new(ahb: &mut AHB) -> Self {
-                ahb.enr2().modify(|_, w| w.gpioben().set_bit());
-                ahb.rstr2().modify(|_, w| w.gpiobrst().set_bit());
-                ahb.rstr2().modify(|_, w| w.gpiobrst().clear_bit());
-
-                Self {
-                    afrh: AFRH(PhantomData),
-                    afrl: AFRL(PhantomData),
-                    moder: MODER(PhantomData),
-                    otyper: OTYPER(PhantomData),
-                    pupdr: PUPDR(PhantomData)
-                }
-            }
-        }
+        impl_gpio!($name, $GPIOX, AFRL: [], AFRH: []);
     };
     ($name:ident, $GPIOX:ident, AFRL: [$($PXiL:ident, $iL:expr;)*]) => {
         impl_gpio!($name, $GPIOX, AFRL: [$($PXiL, $iL;)*], AFRH: []);
