@@ -93,13 +93,13 @@ macro_rules! impl_parts {
 }
 
 macro_rules! impl_gpio {
-    ($name:ident, $GPIOX:ident) => {
-        impl_gpio!($name, $GPIOX, AFRL: [], AFRH: []);
+    ($name:ident, $GPIOX:ident, $gpioen:ident, $gpiorst:ident) => {
+        impl_gpio!($name, $GPIOX, $gpioen, $gpiorst, AFRL: [], AFRH: []);
     };
-    ($name:ident, $GPIOX:ident, AFRL: [$($PXiL:ident, $iL:expr;)*]) => {
-        impl_gpio!($name, $GPIOX, AFRL: [$($PXiL, $iL;)*], AFRH: []);
+    ($name:ident, $GPIOX:ident, $gpioen:ident, $gpiorst:ident, AFRL: [$($PXiL:ident, $iL:expr;)*]) => {
+        impl_gpio!($name, $GPIOX, $gpioen, $gpiorst, AFRL: [$($PXiL, $iL;)*], AFRH: []);
     };
-    ($name:ident, $GPIOX:ident, AFRL: [$($PXiL:ident, $iL:expr;)*], AFRH: [$($PXiH:ident, $iH:expr;)*]) => {
+    ($name:ident, $GPIOX:ident, $gpioen:ident, $gpiorst:ident, AFRL: [$($PXiL:ident, $iL:expr;)*], AFRH: [$($PXiH:ident, $iH:expr;)*]) => {
         impl_pins!($GPIOX, AFRL: [$($PXiL, $iL;)*]);
         impl_pins!($GPIOX, AFRH: [$($PXiH, $iH;)*]);
 
@@ -129,9 +129,9 @@ macro_rules! impl_gpio {
         impl $name {
             ///Creates new instance of GPIO by enabling it on AHB register
             pub fn new(ahb: &mut AHB) -> Self {
-                ahb.enr2().modify(|_, w| w.gpioben().set_bit());
-                ahb.rstr2().modify(|_, w| w.gpiobrst().set_bit());
-                ahb.rstr2().modify(|_, w| w.gpiobrst().clear_bit());
+                ahb.enr2().modify(|_, w| w.$gpioen().set_bit());
+                ahb.rstr2().modify(|_, w| w.$gpiorst().set_bit());
+                ahb.rstr2().modify(|_, w| w.$gpiorst().clear_bit());
 
                 Self {
                     afrh: AFRH(PhantomData),
