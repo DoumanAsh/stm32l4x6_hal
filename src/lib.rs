@@ -21,6 +21,7 @@ extern crate embedded_hal as hal;
 extern crate nb;
 pub extern crate stm32l4x6;
 
+use core::cmp;
 use core::ops;
 use core::marker;
 
@@ -30,3 +31,4 @@ pub mod time;
 pub mod rcc;
 pub mod delay;
 pub mod gpio;
+pub mod timer;

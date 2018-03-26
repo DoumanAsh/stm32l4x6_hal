@@ -48,7 +48,7 @@ impl DelayMs<u8> for Delay {
 
 impl DelayUs<u32> for Delay {
     fn delay_us(&mut self, us: u32) {
-        let rvr = us * (self.clocks.sys_clock().0 / 1_000_000);
+        let rvr = us * (self.clocks.sys.0 / 1_000_000);
 
         assert!(rvr < (1 << 24));
 
