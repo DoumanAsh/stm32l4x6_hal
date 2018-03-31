@@ -28,6 +28,7 @@ use core::marker;
 pub mod common;
 pub mod flash;
 pub mod time;
+pub mod config;
 pub mod rcc;
 pub mod delay;
 pub mod gpio;

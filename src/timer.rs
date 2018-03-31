@@ -5,6 +5,8 @@ use nb;
 use time::{Hertz, Clocks};
 use rcc::{APB1, APB2};
 
+use cast::{u16};
+
 use stm32l4x6::{
     //advanced timers
     TIM1, TIM8, //stm32l4x6::rcc::apb2enr | apb2rstr:

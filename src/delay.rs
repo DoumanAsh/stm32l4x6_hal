@@ -3,10 +3,12 @@
 use cast::u32;
 use cortex_m::peripheral::SYST;
 use cortex_m::peripheral::syst::SystClkSource;
-
 use hal::blocking::delay::{DelayMs, DelayUs};
 
+use ::cmp;
+
 use time::Clocks;
+use config::SYST_MAX_RVR;
 
 /// System timer (SysTick) as a delay provider
 pub struct Delay {
@@ -48,17 +50,22 @@ impl DelayMs<u8> for Delay {
 
 impl DelayUs<u32> for Delay {
     fn delay_us(&mut self, us: u32) {
-        let rvr = us * (self.clocks.sys.0 / 1_000_000);
+        let mut total_rvr = us * (self.clocks.sys.0 / 1_000_000);
 
-        assert!(rvr < (1 << 24));
+        while total_rvr != 0 {
+            let current_rvr = cmp::min(total_rvr, SYST_MAX_RVR);
 
-        self.syst.set_reload(rvr);
-        self.syst.clear_current();
-        self.syst.enable_counter();
+            self.syst.set_reload(current_rvr);
+            self.syst.clear_current();
+            self.syst.enable_counter();
 
-        while !self.syst.has_wrapped() {}
+            // Update the tracking variable while we are waiting...
+            total_rvr -= current_rvr;
 
-        self.syst.disable_counter();
+            while !self.syst.has_wrapped() {}
+
+            self.syst.disable_counter();
+        }
     }
 }
 
