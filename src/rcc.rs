@@ -176,7 +176,7 @@ impl CFGR {
             Some(2) => 0b100,
             Some(3...5) => 0b101,
             Some(6...11) => 0b110,
-            _ => 0b1111,
+            _ => 0b111,
         };
 
         let ppre1: u8 = 1 << (ppre1_bits - 0b011);
@@ -189,7 +189,7 @@ impl CFGR {
             Some(2) => 0b100,
             Some(3...5) => 0b101,
             Some(6...11) => 0b110,
-            _ => 0b1111,
+            _ => 0b111,
         };
 
         let ppre2: u8 = 1 << (ppre2_bits - 0b011);
