@@ -1,3 +1,4 @@
+//!Configuration module
 use cortex_m::peripheral::SYST;
 use cortex_m::peripheral::syst::SystClkSource;
 

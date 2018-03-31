@@ -1,3 +1,4 @@
+//!Time related types
 macro_rules! impl_struct {
     ($($name:ident,)+) => {
         $(
@@ -41,8 +42,12 @@ pub struct Clocks {
     pub ahb: Hertz,
     ///Frequency of APB1 bus.
     pub apb1: Hertz,
+    ///APB1's prescaler
+    pub ppre1: u8,
     ///Frequency of APB2 bus.
     pub apb2: Hertz,
+    ///APB2's prescaler
+    pub ppre2: u8,
     ///Frequency of System clocks.
     pub sys: Hertz
 }

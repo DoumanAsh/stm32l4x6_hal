@@ -1,6 +1,7 @@
 //! Reset and Clock Control
 
 use stm32l4x6::{rcc, RCC};
+use cast::u32;
 
 use ::cmp;
 
@@ -178,8 +179,8 @@ impl CFGR {
             _ => 0b1111,
         };
 
-        let ppre1 = 1 << (ppre1_bits - 0b011);
-        let apb1 = ahb / ppre1;
+        let ppre1: u8 = 1 << (ppre1_bits - 0b011);
+        let apb1 = ahb / u32(ppre1);
         //TODO: assert?
 
         let ppre2_bits = match self.ppre2.map(|ppre2| ahb / ppre2) {
@@ -191,8 +192,8 @@ impl CFGR {
             _ => 0b1111,
         };
 
-        let ppre2 = 1 << (ppre2_bits - 0b011);
-        let apb2 = ahb / ppre2;
+        let ppre2: u8 = 1 << (ppre2_bits - 0b011);
+        let apb2 = ahb / u32(ppre2);
         //TODO: assert?
 
         //Reference AN4621 note Figure. 4
@@ -248,7 +249,9 @@ impl CFGR {
         Clocks {
             ahb: Hertz(ahb),
             apb1: Hertz(apb1),
+            ppre1,
             apb2: Hertz(apb2),
+            ppre2,
             sys: Hertz(sys_clock),
         }
     }
