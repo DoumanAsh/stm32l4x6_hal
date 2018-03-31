@@ -179,7 +179,7 @@ impl CFGR {
             _ => 0b111,
         };
 
-        let ppre1: u8 = 1 << (ppre1_bits - 0b011);
+        let ppre1 = 1 << (ppre1_bits - 0b011);
         let apb1 = ahb / u32(ppre1);
         //TODO: assert?
 
@@ -192,7 +192,7 @@ impl CFGR {
             _ => 0b111,
         };
 
-        let ppre2: u8 = 1 << (ppre2_bits - 0b011);
+        let ppre2 = 1 << (ppre2_bits - 0b011);
         let apb2 = ahb / u32(ppre2);
         //TODO: assert?
 
