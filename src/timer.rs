@@ -78,9 +78,15 @@ impl CountDown for Timer<SYST> {
     }
 }
 
+///Type alias for timer based on system clock.
+pub type Sys = Timer<SYST>;
+
 macro_rules! impl_timer {
-    ($($TIMx:ident: [constructor: $timx:ident; $APB:ident: {apb: $apb:ident; $enr:ident: $enr_bit:ident; $rstr:ident: $rstr_bit:ident; ppre: $ppre:ident}])+) => {
+    ($($TIMx:ident: [alias: $Alias:ident; constructor: $timx:ident; $APB:ident: {apb: $apb:ident; $enr:ident: $enr_bit:ident; $rstr:ident: $rstr_bit:ident; ppre: $ppre:ident}])+) => {
         $(
+            ///Type alias for TIM timer.
+            pub type $Alias = Timer<$TIMx>;
+
             impl Timer<$TIMx> {
                 ///Creates new instance of timer.
                 pub fn $timx<T: Into<Hertz>>(tim: $TIMx, timeout: T, clocks: Clocks, apb: &mut $APB) -> Timer<$TIMx> {
@@ -176,6 +182,7 @@ macro_rules! impl_timer {
 
 impl_timer!(
     TIM1: [
+        alias: Tim1;
         constructor: tim1;
         APB2: {
             apb: apb2;
@@ -185,6 +192,7 @@ impl_timer!(
         }
     ]
     TIM8: [
+        alias: Tim8;
         constructor: tim8;
         APB2: {
             apb: apb2;
@@ -194,6 +202,7 @@ impl_timer!(
         }
     ]
     TIM2: [
+        alias: Tim2;
         constructor: tim2;
         APB1: {
             apb: apb1;
@@ -203,6 +212,7 @@ impl_timer!(
         }
     ]
     TIM3: [
+        alias: Tim3;
         constructor: tim3;
         APB1: {
             apb: apb1;
@@ -212,6 +222,7 @@ impl_timer!(
         }
     ]
     TIM4: [
+        alias: Tim4;
         constructor: tim4;
         APB1: {
             apb: apb1;
@@ -221,6 +232,7 @@ impl_timer!(
         }
     ]
     TIM5: [
+        alias: Tim5;
         constructor: tim5;
         APB1: {
             apb: apb1;
@@ -230,6 +242,7 @@ impl_timer!(
         }
     ]
     TIM15: [
+        alias: Tim15;
         constructor: tim15;
         APB2: {
             apb: apb2;
@@ -239,6 +252,7 @@ impl_timer!(
         }
     ]
     TIM16: [
+        alias: Tim16;
         constructor: tim16;
         APB2: {
             apb: apb2;
@@ -248,6 +262,7 @@ impl_timer!(
         }
     ]
     TIM17: [
+        alias: Tim17;
         constructor: tim17;
         APB2: {
             apb: apb2;
@@ -257,6 +272,7 @@ impl_timer!(
         }
     ]
     TIM6: [
+        alias: Tim6;
         constructor: tim6;
         APB1: {
             apb: apb1;
@@ -266,6 +282,7 @@ impl_timer!(
         }
     ]
     TIM7: [
+        alias: Tim7;
         constructor: tim7;
         APB1: {
             apb: apb1;
