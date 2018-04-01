@@ -24,7 +24,7 @@ use stm32l4x6::{
 
 ///Possible timer events
 pub enum Event {
-    ///Interrupt on timeout. Set by DIER's UIE register.
+    ///Interrupt on timeout.
     Timeout,
 }
 
@@ -118,6 +118,14 @@ macro_rules! impl_timer {
                     }
                 }
 
+                #[inline(always)]
+                /// Resets SR's UIF register to clear status of overflow.
+                ///
+                /// Unless reset is done, Interrupt handler is going to be continiously called.
+                pub fn reset_overflow(&mut self) {
+                    self.tim.sr.modify(|_, w| w.uif().clear_bit());
+                }
+
                 /// Paused timer and releases the TIM peripheral
                 pub fn free(self) -> $TIMx {
                     self.tim.cr1.modify(|_, w| w.cen().clear_bit());
@@ -159,7 +167,7 @@ macro_rules! impl_timer {
                     // The above line raises an update event which will indicate
                     // that the timer is already finnished. Since this is not the case,
                     // it should be cleared
-                    self.tim.sr.modify(|_, w| w.uif().clear_bit());
+                    self.reset_overflow();
 
                     // start counter
                     self.tim.cr1.modify(|_, w| w.cen().set_bit());
@@ -169,8 +177,8 @@ macro_rules! impl_timer {
                      match self.tim.sr.read().uif().bit_is_clear() {
                          true => Err(nb::Error::WouldBlock),
                          false => {
-                            self.tim.sr.modify(|_, w| w.uif().clear_bit());
-                            Ok(())
+                             self.reset_overflow();
+                             Ok(())
                          }
                      }
                  }
