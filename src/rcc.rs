@@ -15,6 +15,7 @@ impl Constrain<Rcc> for RCC {
             ahb: AHB(()),
             apb1: APB1(()),
             apb2: APB2(()),
+            bdcr: BDCR(()),
             cfgr: CFGR { hpre: None, ppre1: None, ppre2: None, sys: None }
         }
     }
@@ -22,12 +23,14 @@ impl Constrain<Rcc> for RCC {
 
 /// Constrained RCC peripheral
 pub struct Rcc {
-    /// AMBA High-performance Bus (AHB) registers
+    /// AMBA High-performance Bus (AHB) registers.
     pub ahb: AHB,
-    /// APB1 peripheral registers
+    /// APB1 peripheral registers.
     pub apb1: APB1,
-    /// APB2 peripheral registers
+    /// APB2 peripheral registers.
     pub apb2: APB2,
+    /// Backup domain registers.
+    pub bdcr: BDCR,
     /// HW clock configuration.
     pub cfgr: CFGR
 }
@@ -92,6 +95,63 @@ impl APB2 {
     ///Access APB2ENR reset register
     pub fn enr(&mut self) -> &rcc::APB2ENR {
         unsafe { &(*RCC::ptr()).apb2enr }
+    }
+}
+
+#[repr(u8)]
+///Available source of clock for RTC
+pub enum RtcClockType {
+    None = 0,
+    ///Low speed external clock. 32kHz.
+    LSE = 1,
+    ///Low speed internal clock. 32kHz.
+    LSI = 2,
+    ///High speed external divided by 32.
+    HSE = 3
+}
+
+///Backup domain control register.
+///
+///See Reference manual Ch. 6.4.29
+pub struct BDCR(());
+impl BDCR {
+    #[inline]
+    pub fn inner(&mut self) -> &rcc::BDCR {
+        unsafe { &(*RCC::ptr()).bdcr }
+    }
+
+    ///Resets entire Backup domain.
+    ///
+    ///Use it when you want to change clock source.
+    pub fn reset(&mut self) {
+        self.inner().modify(|_, write| write.bdrst().clear_bit());
+    }
+
+    ///Returns type of RTC Clock.
+    pub fn rtc_clock(&mut self) -> RtcClockType {
+        match self.inner().read().rtcsel().bits() {
+            0 => RtcClockType::None,
+            1 => RtcClockType::LSE,
+            2 => RtcClockType::LSI,
+            3 => RtcClockType::HSE,
+            _ => unimplemented!()
+        }
+    }
+
+    ///Select clock source for RTC.
+    ///
+    ///**NOTE:** Once source has been selected, it cannot be changed anymore
+    ///unless backup domain is reset.
+    pub fn set_rtc_clock(&mut self, clock: RtcClockType) {
+        self.inner().modify(|_, write| unsafe { write.rtcsel().bits(clock as u8) });
+    }
+
+    ///Sets RTC on/off
+    pub fn rtc_enable(&mut self, is_on: bool) {
+        self.inner().modify(|_, write| match is_on {
+            true => write.rtcen().set_bit(),
+            false => write.rtcen().clear_bit(),
+        });
     }
 }
 
