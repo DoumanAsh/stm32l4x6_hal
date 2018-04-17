@@ -11,6 +11,19 @@ use ::mem;
 
 pub mod config;
 
+#[repr(u8)]
+///Index used to access RAM segments of LCD.
+pub enum RamIndex {
+    Zero = 0,
+    One = 1,
+    Two = 2,
+    Three = 3,
+    Four = 4,
+    Five = 5,
+    Six = 6,
+    Seven = 7
+}
+
 pub enum ValidationResult {
     ///Valid Frame Rate
     ///
@@ -99,7 +112,7 @@ impl LCD {
 
         if frame_rate < 29 {
             ValidationResult::SmallFrameRate
-        } else if frame_rate > 150 {
+        } else if frame_rate > 110 {
             ValidationResult::BigFrameRate
         } else {
             ValidationResult::Ok(frame_rate)
@@ -228,6 +241,20 @@ impl LCD {
             config::Event::StartFrame => w.sofie().clear_bit(),
             config::Event::UpdateDone => w.uddie().clear_bit(),
         })
+    }
+
+    /// Writes into RAM by index.
+    pub fn write_ram(&mut self, index: RamIndex, data: u32) {
+        match index {
+            RamIndex::Zero => self.inner.ram_com0.write(|w| unsafe { w.bits(data) }),
+            RamIndex::One => self.inner.ram_com1.write(|w| unsafe { w.bits(data) }),
+            RamIndex::Two => self.inner.ram_com2.write(|w| unsafe { w.bits(data) }),
+            RamIndex::Three => self.inner.ram_com3.write(|w| unsafe { w.bits(data) }),
+            RamIndex::Four => self.inner.ram_com4.write(|w| unsafe { w.bits(data) }),
+            RamIndex::Five => self.inner.ram_com5.write(|w| unsafe { w.bits(data) }),
+            RamIndex::Six => self.inner.ram_com6.write(|w| unsafe { w.bits(data) }),
+            RamIndex::Seven => self.inner.ram_com7.write(|w| unsafe { w.bits(data) }),
+        }
     }
 
     pub fn into_raw(mut self) -> stm32l4x6::LCD {
