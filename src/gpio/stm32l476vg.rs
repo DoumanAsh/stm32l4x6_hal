@@ -1,15 +1,20 @@
 //! GPIO specific to STM32L476VG
+//!
+//! To use these definitions, enable the "STM32L476VG" feature, and include like so:
+//!
+//! ```rust
+//! use stm32l4x6_hal::gpio::stm32l476vg::gpio;
+//! ```
 
 use ::stm32l4x6;
 
 use super::*;
 
 impl_parts!(
-    //Next GPIOs are re-using gpioc modules
     GPIOD, gpioc;
     GPIOE, gpioc;
     GPIOH, gpioc;
-);
+    );
 
 /// Description of GPIOs and PINs
 pub mod gpio {

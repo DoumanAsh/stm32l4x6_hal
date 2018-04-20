@@ -1,7 +1,9 @@
 //! General Purpose Input / Output
 //!
-//! Note that GPIO layout is specific to board
-//! which is configured through features.
+//! This module provides common GPIO definitions that are available on all STM32L4x6 packages. By
+//! enabling features, you can use definitions for specific chips which may include additional
+//! GPIO lines. In that case, you will probably not want to `use` this module directly, but instead
+//! use it re-exported by the chip module.
 
 
 use ::ops::Deref;
@@ -381,3 +383,8 @@ impl_gpio!(C, GPIOC, gpiocen, gpiocrst,
 pub mod stm32l476vg;
 #[cfg(feature = "STM32L476VG")]
 pub use gpio::stm32l476vg::gpio::*;
+
+#[cfg(feature = "STM32L496AG")]
+pub mod stm32l496ag;
+#[cfg(feature = "STM32L496AG")]
+pub use gpio::stm32l496ag::gpio::*;

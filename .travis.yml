@@ -19,6 +19,7 @@ install:
 script:
   - cargo check --target $TARGET
   - cargo check --target $TARGET --features STM32L476VG
+  - cargo check --target $TARGET --features STM32L496AG
 
 after_script: set +e
 
