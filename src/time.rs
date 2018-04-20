@@ -32,22 +32,3 @@ impl Into<KiloHertz> for MegaHertz {
         KiloHertz(self.0 * 1_000)
     }
 }
-
-/// Frozen clock frequencies
-///
-/// The existence of this value indicates that the clock configuration can no longer be changed
-#[derive(Clone, Copy)]
-pub struct Clocks {
-    ///Frequency of AHB bus.
-    pub ahb: Hertz,
-    ///Frequency of APB1 bus.
-    pub apb1: Hertz,
-    ///APB1's prescaler
-    pub ppre1: u8,
-    ///Frequency of APB2 bus.
-    pub apb2: Hertz,
-    ///APB2's prescaler
-    pub ppre2: u8,
-    ///Frequency of System clocks.
-    pub sys: Hertz
-}

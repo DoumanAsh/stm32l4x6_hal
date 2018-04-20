@@ -1,6 +1,6 @@
 [package]
 name = "stm32l4x6-hal"
-version = "0.0.7"
+version = "0.1.0"
 authors = ["Douman <douman@gmx.se>"]
 keywords = ["arm", "cortex-m", "stm32", "hal", "embedded-hal"]
 description = "HAL for the STM32L4x6 family of microcontrollers"
@@ -10,7 +10,7 @@ license = "Apache-2.0"
 
 [dependencies]
 cortex-m = "0.4"
-embedded-hal = "0.1.0"
+embedded-hal = "0.1.2"
 nb = "0.1.0"
 stm32l4x6 = "0"
 

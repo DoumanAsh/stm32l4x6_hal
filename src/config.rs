@@ -4,7 +4,7 @@ use cortex_m::peripheral::syst::SystClkSource;
 
 use ::cmp;
 
-use time::{Clocks};
+use rcc::{Clocks};
 
 ///Max possible value to set on SYST's RVR register.
 ///
@@ -29,10 +29,11 @@ pub trait SysClockConfig {
 
 impl SysClockConfig for SYST {
     fn set_reload_us(&mut self, us: u32, clocks: &Clocks) {
-        let rvr = us * (clocks.sys.0 / 1_000_000);
+        let rvr = us * (clocks.sysclk.0 / 1_000_000);
         let rvr = cmp::min(rvr, SYST_MAX_RVR);
 
         self.set_clock_source(SystClkSource::Core);
         self.set_reload(rvr);
     }
 }
+

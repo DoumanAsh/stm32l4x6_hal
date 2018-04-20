@@ -7,7 +7,7 @@ use hal::blocking::delay::{DelayMs, DelayUs};
 
 use ::cmp;
 
-use time::Clocks;
+use rcc::Clocks;
 use config::SYST_MAX_RVR;
 
 /// System timer (SysTick) as a delay provider
@@ -50,7 +50,7 @@ impl DelayMs<u8> for Delay {
 
 impl DelayUs<u32> for Delay {
     fn delay_us(&mut self, us: u32) {
-        let mut total_rvr = us * (self.clocks.sys.0 / 1_000_000);
+        let mut total_rvr = us * (self.clocks.sysclk.0 / 1_000_000);
 
         while total_rvr != 0 {
             let current_rvr = cmp::min(total_rvr, SYST_MAX_RVR);
