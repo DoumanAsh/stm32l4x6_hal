@@ -5,8 +5,8 @@ use hal::timer::{CountDown, Periodic};
 use nb;
 
 use config::SYST_MAX_RVR;
-use time::{Hertz, Clocks};
-use rcc::{APB1, APB2};
+use time::Hertz;
+use rcc::{APB1, APB2, Clocks};
 
 use cast::{u32, u16};
 
@@ -61,7 +61,7 @@ impl CountDown for Timer<SYST> {
     type Time = Hertz;
 
     fn start<T: Into<Hertz>>(&mut self, timeout: T) {
-        let rvr = self.clocks.sys.0 / timeout.into().0 - 1;
+        let rvr = self.clocks.sysclk.0 / timeout.into().0 - 1;
 
         assert!(rvr < SYST_MAX_RVR);
 
@@ -193,7 +193,7 @@ impl_timer!(
         alias: Tim1;
         constructor: tim1;
         APB2: {
-            apb: apb2;
+            apb: pclk2;
             enr: tim1en;
             rstr: tim1rst;
             ppre: ppre2
@@ -203,7 +203,7 @@ impl_timer!(
         alias: Tim8;
         constructor: tim8;
         APB2: {
-            apb: apb2;
+            apb: pclk2;
             enr: tim8en;
             rstr: tim8rst;
             ppre: ppre2
@@ -213,7 +213,7 @@ impl_timer!(
         alias: Tim2;
         constructor: tim2;
         APB1: {
-            apb: apb1;
+            apb: pclk1;
             enr1: tim2en;
             rstr1: tim2rst;
             ppre: ppre1
@@ -223,7 +223,7 @@ impl_timer!(
         alias: Tim3;
         constructor: tim3;
         APB1: {
-            apb: apb1;
+            apb: pclk1;
             enr1: tim3en;
             rstr1: tim3rst;
             ppre: ppre1
@@ -233,7 +233,7 @@ impl_timer!(
         alias: Tim4;
         constructor: tim4;
         APB1: {
-            apb: apb1;
+            apb: pclk1;
             enr1: tim4en;
             rstr1: tim4rst;
             ppre: ppre1
@@ -243,7 +243,7 @@ impl_timer!(
         alias: Tim5;
         constructor: tim5;
         APB1: {
-            apb: apb1;
+            apb: pclk1;
             enr1: tim5en;
             rstr1: tim5rst;
             ppre: ppre1
@@ -253,7 +253,7 @@ impl_timer!(
         alias: Tim15;
         constructor: tim15;
         APB2: {
-            apb: apb2;
+            apb: pclk2;
             enr: tim15en;
             rstr: tim15rst;
             ppre: ppre2
@@ -263,7 +263,7 @@ impl_timer!(
         alias: Tim16;
         constructor: tim16;
         APB2: {
-            apb: apb2;
+            apb: pclk2;
             enr: tim16en;
             rstr: tim16rst;
             ppre: ppre2
@@ -273,7 +273,7 @@ impl_timer!(
         alias: Tim17;
         constructor: tim17;
         APB2: {
-            apb: apb2;
+            apb: pclk2;
             enr: tim17en;
             rstr: tim17rst;
             ppre: ppre2
@@ -283,7 +283,7 @@ impl_timer!(
         alias: Tim6;
         constructor: tim6;
         APB1: {
-            apb: apb1;
+            apb: pclk1;
             enr1: tim6en;
             rstr1: tim6rst;
             ppre: ppre1
@@ -293,7 +293,7 @@ impl_timer!(
         alias: Tim7;
         constructor: tim7;
         APB1: {
-            apb: apb1;
+            apb: pclk1;
             enr1: tim7en;
             rstr1: tim7rst;
             ppre: ppre1
