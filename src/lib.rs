@@ -27,6 +27,7 @@ use core::marker;
 use core::mem;
 
 pub mod common;
+pub mod power;
 pub mod flash;
 pub mod time;
 pub mod config;

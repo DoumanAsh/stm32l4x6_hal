@@ -2,6 +2,9 @@
 
 use ::stm32l4x6;
 
+use ::power::{
+    Power
+};
 use ::rcc::{
     BDCR,
     AHB,
@@ -32,11 +35,11 @@ pub enum ValidationResult {
     ///
     ///Contains approximate frame rate
     Ok(u32),
-    ///RTC clock is not set. Referer to `rcc::BDCR` for how to set.
+    ///RTC clock is not set. Refer to `rcc::BDCR` for how to set.
     ClockNotSet,
-    ///Resultings frame rate is outside of range is below minimum ~30Hz
+    ///Resulting frame rate is outside of range is below minimum ~30Hz
     SmallFrameRate,
-    ///Resultings frame rate is outside of range is is above ~100Hz
+    ///Resulting frame rate is outside of range is is above ~100Hz
     BigFrameRate
 }
 
@@ -61,13 +64,13 @@ fn calculate_frame_rate(clock_frequency: u32, ps: u32, div: u32, duty: u8) -> u3
 }
 
 impl LCD {
-    ///Initializes HW for LCD
+    ///Initializes HW for LCD with LSE as clock source
     ///
     ///## Steps:
     ///
     ///1. Enable peripheral clocks
     ///2. Enables LCD GPIOs: A, B, C, D.
-    pub fn init(apb1: &mut APB1, ahb: &mut AHB) {
+    pub fn init_lse(apb1: &mut APB1, ahb: &mut AHB, pwr: &mut Power, bdcr: &mut BDCR) {
         //Enables peripheral clocks
         apb1.enr1().modify(|_, w| w.pwren().set_bit());
         //Enables LCD GPIO
@@ -79,7 +82,10 @@ impl LCD {
         });
 
         //Configures RTC clock
-        //TODO:
+        pwr.remove_bdp();
+        //TODO: Reset BDCR to change clock?
+        bdcr.lse_enable(true);
+        bdcr.set_rtc_clock(RtcClockType::LSE);
 
         //Turns GPIOs into alternative function 11
         //TODO:

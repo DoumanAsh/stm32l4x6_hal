@@ -114,6 +114,10 @@ pub enum RtcClockType {
 
 ///Backup domain control register.
 ///
+///Note that it may be write protected and in order to modify it
+///`Power Control Register` can be accessed to lift protection.
+///See description of CR1's DBP bit in Ch. 5.4.1
+///
 ///See Reference manual Ch. 6.4.29
 pub struct BDCR(());
 impl BDCR {
@@ -126,6 +130,7 @@ impl BDCR {
     ///
     ///Use it when you want to change clock source.
     pub fn reset(&mut self) {
+        self.inner().modify(|_, write| write.bdrst().set_bit());
         self.inner().modify(|_, write| write.bdrst().clear_bit());
     }
 
@@ -155,7 +160,17 @@ impl BDCR {
 
     ///Sets LSE on/off
     pub fn lse_enable(&mut self, is_on: bool) {
-        self.inner().modify(|_, write| write.lseon().bit(is_on));
+        let inner = self.inner();
+
+        if inner.read().lseon().bit() == is_on {
+            return;
+        }
+
+        inner.modify(|_, write| write.lseon().bit(is_on));
+        match is_on {
+            true => while inner.read().lserdy().bit_is_clear() {}
+            false => while inner.read().lserdy().bit_is_set() {}
+        }
     }
 }
 
@@ -171,7 +186,17 @@ impl CSR {
 
     ///Turns on/off LSI oscillator.
     pub fn lsi_enable(&mut self, is_on: bool) {
-        self.inner().modify(|_, write| write.lsion().bit(is_on));
+        let inner = self.inner();
+
+        if inner.read().lsion().bit() == is_on {
+            return;
+        }
+
+        inner.modify(|_, write| write.lsion().bit(is_on));
+        match is_on {
+            true => while inner.read().lsirdy().bit_is_clear() {}
+            false => while inner.read().lsirdy().bit_is_set() {}
+        }
     }
 }
 
