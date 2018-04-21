@@ -239,11 +239,19 @@ macro_rules! impl_pin {
             }
 
             #[inline]
-            /// Configures the ping to operate as alternative function 6
+            /// Configures the ping to operate as alternative function 7
             pub fn into_alt_fun7(self, moder: &mut MODER<$GPIOX>, afr: &mut $AFR<$GPIOX>) -> $PXi<AF7> {
                 Self::set_alt_fun_mode(moder, afr, 7);
                 $PXi(PhantomData)
             }
+
+            #[inline]
+            /// Configures the ping to operate as alternative function 11
+            pub fn into_alt_fun11(self, moder: &mut MODER<$GPIOX>, afr: &mut $AFR<$GPIOX>) -> $PXi<AF11> {
+                Self::set_alt_fun_mode(moder, afr, 11);
+                $PXi(PhantomData)
+            }
+
         }
 
         impl<MODE> OutputPin for $PXi<Output<MODE>> {

@@ -212,7 +212,7 @@ pub enum HighDrive {
 ///Refer to `Reference manual Ch. 25.3.7` for details
 pub enum MuxSegment {
     Off = 0,
-    ///SEG[31:28] are multiplexed with SEG[43:40
+    ///SEG[31:28] are multiplexed with SEG[43:40]
     On = 1
 }
 

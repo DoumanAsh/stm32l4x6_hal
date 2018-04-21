@@ -4,12 +4,15 @@ use ::stm32l4x6;
 
 use ::rcc::{
     BDCR,
+    AHB,
+    APB1,
     RtcClockType
 };
 
 use ::mem;
 
 pub mod config;
+pub mod ram;
 
 #[repr(u8)]
 ///Index used to access RAM segments of LCD.
@@ -58,10 +61,38 @@ fn calculate_frame_rate(clock_frequency: u32, ps: u32, div: u32, duty: u8) -> u3
 }
 
 impl LCD {
+    ///Initializes HW for LCD
+    ///
+    ///## Steps:
+    ///
+    ///1. Enable peripheral clocks
+    ///2. Enables LCD GPIOs: A, B, C, D.
+    pub fn init(apb1: &mut APB1, ahb: &mut AHB) {
+        //Enables peripheral clocks
+        apb1.enr1().modify(|_, w| w.pwren().set_bit());
+        //Enables LCD GPIO
+        ahb.enr2().modify(|_, w| {
+            w.gpioaen().set_bit();
+            w.gpioben().set_bit();
+            w.gpiocen().set_bit();
+            w.gpioden().set_bit()
+        });
+
+        //Configures RTC clock
+        //TODO:
+
+        //Turns GPIOs into alternative function 11
+        //TODO:
+
+        //Turn LCD's clock
+        apb1.enr1().modify(|_, w| w.lcden().set_bit());
+    }
+
     ///Initializes LCD
     ///
     ///## Requirements
     ///
+    /// * Pre-initialize HW using `init` method.
     /// * Configure LCD GPIO pins as alternative functions.
     /// * Verify configuration through `validate` function
     ///
@@ -244,17 +275,8 @@ impl LCD {
     }
 
     /// Writes into RAM by index.
-    pub fn write_ram(&mut self, index: RamIndex, data: u32) {
-        match index {
-            RamIndex::Zero => self.inner.ram_com0.write(|w| unsafe { w.bits(data) }),
-            RamIndex::One => self.inner.ram_com1.write(|w| unsafe { w.bits(data) }),
-            RamIndex::Two => self.inner.ram_com2.write(|w| unsafe { w.bits(data) }),
-            RamIndex::Three => self.inner.ram_com3.write(|w| unsafe { w.bits(data) }),
-            RamIndex::Four => self.inner.ram_com4.write(|w| unsafe { w.bits(data) }),
-            RamIndex::Five => self.inner.ram_com5.write(|w| unsafe { w.bits(data) }),
-            RamIndex::Six => self.inner.ram_com6.write(|w| unsafe { w.bits(data) }),
-            RamIndex::Seven => self.inner.ram_com7.write(|w| unsafe { w.bits(data) }),
-        }
+    pub fn write_ram<I: self::ram::Index>(&mut self, data: u32) {
+        I::write(self, data)
     }
 
     pub fn into_raw(mut self) -> stm32l4x6::LCD {
@@ -278,32 +300,34 @@ impl Drop for LCD {
 mod tests {
     #[test]
     pub fn calculate_frame_rate() {
+        use super::config;
+
         //Reference manual Ch. 25.3.2 Table 160
-        let frame_rate = super::calculate_frame_rate(32_768, 3, 1, super::config::Duty::OneTo8 as u8);
+        let frame_rate = super::calculate_frame_rate(32_768, config::Prescaler::PS_8 as u32, config::Divider::DIV_17 as u32, config::Duty::OneTo8 as u8);
         assert_eq!(frame_rate, 30);
-        let frame_rate = super::calculate_frame_rate(32_768, 4, 1, super::config::Duty::OneTo4 as u8);
+        let frame_rate = super::calculate_frame_rate(32_768, 4, 1, config::Duty::OneTo4 as u8);
         assert_eq!(frame_rate, 30);
-        let frame_rate = super::calculate_frame_rate(32_768, 4, 6, super::config::Duty::OneTo3 as u8);
+        let frame_rate = super::calculate_frame_rate(32_768, 4, 6, config::Duty::OneTo3 as u8);
         assert_eq!(frame_rate, 30);
-        let frame_rate = super::calculate_frame_rate(32_768, 4, 6, super::config::Duty::OneTo3 as u8);
+        let frame_rate = super::calculate_frame_rate(32_768, 4, 6, config::Duty::OneTo3 as u8);
         assert_eq!(frame_rate, 30);
-        let frame_rate = super::calculate_frame_rate(32_768, 5, 1, super::config::Duty::OneTo2 as u8);
+        let frame_rate = super::calculate_frame_rate(32_768, 5, 1, config::Duty::OneTo2 as u8);
         assert_eq!(frame_rate, 30);
-        let frame_rate = super::calculate_frame_rate(32_768, 6, 1, super::config::Duty::Static as u8);
+        let frame_rate = super::calculate_frame_rate(32_768, config::Prescaler::PS_64 as u32, config::Divider::DIV_17 as u32, config::Duty::Static as u8);
         assert_eq!(frame_rate, 30);
 
-        let frame_rate = super::calculate_frame_rate(32_768, 1, 4, super::config::Duty::OneTo8 as u8);
+        let frame_rate = super::calculate_frame_rate(32_768, 1, 4, config::Duty::OneTo8 as u8);
         assert_eq!(frame_rate, 102);
-        let frame_rate = super::calculate_frame_rate(32_768, 2, 4, super::config::Duty::OneTo4 as u8);
+        let frame_rate = super::calculate_frame_rate(32_768, 2, 4, config::Duty::OneTo4 as u8);
         assert_eq!(frame_rate, 102);
-        let frame_rate = super::calculate_frame_rate(32_768, 2, 11, super::config::Duty::OneTo3 as u8);
+        let frame_rate = super::calculate_frame_rate(32_768, 2, 11, config::Duty::OneTo3 as u8);
         assert_eq!(frame_rate, 100);
-        let frame_rate = super::calculate_frame_rate(32_768, 4, 4, super::config::Duty::Static as u8);
+        let frame_rate = super::calculate_frame_rate(32_768, 4, 4, config::Duty::Static as u8);
         assert_eq!(frame_rate, 102);
 
-        let frame_rate = super::calculate_frame_rate(1_000_000, 6, 3, super::config::Duty::OneTo8 as u8);
+        let frame_rate = super::calculate_frame_rate(1_000_000, 6, 3, config::Duty::OneTo8 as u8);
         assert_eq!(frame_rate, 102);
-        let frame_rate = super::calculate_frame_rate(1_000_000, 8, 3, super::config::Duty::OneTo2 as u8);
+        let frame_rate = super::calculate_frame_rate(1_000_000, 8, 3, config::Duty::OneTo2 as u8);
         assert_eq!(frame_rate, 102);
     }
 }

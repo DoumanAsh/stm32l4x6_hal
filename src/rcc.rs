@@ -15,6 +15,7 @@ impl Constrain<Rcc> for RCC {
             apb1: APB1(()),
             apb2: APB2(()),
             bdcr: BDCR(()),
+            csr: CSR(()),
             cfgr: CFGR { hclk: None, pclk1: None, pclk2: None, sysclk: None }
         }
     }
@@ -30,6 +31,8 @@ pub struct Rcc {
     pub apb2: APB2,
     /// Backup domain registers.
     pub bdcr: BDCR,
+    /// Control/status register.
+    pub csr: CSR,
     /// HW clock configuration.
     pub cfgr: CFGR
 }
@@ -147,10 +150,28 @@ impl BDCR {
 
     ///Sets RTC on/off
     pub fn rtc_enable(&mut self, is_on: bool) {
-        self.inner().modify(|_, write| match is_on {
-            true => write.rtcen().set_bit(),
-            false => write.rtcen().clear_bit(),
-        });
+        self.inner().modify(|_, write| write.rtcen().bit(is_on));
+    }
+
+    ///Sets LSE on/off
+    pub fn lse_enable(&mut self, is_on: bool) {
+        self.inner().modify(|_, write| write.lseon().bit(is_on));
+    }
+}
+
+///Control/Status Register
+///
+///See Reference manual Ch. 6.4.29
+pub struct CSR(());
+impl CSR {
+    #[inline]
+    pub fn inner(&mut self) -> &rcc::CSR {
+        unsafe { &(*RCC::ptr()).csr }
+    }
+
+    ///Turns on/off LSI oscillator.
+    pub fn lsi_enable(&mut self, is_on: bool) {
+        self.inner().modify(|_, write| write.lsion().bit(is_on));
     }
 }
 
