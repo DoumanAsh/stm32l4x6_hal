@@ -381,10 +381,6 @@ impl_gpio!(C, GPIOC, gpiocen, gpiocrst,
 
 #[cfg(feature = "STM32L476VG")]
 pub mod stm32l476vg;
-#[cfg(feature = "STM32L476VG")]
-pub use gpio::stm32l476vg::gpio::*;
 
 #[cfg(feature = "STM32L496AG")]
 pub mod stm32l496ag;
-#[cfg(feature = "STM32L496AG")]
-pub use gpio::stm32l496ag::gpio::*;
