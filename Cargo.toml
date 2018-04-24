@@ -24,4 +24,5 @@ STM32L476VG = []
 STM32L496AG = []
 
 [package.metadata.docs.rs]
-features = ["STM32L476VG", "STM32L496AG", "rt"]
+#features = ["STM32L476VG", "STM32L496AG", "rt"]
+features = ["STM32L476VG", "rt"]
