@@ -17,19 +17,6 @@ use ::mem;
 pub mod config;
 pub mod ram;
 
-#[repr(u8)]
-///Index used to access RAM segments of LCD.
-pub enum RamIndex {
-    Zero = 0,
-    One = 1,
-    Two = 2,
-    Three = 3,
-    Four = 4,
-    Five = 5,
-    Six = 6,
-    Seven = 7
-}
-
 pub enum ValidationResult {
     ///Valid Frame Rate
     ///
@@ -69,7 +56,8 @@ impl LCD {
     ///## Steps:
     ///
     ///1. Enable peripheral clocks
-    ///2. Enables LCD GPIOs: A, B, C, D.
+    ///2. Set LSE as RTC clock.
+    ///3. Turn on LCD's clock
     pub fn init_lse(apb1: &mut APB1, ahb: &mut AHB, pwr: &mut Power, bdcr: &mut BDCR) {
         //Enables peripheral clocks
         apb1.enr1().modify(|_, w| w.pwren().set_bit());
@@ -87,9 +75,6 @@ impl LCD {
         bdcr.lse_enable(true);
         bdcr.set_rtc_clock(RtcClockType::LSE);
 
-        //Turns GPIOs into alternative function 11
-        //TODO:
-
         //Turn LCD's clock
         apb1.enr1().modify(|_, w| w.lcden().set_bit());
     }
@@ -99,7 +84,8 @@ impl LCD {
     ///## Requirements
     ///
     /// * Pre-initialize HW using `init` method.
-    /// * Configure LCD GPIO pins as alternative functions.
+    /// * Configure LCD GPIO pins as alternative functions. You should check board's documentation
+    /// for pins.
     /// * Verify configuration through `validate` function
     ///
     ///## Steps:
