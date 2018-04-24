@@ -1,24 +1,318 @@
 //! Reset and Clock Control
 
-use stm32l4x6::{rcc, RCC};
+// TODO right now the various configure functions reach into rcc directly. This is bad. Add an
+// opaque CR member to RCC, and add methods to CR and BDCR. They should probably take clock source
+// variant arguments.
 
-use ::cmp;
+use stm32l4x6::{rcc, PWR, RCC};
 
 use common::Constrain;
-use time::Hertz;
 use flash::ACR;
+use time::Hertz;
 
 impl Constrain<Rcc> for RCC {
+    /// Create an RCC peripheral handle.
+    ///
+    /// Per Reference Manual Ch. 6.2 the default System Clock source is MSI clock with frequency 4 MHz
+    ///
+    /// The `constrain` method enables write access to the BDCR, and the `freeze` method disables
+    /// it again. This is to enable changing LSE- and RTC-related settings.
     fn constrain(self) -> Rcc {
+        // Enable write access to the BDCR; this is necessary to enable the LSE and change RTC
+        // settings.
+        unsafe {
+            (*PWR::ptr()).cr1.modify(|_, w| w.dbp().set_bit());
+        }
+        // Write access is (similarly) disabled in CFGR::freeze()
+        // TODO add PWR to the hal to avoid the above nastiness
         Rcc {
             ahb: AHB(()),
             apb1: APB1(()),
             apb2: APB2(()),
             bdcr: BDCR(()),
             csr: CSR(()),
-            cfgr: CFGR { hclk: None, pclk1: None, pclk2: None, sysclk: None }
+            cfgr: CFGR {
+                hclk: None,
+                pclk1: None,
+                pclk2: None,
+                sysclk: clocking::SysClkSource::MSI(clocking::MediumSpeedInternalRC::new(
+                    4_000_000, false,
+                )),
+            },
         }
     }
+}
+
+pub mod clocking {
+    use super::rcc;
+
+    pub trait InputClock {
+        fn freq(&self) -> u32;
+    }
+
+    /// High-speed internal 16 MHz RC
+    #[derive(Clone, Copy)]
+    pub struct HighSpeedInternal16RC {
+        pub always_on: bool,
+        pub auto_start: bool,
+    }
+
+    impl HighSpeedInternal16RC {
+        /// Applies the selection options to the configuration registers and turns the clock on
+        pub fn configure(&self, rcc: &rcc::RegisterBlock) -> (u32, u8) {
+            rcc.cr.modify(|_, w| {
+                w.hsion()
+                    .set_bit()
+                    .hsikeron()
+                    .bit(self.always_on)
+                    .hsiasfs()
+                    .bit(self.auto_start)
+            });
+            while rcc.cr.read().hsirdy().bit_is_clear() {}
+            (16_000_000, 0b01)
+        }
+    }
+
+    /// Medium-speed internal 100 kHz - 48 MHz RC
+    #[derive(Clone, Copy)]
+    pub struct MediumSpeedInternalRC {
+        freq: u32,
+        auto_cal: bool,
+    }
+
+    impl MediumSpeedInternalRC {
+        pub fn new(freq: u32, auto_cal: bool) -> Self {
+            MediumSpeedInternalRC { freq, auto_cal }
+        }
+
+        pub fn bits(&self) -> u8 {
+            match self.freq {
+                100_000 => 0b0000,
+                200_000 => 0b0001,
+                400_000 => 0b0010,
+                800_000 => 0b0011,
+                1_000_000 => 0b0100,
+                2_000_000 => 0b0101,
+                4_000_000 => 0b0110,
+                8_000_000 => 0b0111,
+                16_000_000 => 0b1000,
+                24_000_000 => 0b1001,
+                32_000_000 => 0b1010,
+                48_000_000 => 0b1011,
+                _ => panic!("bad MSI speed value!"),
+            }
+        }
+
+        /// Configures the MSI to the specified frequency, and enables hardware
+        /// auto-calibration if requested by enabling (and waiting for) the LSE.
+        pub fn configure(&self, rcc: &rcc::RegisterBlock) -> (u32, u8) {
+            rcc.cr
+                .modify(|_, w| unsafe { w.msirange().bits(self.bits()).msirgsel().set_bit() });
+            while rcc.cr.read().msirdy().bit_is_clear() {}
+
+            if self.auto_cal {
+                // FIXME This... may not work? I'm not sure if I've got a board problem or using
+                // the LSE requires some precondition I'm missing. In either case, LSERDY is never
+                // set by the hardware, so auto_cal doesn't succeed.
+                rcc.apb1enr1.modify(|_, w| w.pwren().set_bit());
+
+                rcc.bdcr.modify(|_, w| w.lseon().clear_bit());
+                while rcc.bdcr.read().lserdy().bit_is_set() {}
+                rcc.bdcr
+                    .modify(|_, w| unsafe { w.lsedrv().bits(0b11).lseon().set_bit() });
+                while rcc.bdcr.read().lserdy().bit_is_clear() {}
+                rcc.cr.modify(|_, w| w.msipllen().set_bit());
+            }
+            (self.freq(), 0b00)
+        }
+    }
+
+    impl InputClock for MediumSpeedInternalRC {
+        fn freq(&self) -> u32 {
+            self.freq
+        }
+    }
+
+    /// High-speed external 4-48 MHz oscillator
+    #[derive(Clone, Copy)]
+    pub struct HighSpeedExternalOSC(pub u32);
+    impl InputClock for HighSpeedExternalOSC {
+        fn freq(&self) -> u32 {
+            self.0
+        }
+    }
+
+    impl HighSpeedExternalOSC {
+        /// Turns on the HSE oscillator.
+        ///
+        /// (Should this also configure the pin?)
+        pub fn configure(&self, rcc: &rcc::RegisterBlock) -> (u32, u8) {
+            rcc.cr.modify(|_, w| w.hseon().set_bit());
+            while rcc.cr.read().hserdy().bit_is_clear() {}
+            (self.freq(), 0b10)
+        }
+    }
+
+    pub enum RtcClkSource {
+        None,
+        /// Internal 32 kHz RC
+        LSI,
+        /// External 32.768 kHz oscillator
+        LSE,
+        /// High-speed external oscillator, prescaled by (a fixed value of) 32
+        HSEDiv32,
+    }
+
+    impl RtcClkSource {
+        /// Returns the output frequency of the RtcClkSource based on its input.
+        pub fn freq(&self, hse: Option<HighSpeedExternalOSC>) -> Option<u32> {
+            match *self {
+                RtcClkSource::None => None,
+                RtcClkSource::LSI => Some(32_000),
+                RtcClkSource::LSE => Some(32_768),
+                RtcClkSource::HSEDiv32 => {
+                    if let Some(clk) = hse {
+                        Some(clk.freq() / 32)
+                    } else {
+                        None
+                    }
+                }
+            }
+        }
+
+        pub fn bits(&self) -> u8 {
+            match *self {
+                RtcClkSource::None => 0,
+                RtcClkSource::LSI => 1,
+                RtcClkSource::LSE => 2,
+                RtcClkSource::HSEDiv32 => 3,
+            }
+        }
+    }
+
+    #[derive(Clone, Copy)]
+    pub enum SysClkSource {
+        HSI16(HighSpeedInternal16RC),
+        MSI(MediumSpeedInternalRC),
+        HSE(HighSpeedExternalOSC),
+        PLL(PLLClkOutput),
+    }
+
+    impl InputClock for SysClkSource {
+        fn freq(&self) -> u32 {
+            match *self {
+                SysClkSource::HSI16(_) => 16_000_000,
+                SysClkSource::MSI(s) => s.freq(),
+                SysClkSource::HSE(s) => s.freq(),
+                SysClkSource::PLL(s) => s.freq(),
+            }
+        }
+    }
+
+    /// PLLCLK output of PLL module
+    #[derive(Clone, Copy)]
+    pub struct PLLClkOutput {
+        pub src: PLLClkSource,
+        pub m: u8,
+        n: u8,
+        r: u8,
+        f: u32,
+    }
+
+    impl PLLClkOutput {
+        /// Create a new PLL clock source to use as an input. The arguments refer to the scale
+        /// factors described in Figs. 15 and 16 of the reference manual, and end up in the PLLM,
+        /// PLLN, and PLLR fields of the PLLCFGR register.
+        pub fn new(src: PLLClkSource, m: u8, n: u8, r: u8) -> Self {
+            assert!(m > 0 && m < 9);
+            assert!(n > 7 && n < 87);
+            assert!(r == 2 || r == 4 || r == 6 || r == 8);
+            let f = src.freq() / m as u32 * n as u32 / r as u32;
+            assert!(f < super::SYS_CLOCK_MAX);
+
+            PLLClkOutput { src, m, n, r, f }
+        }
+
+        /// Configure the PLL to enable the PLLCLK output. This explicitly does not (yet?)
+        /// support any PLL other than `PLL`, and no other outputs than `PLLCLK`, so this is
+        /// not suitable for driving e.g. USB.
+        pub fn configure(&self, rcc: &rcc::RegisterBlock) -> (u32, u8) {
+            let pllsrc_bits = self.src.configure(rcc);
+            rcc.cr.modify(|_, w| w.pllon().clear_bit());
+            while rcc.cr.read().pllrdy().bit_is_set() {}
+            rcc.pllcfgr.modify(|_, w| unsafe {
+                w.pllsrc()
+                    .bits(pllsrc_bits)
+                    .pllm()
+                    .bits(self.m - 1)
+                    .plln()
+                    .bits(self.n)
+                    .pllr()
+                    .bits(self.r)
+            });
+            rcc.cr.modify(|_, w| w.pllon().set_bit());
+            while rcc.cr.read().pllrdy().bit_is_clear() {}
+            rcc.pllcfgr.modify(|_, w| w.pllren().set_bit());
+            (self.freq(), 0b11)
+        }
+    }
+
+    impl InputClock for PLLClkOutput {
+        fn freq(&self) -> u32 {
+            self.f
+        }
+    }
+
+    /*
+    /// PLLADC2CLK output of PLLSAI2
+    #[derive(Clone, Copy)]
+    pub struct PLLADC2Clk {
+        src: PLLClkSource,
+        ...,
+    }
+    */
+
+    #[derive(Clone, Copy)]
+    pub enum PLLClkSource {
+        None,
+        MSI(MediumSpeedInternalRC),
+        HSI16(HighSpeedInternal16RC),
+        HSE(HighSpeedExternalOSC),
+    }
+
+    impl PLLClkSource {
+        /// This configures the input to the PLL. It's usually only called by
+        /// PLLClkOutput::configure.
+        pub fn configure(&self, rcc: &rcc::RegisterBlock) -> u8 {
+            match self {
+                PLLClkSource::None => 0b00,
+                PLLClkSource::MSI(s) => {
+                    s.configure(rcc);
+                    0b01
+                }
+                PLLClkSource::HSI16(s) => {
+                    s.configure(rcc);
+                    0b10
+                }
+                PLLClkSource::HSE(s) => {
+                    s.configure(rcc);
+                    0b11
+                }
+            }
+        }
+    }
+
+    impl InputClock for PLLClkSource {
+        fn freq(&self) -> u32 {
+            match *self {
+                PLLClkSource::None => 0,
+                PLLClkSource::MSI(s) => s.freq(),
+                PLLClkSource::HSI16(_) => 16_000_000,
+                PLLClkSource::HSE(s) => s.freq(),
+            }
+        }
+    }
+
 }
 
 /// Constrained RCC peripheral
@@ -34,7 +328,7 @@ pub struct Rcc {
     /// Control/status register.
     pub csr: CSR,
     /// HW clock configuration.
-    pub cfgr: CFGR
+    pub cfgr: CFGR,
 }
 
 pub struct AHB(());
@@ -100,18 +394,6 @@ impl APB2 {
     }
 }
 
-#[repr(u8)]
-///Available source of clock for RTC
-pub enum RtcClockType {
-    None = 0,
-    ///Low speed external clock. 32kHz.
-    LSE = 1,
-    ///Low speed internal clock. 32kHz.
-    LSI = 2,
-    ///High speed external divided by 32.
-    HSE = 3
-}
-
 ///Backup domain control register.
 ///
 ///Note that it may be write protected and in order to modify it
@@ -135,13 +417,13 @@ impl BDCR {
     }
 
     ///Returns type of RTC Clock.
-    pub fn rtc_clock(&mut self) -> RtcClockType {
+    pub fn rtc_clock(&mut self) -> clocking::RtcClkSource {
         match self.inner().read().rtcsel().bits() {
-            0 => RtcClockType::None,
-            1 => RtcClockType::LSE,
-            2 => RtcClockType::LSI,
-            3 => RtcClockType::HSE,
-            _ => unimplemented!()
+            0 => clocking::RtcClkSource::None,
+            1 => clocking::RtcClkSource::LSE,
+            2 => clocking::RtcClkSource::LSI,
+            3 => clocking::RtcClkSource::HSEDiv32,
+            _ => unimplemented!(),
         }
     }
 
@@ -149,8 +431,9 @@ impl BDCR {
     ///
     ///**NOTE:** Once source has been selected, it cannot be changed anymore
     ///unless backup domain is reset.
-    pub fn set_rtc_clock(&mut self, clock: RtcClockType) {
-        self.inner().modify(|_, write| unsafe { write.rtcsel().bits(clock as u8) });
+    pub fn set_rtc_clock(&mut self, clock: clocking::RtcClkSource) {
+        self.inner()
+            .modify(|_, write| unsafe { write.rtcsel().bits(clock.bits()) });
     }
 
     ///Sets RTC on/off
@@ -168,8 +451,8 @@ impl BDCR {
 
         inner.modify(|_, write| write.lseon().bit(is_on));
         match is_on {
-            true => while inner.read().lserdy().bit_is_clear() {}
-            false => while inner.read().lserdy().bit_is_set() {}
+            true => while inner.read().lserdy().bit_is_clear() {},
+            false => while inner.read().lserdy().bit_is_set() {},
         }
     }
 }
@@ -194,17 +477,12 @@ impl CSR {
 
         inner.modify(|_, write| write.lsion().bit(is_on));
         match is_on {
-            true => while inner.read().lsirdy().bit_is_clear() {}
-            false => while inner.read().lsirdy().bit_is_set() {}
+            true => while inner.read().lsirdy().bit_is_clear() {},
+            false => while inner.read().lsirdy().bit_is_set() {},
         }
     }
 }
 
-//TODO: what about HSI48?
-///HSI16 clock value
-///
-///Reference manual Ch 6.2 Clocks
-pub const HSI: u32 = 16_000_000;
 ///Maximum value for System clock.
 ///
 ///Reference Ch. 6.2.8
@@ -212,14 +490,14 @@ pub const SYS_CLOCK_MAX: u32 = 80_000_000;
 
 ///Clock configuration
 pub struct CFGR {
-    //AHB bus frequency
+    /// AHB bus frequency
     hclk: Option<u32>,
-    //APB1
+    /// APB1
     pclk1: Option<u32>,
-    //APB2
+    /// APB2
     pclk2: Option<u32>,
-    //System clock
-    sysclk: Option<u32>,
+    /// SYSCLK - not Option because it cannot be None
+    sysclk: clocking::SysClkSource,
 }
 
 impl CFGR {
@@ -241,23 +519,28 @@ impl CFGR {
         self
     }
 
-    /// Sets a frequency for the System clock.
-    pub fn sysclk<T: Into<Hertz>>(mut self, freq: T) -> Self {
-        self.sysclk = Some(freq.into().0);
+    /// Sets a frequency and a source for the System clock
+    pub fn sysclk(mut self, src: clocking::SysClkSource) -> Self {
+        if let clocking::SysClkSource::PLL(s) = src {
+            if let clocking::PLLClkSource::None = s.src {
+                panic!("PLL must have input clock to drive SYSCLK");
+            }
+        } else {
+            self.sysclk = src;
+        }
         self
     }
 
     /// Freezes the clock configuration, making it effective
     pub fn freeze(self, acr: &mut ACR) -> Clocks {
-        let pllmul = (2 * self.sysclk.unwrap_or(HSI)) / HSI;
-        let pllmul = cmp::min(cmp::max(pllmul, 2), 16);
-        let pllmul_bits = match pllmul {
-            2 => None,
-            pllmul => Some(pllmul as u8 - 2)
-        };
+        let rcc = unsafe { &*RCC::ptr() };
 
-        let sys_clock = pllmul * HSI / 2;
-        assert!(sys_clock <= SYS_CLOCK_MAX);
+        let (sys_clock, sw_bits) = match self.sysclk {
+            clocking::SysClkSource::MSI(s) => s.configure(rcc),
+            clocking::SysClkSource::HSI16(s) => s.configure(rcc),
+            clocking::SysClkSource::HSE(s) => s.configure(rcc),
+            clocking::SysClkSource::PLL(s) => s.configure(rcc),
+        };
 
         let hpre_bits = match self.hclk.map(|hclk| sys_clock / hclk) {
             Some(0) => unreachable!(),
@@ -273,7 +556,6 @@ impl CFGR {
         };
 
         let ahb = sys_clock / (1 << (hpre_bits - 0b0111));
-        //TODO: assert?
 
         let ppre1_bits = match self.pclk1.map(|pclk1| ahb / pclk1) {
             Some(0) => unreachable!(),
@@ -286,7 +568,6 @@ impl CFGR {
 
         let ppre1 = 1 << (ppre1_bits - 0b011);
         let apb1 = ahb / ppre1 as u32;
-        //TODO: assert?
 
         let ppre2_bits = match self.pclk2.map(|pclk2| ahb / pclk2) {
             Some(0) => unreachable!(),
@@ -299,7 +580,6 @@ impl CFGR {
 
         let ppre2 = 1 << (ppre2_bits - 0b011);
         let apb2 = ahb / ppre2 as u32;
-        //TODO: assert?
 
         //Reference AN4621 note Figure. 4
         //from 0 wait state to 4
@@ -317,38 +597,20 @@ impl CFGR {
 
         acr.acr().write(|w| unsafe { w.latency().bits(latency) });
 
-        let rcc = unsafe { &*RCC::ptr() };
-        if let Some(pllmul_bits) = pllmul_bits {
-            // use PLL as source
-            rcc.pllcfgr.write(|w| unsafe { w.pllm().bits(pllmul_bits) });
-            rcc.cr.write(|w| w.pllon().set_bit());
-            while rcc.cr.read().pllrdy().bit_is_clear() {}
+        rcc.cfgr.modify(|_, w| unsafe {
+            w.ppre2()
+                .bits(ppre2_bits)
+                .ppre1()
+                .bits(ppre1_bits)
+                .hpre()
+                .bits(hpre_bits)
+                .sw()
+                .bits(sw_bits)
+        });
 
-            // SW: PLL selected as system clock
-            rcc.cfgr.modify(|_, w| unsafe {
-                w.ppre2()
-                 .bits(ppre2_bits)
-                 .ppre1()
-                 .bits(ppre1_bits)
-                 .hpre()
-                 .bits(hpre_bits)
-                 .sw()
-                 .bits(0b10)
-            });
-        } else {
-            // use HSI as source
-
-            // SW: HSI selected as system clock
-            rcc.cfgr.write(|w| unsafe {
-                w.ppre2()
-                 .bits(ppre2_bits)
-                 .ppre1()
-                 .bits(ppre1_bits)
-                 .hpre()
-                 .bits(hpre_bits)
-                 .sw()
-                 .bits(0b00)
-            });
+        // Disable BDCR write access
+        unsafe {
+            (*PWR::ptr()).cr1.modify(|_, w| w.dbp().clear_bit());
         }
 
         Clocks {
@@ -356,6 +618,14 @@ impl CFGR {
             pclk1: Hertz(apb1),
             pclk2: Hertz(apb2),
             sysclk: Hertz(sys_clock),
+            pll_src: match self.sysclk {
+                clocking::SysClkSource::PLL(s) => Some(s.src),
+                _ => None,
+            },
+            pll_psc: match self.sysclk {
+                clocking::SysClkSource::PLL(s) => Some(s.m),
+                _ => None,
+            },
             ppre1: ppre1,
             ppre2: ppre2,
         }
@@ -375,8 +645,46 @@ pub struct Clocks {
     pub pclk2: Hertz,
     ///Frequency of System clocks (SYSCLK).
     pub sysclk: Hertz,
+    /// Clock source to drive PLL modules
+    pub pll_src: Option<clocking::PLLClkSource>,
+    /// PLL clock source prescaler, "M" in the clock tree
+    pub pll_psc: Option<u8>,
     ///APB1 prescaler
     pub ppre1: u8,
     ///APB2 prescaler
     pub ppre2: u8,
+}
+
+impl Clocks {
+    /// Returns the frequency of the AHB
+    pub fn hclk(&self) -> Hertz {
+        self.hclk
+    }
+
+    /// Returns the frequency of the APB1
+    pub fn pclk1(&self) -> Hertz {
+        self.pclk1
+    }
+
+    /// Returns the frequency of the APB2
+    pub fn pclk2(&self) -> Hertz {
+        self.pclk2
+    }
+
+    /// Returns the value of the PCLK1 prescaler
+    pub fn ppre1(&self) -> u8 {
+        self.ppre1
+    }
+
+    // TODO remove `allow`
+    /// Returns the value of the PCLK2 prescaler
+    #[allow(dead_code)]
+    pub fn ppre2(&self) -> u8 {
+        self.ppre2
+    }
+
+    /// Returns the system (core) frequency
+    pub fn sysclk(&self) -> Hertz {
+        self.sysclk
+    }
 }
