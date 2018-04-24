@@ -44,6 +44,30 @@ impl Constrain<Rcc> for RCC {
 }
 
 pub mod clocking {
+    //! The `clocking` module contains representations of the various objects in the STM32L4x6
+    //! clock tree (see Reference Manual Figs 15 and 16) useful for wiring them up.
+    //!
+    //! There are two main concepts: sources (enum variants) and clocks (structs). For example, the
+    //! SYSCLK clock can be driven by any one of four sources: HSI, MSI, HSI, and PLLCLK. This
+    //! knowledge is encoded in the SysClkSources enum.
+    //!
+    //! Each enum variant contains information about the clock it represents. Some clocks are
+    //! configurable, and thus have fields, and some are not. For example, the LSI
+    //! (LowSpeedInternalRC) clock is always 32 kHz, but the MSI (MediumSpeedInternalRC) clock can
+    //! be configured and thus has a frequency component.
+    //!
+    //! To use them, compose them and feed them to, e.g., sysclk.
+    //!
+    //! ```rust
+    //! let mut rcc = RCC.constrain();
+    //! let msi_clk = clocking::MediumSpeedInternalRC::new(8_000_000, false);
+    //! let sys_clk_src = clocking::SysClkSource::MSI(msi_clk);
+    //! let cfgr = rcc.cfgr.sysclk(sys_clk_src);
+    //! ```
+    //!
+    //! The PLL is a bit more complex because it _is_ a source (`PLLClkOutput`) and also _requires_
+    //! a source (`PLLClkSource`), but you compose the types similarly.
+
     use super::rcc;
 
     pub trait InputClock {
