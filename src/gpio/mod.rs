@@ -1,13 +1,17 @@
 //! General Purpose Input / Output
 //!
-//! Note that GPIO layout is specific to board
-//! which is configured through features.
+//! This module provides common GPIO definitions that are available on all STM32L4x6 packages. By
+//! enabling features, you can use definitions for specific chips which may include additional
+//! GPIO lines. In that case, you will probably not want to `use` this module directly, but instead
+//! use it re-exported by the chip module.
 
 
 use ::ops::Deref;
 use ::marker::PhantomData;
 
 use hal::digital::OutputPin;
+
+use ::stm32l4x6;
 
 use rcc::AHB;
 
@@ -339,5 +343,44 @@ macro_rules! define_led {
     }
 }
 
+/// Opaque AFRL register
+pub struct AFRL<GPIO>(PhantomData<GPIO>);
+/// Opaque AFRH register
+pub struct AFRH<GPIO>(PhantomData<GPIO>);
+/// Opaque MODER register
+pub struct MODER<GPIO>(PhantomData<GPIO>);
+/// Opaque OTYPER register
+pub struct OTYPER<GPIO>(PhantomData<GPIO>);
+/// Opaque PUPDR register
+pub struct PUPDR<GPIO>(PhantomData<GPIO>);
+
+impl_parts!(
+    GPIOA, gpioa;
+    GPIOB, gpiob;
+    GPIOC, gpioc;
+    );
+
+//Each I/O pin (except PH3 for STM32L496xx/4A6xx devices) has a multiplexer with up to
+//sixteen alternate function inputs (AF0 to AF15) that can be configured through the
+//GPIOx_AFRL (for pin 0 to 7) and GPIOx_AFRH (for pin 8 to 15) registers
+//
+// The GPIO ports (and pins) enumerated here are exposed on all package variants of the STM32L4x6.
+// Larger chips have more pins, and so have additional definitions in their respective modules.
+impl_gpio!(A, GPIOA, gpioaen, gpioarst,
+           AFRL: [PA0, 0; PA1, 1; PA2, 2; PA3, 3; PA4, 4; PA5, 5; PA6, 6; PA7, 7;],
+           AFRH: [PA8, 8; PA9, 9; PA10, 10; PA11, 11; PA12, 12; PA13, 13; PA14, 14; PA15, 15; ]
+          );
+impl_gpio!(B, GPIOB, gpioben, gpiobrst,
+           AFRL: [PB0, 0; PB1, 1; PB2, 2; PB3, 3; PB4, 4; PB5, 5; PB6, 6; PB7, 7;],
+           AFRH: [PB8, 8; PB9, 9; PB10, 10; PB11, 11; PB12, 12; PB13, 13; PB14, 14; PB15, 15; ]
+          );
+impl_gpio!(C, GPIOC, gpiocen, gpiocrst,
+           AFRL: [PC0, 0; PC1, 1; PC2, 2; PC3, 3; PC4, 4; PC5, 5; PC6, 6; PC7, 7;],
+           AFRH: [PC8, 8; PC9, 9; PC10, 10; PC11, 11; PC12, 12; PC13, 13; PC14, 14; PC15, 15; ]
+          );
+
 #[cfg(feature = "STM32L476VG")]
 pub mod stm32l476vg;
+
+#[cfg(feature = "STM32L496AG")]
+pub mod stm32l496ag;
