@@ -22,6 +22,7 @@
 //! The PLL is a bit more complex because it _is_ a source (`PLLClkOutput`) and also _requires_
 //! a source (`PLLClkSource`), but you compose the types similarly.
 
+use super::Hertz;
 use super::rcc;
 
 /// Clocks (OSCs or RCs) that can be used as inputs to peripherals
@@ -47,6 +48,12 @@ impl HighSpeedInternal16RC {
         rcc.cr.modify(|_, w| w.hsion().set_bit().hsikeron().bit(self.always_on).hsiasfs().bit(self.auto_start));
         while rcc.cr.read().hsirdy().bit_is_clear() {}
         (16_000_000, 0b01)
+    }
+}
+
+impl InputClock for HighSpeedInternal16RC {
+    fn freq(&self) -> u32 {
+        16_000_000
     }
 }
 
@@ -116,7 +123,6 @@ impl InputClock for MediumSpeedInternalRC {
 /// High-speed external 4-48 MHz oscillator
 #[derive(Clone, Copy)]
 pub struct HighSpeedExternalOSC(pub u32);
-
 impl InputClock for HighSpeedExternalOSC {
     fn freq(&self) -> u32 {
         self.0
@@ -218,6 +224,13 @@ impl PLLClkOutput {
         assert!(m > 0 && m < 9);
         assert!(n > 7 && n < 87);
         assert!(r == 2 || r == 4 || r == 6 || r == 8);
+
+        let vco_if = src.freq() / m as u32;
+        assert!(vco_if >= 4_000_000 && vco_if <= 16_000_000);
+
+        let vco_of = vco_if * n as u32;
+        assert!(vco_of >= 64_000_000 && vco_of <= 344_000_000);
+
         let f = src.freq() / m as u32 * n as u32 / r as u32;
         assert!(f < super::SYS_CLOCK_MAX);
 
@@ -231,8 +244,22 @@ impl PLLClkOutput {
         let pllsrc_bits = self.src.configure(rcc);
         rcc.cr.modify(|_, w| w.pllon().clear_bit());
         while rcc.cr.read().pllrdy().bit_is_set() {}
-        rcc.pllcfgr
-            .modify(|_, w| unsafe { w.pllsrc().bits(pllsrc_bits).pllm().bits(self.m - 1).plln().bits(self.n).pllr().bits(self.r) });
+        rcc.pllcfgr.modify(|_, w| unsafe {
+            w.pllsrc()
+                .bits(pllsrc_bits)
+                .pllm()
+                .bits(self.m - 1)
+                .plln()
+                .bits(self.n)
+                .pllr()
+                .bits(match self.r {
+                    2 => 0b00,
+                    4 => 0b01,
+                    6 => 0b10,
+                    8 => 0b11,
+                    _ => panic!("bad PLL R value"),
+                })
+        });
         rcc.cr.modify(|_, w| w.pllon().set_bit());
         while rcc.cr.read().pllrdy().bit_is_clear() {}
         rcc.pllcfgr.modify(|_, w| w.pllren().set_bit());
@@ -297,6 +324,27 @@ impl InputClock for PLLClkSource {
             PLLClkSource::MSI(s) => s.freq(),
             PLLClkSource::HSI16(_) => 16_000_000,
             PLLClkSource::HSE(s) => s.freq(),
+        }
+    }
+}
+
+pub enum USARTClkSource {
+    PCLK(PeripheralClock), /// U(S)ART-specific peripheral clock (PCLK1, PCLK2)
+    LSE,
+    HSI16(HighSpeedInternal16RC),
+    SYSCLK(Hertz),
+}
+
+pub enum PeripheralClock {
+    PCLK1(Hertz),
+    PCLK2(Hertz),
+}
+
+impl InputClock for PeripheralClock {
+    fn freq(&self) -> u32 {
+        match *self {
+            PeripheralClock::PCLK1(s) => s.0.into(),
+            PeripheralClock::PCLK2(s) => s.0.into(),
         }
     }
 }

@@ -32,3 +32,42 @@ impl Into<KiloHertz> for MegaHertz {
         KiloHertz(self.0 * 1_000)
     }
 }
+
+/// Extension trait that adds convenience methods to the `u32` type
+pub trait U32Ext {
+    /// Wrap in `Bps`
+    fn bps(self) -> Bps;
+
+    /// Wrap in `Hertz`
+    fn hz(self) -> Hertz;
+
+    /// Wrap in `KiloHertz`
+    fn khz(self) -> KiloHertz;
+
+    /// Wrap in `MegaHertz`
+    fn mhz(self) -> MegaHertz;
+}
+
+impl U32Ext for u32 {
+    fn bps(self) -> Bps {
+        Bps(self)
+    }
+
+    fn hz(self) -> Hertz {
+        Hertz(self)
+    }
+
+    fn khz(self) -> KiloHertz {
+        KiloHertz(self)
+    }
+
+    fn mhz(self) -> MegaHertz {
+        MegaHertz(self)
+    }
+}
+
+impl From<Hertz> for u32 {
+    fn from(f: Hertz) -> Self {
+        f.0
+    }
+}

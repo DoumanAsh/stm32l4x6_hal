@@ -37,3 +37,4 @@ pub mod power;
 pub mod rcc;
 pub mod time;
 pub mod timer;
+pub mod serial;
