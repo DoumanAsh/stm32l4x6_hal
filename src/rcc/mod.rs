@@ -4,6 +4,8 @@
 // opaque CR member to RCC, and add methods to CR and BDCR. They should probably take clock source
 // variant arguments.
 
+#![deny(missing_docs, unused_results)]
+
 use stm32l4x6::{rcc, PWR, RCC};
 
 use common::Constrain;
@@ -61,6 +63,7 @@ pub struct Rcc {
     pub cfgr: CFGR,
 }
 
+/// AHB 1-3 register access
 pub struct AHB(());
 impl AHB {
     /// Access AHB1 reset register
@@ -90,6 +93,7 @@ impl AHB {
     }
 }
 
+/// APB1 register access
 pub struct APB1(());
 impl APB1 {
     ///Access APB1RSTR1 reset register
@@ -111,6 +115,7 @@ impl APB1 {
     }
 }
 
+/// APB2 register access
 pub struct APB2(());
 impl APB2 {
     ///Access APB2RSTR reset register
@@ -133,6 +138,7 @@ impl APB2 {
 ///See Reference manual Ch. 6.4.29
 pub struct BDCR(());
 impl BDCR {
+    /// Return a raw pointer to the BDCR register
     #[inline]
     pub fn inner(&mut self) -> &rcc::BDCR {
         unsafe { &(*RCC::ptr()).bdcr }
@@ -192,6 +198,7 @@ impl BDCR {
 ///See Reference manual Ch. 6.4.29
 pub struct CSR(());
 impl CSR {
+    /// Return a raw pointer to the CSR register
     #[inline]
     pub fn inner(&mut self) -> &rcc::CSR {
         unsafe { &(*RCC::ptr()).csr }

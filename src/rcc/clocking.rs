@@ -24,14 +24,20 @@
 
 use super::rcc;
 
+/// Clocks (OSCs or RCs) that can be used as inputs to peripherals
+///
+/// This trait isn't actually specified anywhere, and is used only by convention.
 pub trait InputClock {
+    /// Return the frequency of the clock (either calculated, configured, or intrinsic)
     fn freq(&self) -> u32;
 }
 
 /// High-speed internal 16 MHz RC
 #[derive(Clone, Copy)]
 pub struct HighSpeedInternal16RC {
+    /// Force HSI16 ON even in Stop modes
     pub always_on: bool,
+    /// When the system wakeup clock is MSI, wake up the HSI16 in parallel to system wakeup.
     pub auto_start: bool,
 }
 
@@ -59,10 +65,15 @@ pub struct MediumSpeedInternalRC {
 }
 
 impl MediumSpeedInternalRC {
+    /// Create a new MSI RC
+    ///
+    /// `freq` must be a valid MSI RC frequency range (see 6.2.3)
+    /// TODO make freq a repr(C) enum
     pub fn new(freq: u32, auto_cal: bool) -> Self {
         MediumSpeedInternalRC { freq, auto_cal }
     }
 
+    /// Convert the freq range to MSIRANGE bits (6.4.1). Panics if `freq` is invalid.
     pub fn bits(&self) -> u8 {
         match self.freq {
             100_000 => 0b0000,
@@ -132,7 +143,11 @@ impl HighSpeedExternalOSC {
     }
 }
 
+/// Selectable input clocks to the RTC
+#[repr(C)]
+#[derive(Copy,Clone)]
 pub enum RtcClkSource {
+    /// RTC off
     None,
     /// Internal 32 kHz RC
     LSI,
@@ -159,21 +174,22 @@ impl RtcClkSource {
         }
     }
 
+    /// Return bits for setting RTCSEL (see 6.2.14)
     pub fn bits(&self) -> u8 {
-        match *self {
-            RtcClkSource::None => 0,
-            RtcClkSource::LSI => 1,
-            RtcClkSource::LSE => 2,
-            RtcClkSource::HSEDiv32 => 3,
-        }
+        *self as u8
     }
 }
 
+/// Selectable clocks for the SYSCLK signal (HCLK bus)
 #[derive(Clone, Copy)]
 pub enum SysClkSource {
+    /// High speed internal 16 MHz RC
     HSI16(HighSpeedInternal16RC),
+    /// Medium speed internal 100kHz-48MHz RC
     MSI(MediumSpeedInternalRC),
+    /// High-speed external oscillator
     HSE(HighSpeedExternalOSC),
+    /// PLLCLK signal (output of PLL)
     PLL(PLLClkOutput),
 }
 
@@ -191,7 +207,9 @@ impl InputClock for SysClkSource {
 /// PLLCLK output of PLL module
 #[derive(Clone, Copy)]
 pub struct PLLClkOutput {
+    /// The input source of the PLL module
     pub src: PLLClkSource,
+    /// The initial prescaler value into all PLLs
     pub m: u8,
     n: u8,
     r: u8,
@@ -199,9 +217,12 @@ pub struct PLLClkOutput {
 }
 
 impl PLLClkOutput {
-    /// Create a new PLL clock source to use as an input. The arguments refer to the scale
-    /// factors described in Figs. 15 and 16 of the reference manual, and end up in the PLLM,
-    /// PLLN, and PLLR fields of the PLLCFGR register.
+    /// Create a new PLL clock source to use as an input.
+    ///
+    /// The arguments refer to the scale factors described in Figs. 15 and 16 of the reference
+    /// manual, and end up in the PLLM, PLLN, and PLLR fields of the PLLCFGR register.
+    ///
+    /// Panics if the configuration is invalid, especially if the output frequency is >80 MHz
     pub fn new(src: PLLClkSource, m: u8, n: u8, r: u8) -> Self {
         assert!(m > 0 && m < 9);
         assert!(n > 7 && n < 87);
@@ -251,11 +272,16 @@ src: PLLClkSource,
 }
 */
 
+/// Selectable PLL module input sources
 #[derive(Clone, Copy)]
 pub enum PLLClkSource {
+    /// PLL off
     None,
+    /// MSI16
     MSI(MediumSpeedInternalRC),
+    /// HSI16
     HSI16(HighSpeedInternal16RC),
+    /// HSE
     HSE(HighSpeedExternalOSC),
 }
 
@@ -266,15 +292,15 @@ impl PLLClkSource {
         match self {
             PLLClkSource::None => 0b00,
             PLLClkSource::MSI(s) => {
-                s.configure(rcc);
+                let _c = s.configure(rcc);
                 0b01
             }
             PLLClkSource::HSI16(s) => {
-                s.configure(rcc);
+                let _c = s.configure(rcc);
                 0b10
             }
             PLLClkSource::HSE(s) => {
-                s.configure(rcc);
+                let _c = s.configure(rcc);
                 0b11
             }
         }
