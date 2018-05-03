@@ -39,9 +39,7 @@ impl Constrain<Rcc> for RCC {
                 hclk: None,
                 pclk1: None,
                 pclk2: None,
-                sysclk: clocking::SysClkSource::MSI(clocking::MediumSpeedInternalRC::new(
-                    4_000_000, false,
-                )),
+                sysclk: clocking::SysClkSource::MSI(clocking::MediumSpeedInternalRC::new(4_000_000, false)),
             },
         }
     }
@@ -96,20 +94,20 @@ impl AHB {
 /// APB1 register access
 pub struct APB1(());
 impl APB1 {
-    ///Access APB1RSTR1 reset register
+    /// Access APB1RSTR1 reset register
     pub fn rstr1(&mut self) -> &rcc::APB1RSTR1 {
         unsafe { &(*RCC::ptr()).apb1rstr1 }
     }
-    ///Access APB1RSTR2 reset register
+    /// Access APB1RSTR2 reset register
     pub fn rstr2(&mut self) -> &rcc::APB1RSTR2 {
         unsafe { &(*RCC::ptr()).apb1rstr2 }
     }
 
-    ///Access APB1ENR1 reset register
+    /// Access APB1ENR1 reset register
     pub fn enr1(&mut self) -> &rcc::APB1ENR1 {
         unsafe { &(*RCC::ptr()).apb1enr1 }
     }
-    ///Access APB1ENR2 reset register
+    /// Access APB1ENR2 reset register
     pub fn enr2(&mut self) -> &rcc::APB1ENR2 {
         unsafe { &(*RCC::ptr()).apb1enr2 }
     }
@@ -118,24 +116,24 @@ impl APB1 {
 /// APB2 register access
 pub struct APB2(());
 impl APB2 {
-    ///Access APB2RSTR reset register
+    /// Access APB2RSTR reset register
     pub fn rstr(&mut self) -> &rcc::APB2RSTR {
         unsafe { &(*RCC::ptr()).apb2rstr }
     }
 
-    ///Access APB2ENR reset register
+    /// Access APB2ENR reset register
     pub fn enr(&mut self) -> &rcc::APB2ENR {
         unsafe { &(*RCC::ptr()).apb2enr }
     }
 }
 
-///Backup domain control register.
+/// Backup domain control register.
 ///
-///Note that it may be write protected and in order to modify it
-///`Power Control Register` can be accessed to lift protection.
-///See description of CR1's DBP bit in Ch. 5.4.1
+/// Note that it may be write protected and in order to modify it
+/// `Power Control Register` can be accessed to lift protection.
+/// See description of CR1's DBP bit in Ch. 5.4.1
 ///
-///See Reference manual Ch. 6.4.29
+/// See Reference manual Ch. 6.4.29
 pub struct BDCR(());
 impl BDCR {
     /// Return a raw pointer to the BDCR register
@@ -144,15 +142,15 @@ impl BDCR {
         unsafe { &(*RCC::ptr()).bdcr }
     }
 
-    ///Resets entire Backup domain.
+    /// Resets entire Backup domain.
     ///
-    ///Use it when you want to change clock source.
+    /// Use it when you want to change clock source.
     pub fn reset(&mut self) {
         self.inner().modify(|_, write| write.bdrst().set_bit());
         self.inner().modify(|_, write| write.bdrst().clear_bit());
     }
 
-    ///Returns type of RTC Clock.
+    /// Returns type of RTC Clock.
     pub fn rtc_clock(&mut self) -> clocking::RtcClkSource {
         match self.inner().read().rtcsel().bits() {
             0 => clocking::RtcClkSource::None,
@@ -163,21 +161,20 @@ impl BDCR {
         }
     }
 
-    ///Select clock source for RTC.
+    /// Select clock source for RTC.
     ///
-    ///**NOTE:** Once source has been selected, it cannot be changed anymore
-    ///unless backup domain is reset.
+    /// **NOTE:** Once source has been selected, it cannot be changed anymore
+    /// unless backup domain is reset.
     pub fn set_rtc_clock(&mut self, clock: clocking::RtcClkSource) {
-        self.inner()
-            .modify(|_, write| unsafe { write.rtcsel().bits(clock.bits()) });
+        self.inner().modify(|_, write| unsafe { write.rtcsel().bits(clock.bits()) });
     }
 
-    ///Sets RTC on/off
+    /// Sets RTC on/off
     pub fn rtc_enable(&mut self, is_on: bool) {
         self.inner().modify(|_, write| write.rtcen().bit(is_on));
     }
 
-    ///Sets LSE on/off
+    /// Sets LSE on/off
     pub fn lse_enable(&mut self, is_on: bool) {
         let inner = self.inner();
 
@@ -193,9 +190,9 @@ impl BDCR {
     }
 }
 
-///Control/Status Register
+/// Control/Status Register
 ///
-///See Reference manual Ch. 6.4.29
+/// See Reference manual Ch. 6.4.29
 pub struct CSR(());
 impl CSR {
     /// Return a raw pointer to the CSR register
@@ -204,7 +201,7 @@ impl CSR {
         unsafe { &(*RCC::ptr()).csr }
     }
 
-    ///Turns on/off LSI oscillator.
+    /// Turns on/off LSI oscillator.
     pub fn lsi_enable(&mut self, is_on: bool) {
         let inner = self.inner();
 
@@ -220,12 +217,12 @@ impl CSR {
     }
 }
 
-///Maximum value for System clock.
+/// Maximum value for System clock.
 ///
-///Reference Ch. 6.2.8
+/// Reference Ch. 6.2.8
 pub const SYS_CLOCK_MAX: u32 = 80_000_000;
 
-///Clock configuration
+/// Clock configuration
 pub struct CFGR {
     /// AHB bus frequency
     hclk: Option<u32>,
@@ -318,8 +315,8 @@ impl CFGR {
         let ppre2 = 1 << (ppre2_bits - 0b011);
         let apb2 = ahb / ppre2 as u32;
 
-        //Reference AN4621 note Figure. 4
-        //from 0 wait state to 4
+        // Reference AN4621 note Figure. 4
+        // from 0 wait state to 4
         let latency = if sys_clock <= 16_000_000 {
             0b000
         } else if sys_clock <= 32_000_000 {
@@ -334,16 +331,8 @@ impl CFGR {
 
         acr.acr().write(|w| unsafe { w.latency().bits(latency) });
 
-        rcc.cfgr.modify(|_, w| unsafe {
-            w.ppre2()
-                .bits(ppre2_bits)
-                .ppre1()
-                .bits(ppre1_bits)
-                .hpre()
-                .bits(hpre_bits)
-                .sw()
-                .bits(sw_bits)
-        });
+        rcc.cfgr
+            .modify(|_, w| unsafe { w.ppre2().bits(ppre2_bits).ppre1().bits(ppre1_bits).hpre().bits(hpre_bits).sw().bits(sw_bits) });
 
         // Disable BDCR write access
         unsafe {
@@ -374,21 +363,21 @@ impl CFGR {
 /// The existence of this value indicates that the clock configuration can no longer be changed
 #[derive(Clone, Copy)]
 pub struct Clocks {
-    ///Frequency of AHB bus (HCLK).
+    /// Frequency of AHB bus (HCLK).
     pub hclk: Hertz,
-    ///Frequency of APB1 bus (PCLK1).
+    /// Frequency of APB1 bus (PCLK1).
     pub pclk1: Hertz,
-    ///Frequency of APB2 bus (PCLK2).
+    /// Frequency of APB2 bus (PCLK2).
     pub pclk2: Hertz,
-    ///Frequency of System clocks (SYSCLK).
+    /// Frequency of System clocks (SYSCLK).
     pub sysclk: Hertz,
     /// Clock source to drive PLL modules
     pub pll_src: Option<clocking::PLLClkSource>,
     /// PLL clock source prescaler, "M" in the clock tree
     pub pll_psc: Option<u8>,
-    ///APB1 prescaler
+    /// APB1 prescaler
     pub ppre1: u8,
-    ///APB2 prescaler
+    /// APB2 prescaler
     pub ppre2: u8,
 }
 

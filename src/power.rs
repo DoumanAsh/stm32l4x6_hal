@@ -41,14 +41,14 @@ impl Power {
         unsafe { &(*PWR::ptr()).scr }
     }
 
-    ///Removes write protection from Backup Domain Control register.
+    /// Removes write protection from Backup Domain Control register.
     pub fn remove_bdp(&mut self) {
         let cr1 = self.cr1();
         if cr1.read().dbp().bit_is_clear() {
-            //We need to enable write access
-            //to configure clock
+            // We need to enable write access
+            // to configure clock
             cr1.modify(|_, w| w.dbp().set_bit());
-            //Wait for it to take effect
+            // Wait for it to take effect
             while cr1.read().dbp().bit_is_clear() {}
         }
     }

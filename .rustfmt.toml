@@ -1,4 +1,4 @@
-binop_separator = "Black"
+binop_separator = "Back"
 wrap_comments = false
 imports_indent = "Block"
 match_block_trailing_comma = true

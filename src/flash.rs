@@ -2,13 +2,11 @@
 
 use stm32l4x6::{flash, FLASH};
 
-use ::common::Constrain;
+use common::Constrain;
 
 impl Constrain<Parts> for FLASH {
     fn constrain(self) -> Parts {
-        Parts {
-            acr: ACR(())
-        }
+        Parts { acr: ACR(()) }
     }
 }
 

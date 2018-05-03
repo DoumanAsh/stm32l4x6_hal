@@ -162,7 +162,7 @@ macro_rules! impl_gpio {
 
 macro_rules! impl_pin {
     ($GPIOX:ident, $PXi:ident, $AFR:ident, $i:expr) => {
-        ///Specific Pin
+        /// Specific Pin
         pub struct $PXi<MODE>(PhantomData<MODE>);
 
         impl<MODE> $PXi<MODE> {
@@ -170,163 +170,117 @@ macro_rules! impl_pin {
 
             #[inline]
             fn set_input_mode(moder: &mut MODER<$GPIOX>) {
-                moder
-                    .moder()
-                    .modify(|r, w| unsafe { w.bits(r.bits() & !(0b11 << Self::OFFSET)) });
+                moder.moder().modify(|r, w| unsafe { w.bits(r.bits() & !(0b11 << Self::OFFSET)) });
             }
 
             /// Configures the pin to operate as a floating input pin
-            pub fn into_floating_input(
-                self,
-                moder: &mut MODER<$GPIOX>,
-                pupdr: &mut PUPDR<$GPIOX>,
-            ) -> $PXi<Input<Floating>> {
+            pub fn into_floating_input(self, moder: &mut MODER<$GPIOX>, pupdr: &mut PUPDR<$GPIOX>) -> $PXi<Input<Floating>> {
                 Self::set_input_mode(moder);
                 // no pull-up or pull-down
-                pupdr
-                    .pupdr()
-                    .modify(|r, w| unsafe { w.bits(r.bits() & !(0b11 << Self::OFFSET)) });
+                pupdr.pupdr().modify(|r, w| unsafe { w.bits(r.bits() & !(0b11 << Self::OFFSET)) });
 
                 $PXi(PhantomData)
             }
 
             /// Configures the pin to operate as a pulled up input pin
-            pub fn into_pull_up_input(
-                self,
-                moder: &mut MODER<$GPIOX>,
-                pupdr: &mut PUPDR<$GPIOX>,
-            ) -> $PXi<Input<PullUp>> {
+            pub fn into_pull_up_input(self, moder: &mut MODER<$GPIOX>, pupdr: &mut PUPDR<$GPIOX>) -> $PXi<Input<PullUp>> {
                 Self::set_input_mode(moder);
                 // pull-up
-                pupdr.pupdr().modify(|r, w| unsafe {
-                    w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b01 << Self::OFFSET))
-                });
+                pupdr
+                    .pupdr()
+                    .modify(|r, w| unsafe { w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b01 << Self::OFFSET)) });
 
                 $PXi(PhantomData)
             }
 
             #[inline]
             fn set_output_mode(moder: &mut MODER<$GPIOX>) {
-                moder.moder().modify(|r, w| unsafe {
-                    w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b01 << Self::OFFSET))
-                });
+                moder
+                    .moder()
+                    .modify(|r, w| unsafe { w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b01 << Self::OFFSET)) });
             }
 
             /// Configures the pin to operate as an open drain output pin
-            pub fn into_open_drain_output(
-                self,
-                moder: &mut MODER<$GPIOX>,
-                otyper: &mut OTYPER<$GPIOX>,
-            ) -> $PXi<Output<OpenDrain>> {
+            pub fn into_open_drain_output(self, moder: &mut MODER<$GPIOX>, otyper: &mut OTYPER<$GPIOX>) -> $PXi<Output<OpenDrain>> {
                 Self::set_output_mode(moder);
                 // open drain output
-                otyper
-                    .otyper()
-                    .modify(|r, w| unsafe { w.bits(r.bits() | (0b1 << $i)) });
+                otyper.otyper().modify(|r, w| unsafe { w.bits(r.bits() | (0b1 << $i)) });
 
                 $PXi(PhantomData)
             }
 
             /// Configures the pin to operate as an push pull output pin
-            pub fn into_push_pull_output(
-                self,
-                moder: &mut MODER<$GPIOX>,
-                otyper: &mut OTYPER<$GPIOX>,
-            ) -> $PXi<Output<PushPull>> {
+            pub fn into_push_pull_output(self, moder: &mut MODER<$GPIOX>, otyper: &mut OTYPER<$GPIOX>) -> $PXi<Output<PushPull>> {
                 Self::set_output_mode(moder);
                 // push pull output
-                otyper
-                    .otyper()
-                    .modify(|r, w| unsafe { w.bits(r.bits() & !(0b1 << $i)) });
+                otyper.otyper().modify(|r, w| unsafe { w.bits(r.bits() & !(0b1 << $i)) });
 
                 $PXi(PhantomData)
             }
 
             // alternate function mode
             fn set_alt_fun_mode(moder: &mut MODER<$GPIOX>, afr: &mut $AFR<$GPIOX>, af: u32) {
-                moder.moder().modify(|r, w| unsafe {
-                    w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b10 << Self::OFFSET))
-                });
-                afr.afr().modify(|r, w| unsafe {
-                    w.bits((r.bits() & !(0b1111 << Self::OFFSET)) | (af << Self::OFFSET))
-                });
+                moder
+                    .moder()
+                    .modify(|r, w| unsafe { w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b10 << Self::OFFSET)) });
+                afr.afr().modify(|r, w| unsafe { w.bits((r.bits() & !(0b1111 << Self::OFFSET)) | (af << Self::OFFSET)) });
             }
 
             #[inline]
             /// Configures the ping to operate as alternative function 4
-            pub fn into_alt_fun4(
-                self,
-                moder: &mut MODER<$GPIOX>,
-                afr: &mut $AFR<$GPIOX>,
-            ) -> $PXi<AF4> {
+            pub fn into_alt_fun4(self, moder: &mut MODER<$GPIOX>, afr: &mut $AFR<$GPIOX>) -> $PXi<AF4> {
                 Self::set_alt_fun_mode(moder, afr, 4);
                 $PXi(PhantomData)
             }
 
             #[inline]
             /// Configures the ping to operate as alternative function 5
-            pub fn into_alt_fun5(
-                self,
-                moder: &mut MODER<$GPIOX>,
-                afr: &mut $AFR<$GPIOX>,
-            ) -> $PXi<AF5> {
+            pub fn into_alt_fun5(self, moder: &mut MODER<$GPIOX>, afr: &mut $AFR<$GPIOX>) -> $PXi<AF5> {
                 Self::set_alt_fun_mode(moder, afr, 5);
                 $PXi(PhantomData)
             }
 
             #[inline]
             /// Configures the ping to operate as alternative function 6
-            pub fn into_alt_fun6(
-                self,
-                moder: &mut MODER<$GPIOX>,
-                afr: &mut $AFR<$GPIOX>,
-            ) -> $PXi<AF6> {
+            pub fn into_alt_fun6(self, moder: &mut MODER<$GPIOX>, afr: &mut $AFR<$GPIOX>) -> $PXi<AF6> {
                 Self::set_alt_fun_mode(moder, afr, 6);
                 $PXi(PhantomData)
             }
 
             #[inline]
             /// Configures the ping to operate as alternative function 7
-            pub fn into_alt_fun7(
-                self,
-                moder: &mut MODER<$GPIOX>,
-                afr: &mut $AFR<$GPIOX>,
-            ) -> $PXi<AF7> {
+            pub fn into_alt_fun7(self, moder: &mut MODER<$GPIOX>, afr: &mut $AFR<$GPIOX>) -> $PXi<AF7> {
                 Self::set_alt_fun_mode(moder, afr, 7);
                 $PXi(PhantomData)
             }
 
             #[inline]
             /// Configures the ping to operate as alternative function 11
-            pub fn into_alt_fun11(
-                self,
-                moder: &mut MODER<$GPIOX>,
-                afr: &mut $AFR<$GPIOX>,
-            ) -> $PXi<AF11> {
+            pub fn into_alt_fun11(self, moder: &mut MODER<$GPIOX>, afr: &mut $AFR<$GPIOX>) -> $PXi<AF11> {
                 Self::set_alt_fun_mode(moder, afr, 11);
                 $PXi(PhantomData)
             }
         }
 
         impl<MODE> OutputPin for $PXi<Output<MODE>> {
-            ///Returns whether high bit is set.
+            /// Returns whether high bit is set.
             fn is_high(&self) -> bool {
                 !self.is_low()
             }
 
-            ///Returns whether low bit is set.
+            /// Returns whether low bit is set.
             fn is_low(&self) -> bool {
                 // NOTE(unsafe) atomic read with no side effects
                 unsafe { (*$GPIOX::ptr()).odr.read().bits() & (1 << $i) == 0 }
             }
 
-            ///Sets high bit.
+            /// Sets high bit.
             fn set_high(&mut self) {
                 // NOTE(unsafe) atomic write to a stateless register
                 unsafe { (*$GPIOX::ptr()).bsrr.write(|w| w.bits(1 << $i)) }
             }
 
-            ///Sets low bit.
+            /// Sets low bit.
             fn set_low(&mut self) {
                 // NOTE(unsafe) atomic write to a stateless register
                 unsafe { (*$GPIOX::ptr()).bsrr.write(|w| w.bits(1 << (16 + $i))) }
@@ -343,7 +297,7 @@ macro_rules! impl_pins {
     }
 }
 
-///Generic LED
+/// Generic LED
 pub struct Led<PIN>(PIN);
 impl<PIN: OutputPin> Led<PIN> {
     #[inline]
@@ -411,9 +365,9 @@ impl_parts!(
     GPIOC, gpioc;
     );
 
-//Each I/O pin (except PH3 for STM32L496xx/4A6xx devices) has a multiplexer with up to
-//sixteen alternate function inputs (AF0 to AF15) that can be configured through the
-//GPIOx_AFRL (for pin 0 to 7) and GPIOx_AFRH (for pin 8 to 15) registers
+// Each I/O pin (except PH3 for STM32L496xx/4A6xx devices) has a multiplexer with up to
+// sixteen alternate function inputs (AF0 to AF15) that can be configured through the
+// GPIOx_AFRL (for pin 0 to 7) and GPIOx_AFRH (for pin 8 to 15) registers
 //
 // The GPIO ports (and pins) enumerated here are exposed on all package variants of the STM32L4x6.
 // Larger chips have more pins, and so have additional definitions in their respective modules.

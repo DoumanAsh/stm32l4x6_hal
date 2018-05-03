@@ -1,4 +1,4 @@
-//!Time related types
+//! Time related types
 macro_rules! impl_struct {
     ($($name:ident,)+) => {
         $(

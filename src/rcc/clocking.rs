@@ -44,14 +44,7 @@ pub struct HighSpeedInternal16RC {
 impl HighSpeedInternal16RC {
     /// Applies the selection options to the configuration registers and turns the clock on
     pub fn configure(&self, rcc: &rcc::RegisterBlock) -> (u32, u8) {
-        rcc.cr.modify(|_, w| {
-            w.hsion()
-                .set_bit()
-                .hsikeron()
-                .bit(self.always_on)
-                .hsiasfs()
-                .bit(self.auto_start)
-        });
+        rcc.cr.modify(|_, w| w.hsion().set_bit().hsikeron().bit(self.always_on).hsiasfs().bit(self.auto_start));
         while rcc.cr.read().hsirdy().bit_is_clear() {}
         (16_000_000, 0b01)
     }
@@ -95,8 +88,7 @@ impl MediumSpeedInternalRC {
     /// Configures the MSI to the specified frequency, and enables hardware
     /// auto-calibration if requested by enabling (and waiting for) the LSE.
     pub fn configure(&self, rcc: &rcc::RegisterBlock) -> (u32, u8) {
-        rcc.cr
-            .modify(|_, w| unsafe { w.msirange().bits(self.bits()).msirgsel().set_bit() });
+        rcc.cr.modify(|_, w| unsafe { w.msirange().bits(self.bits()).msirgsel().set_bit() });
         while rcc.cr.read().msirdy().bit_is_clear() {}
 
         if self.auto_cal {
@@ -107,8 +99,7 @@ impl MediumSpeedInternalRC {
 
             rcc.bdcr.modify(|_, w| w.lseon().clear_bit());
             while rcc.bdcr.read().lserdy().bit_is_set() {}
-            rcc.bdcr
-                .modify(|_, w| unsafe { w.lsedrv().bits(0b11).lseon().set_bit() });
+            rcc.bdcr.modify(|_, w| unsafe { w.lsedrv().bits(0b11).lseon().set_bit() });
             while rcc.bdcr.read().lserdy().bit_is_clear() {}
             rcc.cr.modify(|_, w| w.msipllen().set_bit());
         }
@@ -145,7 +136,7 @@ impl HighSpeedExternalOSC {
 
 /// Selectable input clocks to the RTC
 #[repr(C)]
-#[derive(Copy,Clone)]
+#[derive(Copy, Clone)]
 pub enum RtcClkSource {
     /// RTC off
     None,
@@ -170,7 +161,7 @@ impl RtcClkSource {
                 } else {
                     None
                 }
-            }
+            },
         }
     }
 
@@ -240,16 +231,8 @@ impl PLLClkOutput {
         let pllsrc_bits = self.src.configure(rcc);
         rcc.cr.modify(|_, w| w.pllon().clear_bit());
         while rcc.cr.read().pllrdy().bit_is_set() {}
-        rcc.pllcfgr.modify(|_, w| unsafe {
-            w.pllsrc()
-                .bits(pllsrc_bits)
-                .pllm()
-                .bits(self.m - 1)
-                .plln()
-                .bits(self.n)
-                .pllr()
-                .bits(self.r)
-        });
+        rcc.pllcfgr
+            .modify(|_, w| unsafe { w.pllsrc().bits(pllsrc_bits).pllm().bits(self.m - 1).plln().bits(self.n).pllr().bits(self.r) });
         rcc.cr.modify(|_, w| w.pllon().set_bit());
         while rcc.cr.read().pllrdy().bit_is_clear() {}
         rcc.pllcfgr.modify(|_, w| w.pllren().set_bit());
@@ -263,14 +246,14 @@ impl InputClock for PLLClkOutput {
     }
 }
 
-/*
+//
 /// PLLADC2CLK output of PLLSAI2
-#[derive(Clone, Copy)]
-pub struct PLLADC2Clk {
-src: PLLClkSource,
-...,
-}
-*/
+// #[derive(Clone, Copy)]
+// pub struct PLLADC2Clk {
+// src: PLLClkSource,
+// ...,
+// }
+//
 
 /// Selectable PLL module input sources
 #[derive(Clone, Copy)]
@@ -294,15 +277,15 @@ impl PLLClkSource {
             PLLClkSource::MSI(s) => {
                 let _c = s.configure(rcc);
                 0b01
-            }
+            },
             PLLClkSource::HSI16(s) => {
                 let _c = s.configure(rcc);
                 0b10
-            }
+            },
             PLLClkSource::HSE(s) => {
                 let _c = s.configure(rcc);
                 0b11
-            }
+            },
         }
     }
 }

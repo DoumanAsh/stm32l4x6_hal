@@ -1,14 +1,14 @@
 //! Delays
 
 use cast::u32;
-use cortex_m::peripheral::SYST;
 use cortex_m::peripheral::syst::SystClkSource;
+use cortex_m::peripheral::SYST;
 use hal::blocking::delay::{DelayMs, DelayUs};
 
-use ::cmp;
+use cmp;
 
-use rcc::Clocks;
 use config::SYST_MAX_RVR;
+use rcc::Clocks;
 
 /// System timer (SysTick) as a delay provider
 pub struct Delay {

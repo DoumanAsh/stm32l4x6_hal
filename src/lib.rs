@@ -23,17 +23,17 @@ extern crate nb;
 pub extern crate stm32l4x6;
 
 use core::cmp;
-use core::ops;
 use core::marker;
 use core::mem;
+use core::ops;
 
 pub mod common;
-pub mod power;
-pub mod flash;
-pub mod time;
 pub mod config;
-pub mod rcc;
 pub mod delay;
+pub mod flash;
 pub mod gpio;
-pub mod timer;
 pub mod lcd;
+pub mod power;
+pub mod rcc;
+pub mod time;
+pub mod timer;

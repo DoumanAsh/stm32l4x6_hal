@@ -1,37 +1,44 @@
 //! Hardware Timers
-use cortex_m::peripheral::SYST;
 use cortex_m::peripheral::syst::SystClkSource;
+use cortex_m::peripheral::SYST;
 use hal::timer::{CountDown, Periodic};
 use nb;
 
 use config::SYST_MAX_RVR;
-use time::Hertz;
 use rcc::{APB1, APB2, Clocks};
+use time::Hertz;
 
-use cast::{u32, u16};
+use cast::{u16, u32};
 
 use stm32l4x6::{
-    //advanced timers
-    TIM1, TIM8, //stm32l4x6::rcc::apb2enr | apb2rstr:
-    //General purpose
-    TIM2, TIM3, TIM4, TIM5, //stm32l4x6::rcc::apb1enr1 | apb1rstr1
-    TIM15, TIM16, TIM17, //stm32l4x6::rcc::apb2enr | apb2rstr
-    //Basic timers
-    TIM6, TIM7, //stm32l4x6::rcc::apb1enr1 | apb1rstr1
-    // low-power timer
-    //LPTIM1 //stm32l4x6::rcc::apb1enr1 | apb1rstr1
+    // advanced timers
+    TIM1,
+    TIM15,
+    TIM16,
+    TIM17, // stm32l4x6::rcc::apb2enr | apb2rstr
+    // General purpose
+    TIM2,
+    TIM3,
+    TIM4,
+    TIM5, // stm32l4x6::rcc::apb1enr1 | apb1rstr1
+    // Basic timers
+    TIM6,
+    TIM7, /* stm32l4x6::rcc::apb1enr1 | apb1rstr1
+           * low-power timer
+           * LPTIM1 //stm32l4x6::rcc::apb1enr1 | apb1rstr1 */
+    TIM8, // stm32l4x6::rcc::apb2enr | apb2rstr:
 };
 
-///Possible timer events
+/// Possible timer events
 pub enum Event {
-    ///Interrupt on timeout.
+    /// Interrupt on timeout.
     Timeout,
 }
 
-///HW Timer
+/// HW Timer
 pub struct Timer<TIM> {
     clocks: Clocks,
-    tim: TIM
+    tim: TIM,
 }
 
 impl Timer<SYST> {
@@ -73,12 +80,12 @@ impl CountDown for Timer<SYST> {
     fn wait(&mut self) -> nb::Result<(), !> {
         match self.tim.has_wrapped() {
             true => Ok(()),
-            false => Err(nb::Error::WouldBlock)
+            false => Err(nb::Error::WouldBlock),
         }
     }
 }
 
-///Type alias for timer based on system clock.
+/// Type alias for timer based on system clock.
 pub type Sys = Timer<SYST>;
 
 macro_rules! impl_timer {

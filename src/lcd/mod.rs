@@ -1,45 +1,39 @@
 //! LCD module
 
-use ::stm32l4x6;
+use stm32l4x6;
 
-use ::power::{
-    Power
-};
-use ::rcc::{
-    BDCR,
-    AHB,
-    APB1
-};
+use power::Power;
 use rcc::clocking::RtcClkSource;
+use rcc::{APB1, AHB, BDCR};
 
-use ::mem;
+use mem;
 
 pub mod config;
 pub mod ram;
 
 pub enum ValidationResult {
-    ///Valid Frame Rate
+    /// Valid Frame Rate
     ///
-    ///Contains approximate frame rate
+    /// Contains approximate frame rate
     Ok(u32),
-    ///RTC clock is not set. Refer to `rcc::BDCR` for how to set.
+    /// RTC clock is not set. Refer to `rcc::BDCR` for how to set.
     ClockNotSet,
-    ///Resulting frame rate is outside of range is below minimum ~30Hz
+    /// Resulting frame rate is outside of range is below minimum ~30Hz
     SmallFrameRate,
-    ///Resulting frame rate is outside of range is is above ~100Hz
-    BigFrameRate
+    /// Resulting frame rate is outside of range is is above ~100Hz
+    BigFrameRate,
 }
 
-///LCD representations that provides access to HW LCD
+/// LCD representations that provides access to HW LCD
 ///
-///Implements destructor that turns off LCD.
+/// Implements destructor that turns off LCD.
 pub struct LCD {
-    inner: stm32l4x6::LCD
+    inner: stm32l4x6::LCD,
 }
 
 #[inline]
 fn calculate_frame_rate(clock_frequency: u32, ps: u32, div: u32, duty: u8) -> u32 {
-    //Take duty * 1000, then divide by 1000 to drop floating point part
+    // Take duty * 1000, then divide by 1000 to drop floating point part
     (clock_frequency / ((2u32.pow(ps)) * (16 + div)) * match duty {
         0 => 1000,
         1 => 500,
@@ -51,17 +45,17 @@ fn calculate_frame_rate(clock_frequency: u32, ps: u32, div: u32, duty: u8) -> u3
 }
 
 impl LCD {
-    ///Initializes HW for LCD with LSE as clock source
+    /// Initializes HW for LCD with LSE as clock source
     ///
-    ///## Steps:
+    /// ## Steps:
     ///
-    ///1. Enable peripheral clocks
-    ///2. Set LSE as RTC clock.
-    ///3. Turn on LCD's clock
+    /// 1. Enable peripheral clocks
+    /// 2. Set LSE as RTC clock.
+    /// 3. Turn on LCD's clock
     pub fn init_lse(apb1: &mut APB1, ahb: &mut AHB, pwr: &mut Power, bdcr: &mut BDCR) {
-        //Enables peripheral clocks
+        // Enables peripheral clocks
         apb1.enr1().modify(|_, w| w.pwren().set_bit());
-        //Enables LCD GPIO
+        // Enables LCD GPIO
         ahb.enr2().modify(|_, w| {
             w.gpioaen().set_bit();
             w.gpioben().set_bit();
@@ -69,35 +63,33 @@ impl LCD {
             w.gpioden().set_bit()
         });
 
-        //Configures RTC clock
+        // Configures RTC clock
         pwr.remove_bdp();
-        //TODO: Reset BDCR to change clock?
+        // TODO: Reset BDCR to change clock?
         bdcr.lse_enable(true);
         bdcr.set_rtc_clock(RtcClkSource::LSE);
 
-        //Turn LCD's clock
+        // Turn LCD's clock
         apb1.enr1().modify(|_, w| w.lcden().set_bit());
     }
 
-    ///Initializes LCD
+    /// Initializes LCD
     ///
-    ///## Requirements
+    /// ## Requirements
     ///
     /// * Pre-initialize HW using `init` method.
     /// * Configure LCD GPIO pins as alternative functions. You should check board's documentation
     /// for pins.
     /// * Verify configuration through `validate` function
     ///
-    ///## Steps:
+    /// ## Steps:
     ///
-    ///1. Turns off.
-    ///2. Reset RAM registers and set update request.
-    ///3. Performs configuration.
-    ///4. Turns on.
+    /// 1. Turns off.
+    /// 2. Reset RAM registers and set update request.
+    /// 3. Performs configuration.
+    /// 4. Turns on.
     pub fn new(lcd: stm32l4x6::LCD, config: config::Config) -> Self {
-        let mut lcd = Self {
-            inner: lcd
-        };
+        let mut lcd = Self { inner: lcd };
 
         lcd.off();
 
@@ -108,17 +100,17 @@ impl LCD {
 
         lcd.on();
 
-        //Wait for LCD to get enabled
+        // Wait for LCD to get enabled
         while lcd.inner.sr.read().ens().bit_is_clear() {}
-        //Wait for LCD to get ready
+        // Wait for LCD to get ready
         while lcd.inner.sr.read().rdy().bit_is_clear() {}
 
         lcd
     }
 
-    ///Performs validation of settings.
+    /// Performs validation of settings.
     ///
-    ///HSE clock is not supported yet...
+    /// HSE clock is not supported yet...
     pub fn validate(lcd: &mut stm32l4x6::LCD, bdcr: &mut BDCR, configuration: &config::Config) -> ValidationResult {
         let clock_frequency: u32 = match bdcr.rtc_clock().freq(None) {
             Some(f) => f,
@@ -141,79 +133,108 @@ impl LCD {
     }
 
     #[inline]
-    ///Returns whether LCD is enabled or not
+    /// Returns whether LCD is enabled or not
     pub fn is_enabled(&mut self) -> bool {
         self.inner.sr.read().ens().bit_is_set()
     }
 
     #[inline]
-    ///Returns whether LCD is ready or not
+    /// Returns whether LCD is ready or not
     pub fn is_ready(&mut self) -> bool {
         self.inner.sr.read().rdy().bit_is_set()
     }
 
-    ///Performs LCD's configuration
+    /// Performs LCD's configuration
     pub fn configure(&mut self, config: config::Config) {
-        let config::Config{
-            prescaler, divider, blink_mode, blink_freq, contrast, dead_time, pulse_duration, high_drive,
-            bias, duty, mux_segment, voltage_source} = config;
+        let config::Config {
+            prescaler,
+            divider,
+            blink_mode,
+            blink_freq,
+            contrast,
+            dead_time,
+            pulse_duration,
+            high_drive,
+            bias,
+            duty,
+            mux_segment,
+            voltage_source,
+        } = config;
 
         self.inner.fcr.modify(|_, w| {
             if let Some(prescaler) = prescaler {
-                unsafe { w.ps().bits(prescaler as u8); }
+                unsafe {
+                    w.ps().bits(prescaler as u8);
+                }
             }
             if let Some(div) = divider {
-                unsafe { w.div().bits(div as u8); }
+                unsafe {
+                    w.div().bits(div as u8);
+                }
             }
             if let Some(blink) = blink_mode {
-                unsafe { w.blink().bits(blink as u8); }
+                unsafe {
+                    w.blink().bits(blink as u8);
+                }
             }
             if let Some(blinkf) = blink_freq {
-                unsafe { w.blinkf().bits(blinkf as u8); }
+                unsafe {
+                    w.blinkf().bits(blinkf as u8);
+                }
             }
             if let Some(contrast) = contrast {
-                unsafe { w.cc().bits(contrast as u8); }
+                unsafe {
+                    w.cc().bits(contrast as u8);
+                }
             }
             if let Some(dead) = dead_time {
-                unsafe { w.dead().bits(dead as u8); }
+                unsafe {
+                    w.dead().bits(dead as u8);
+                }
             }
             if let Some(pulse) = pulse_duration {
-                unsafe { w.pon().bits(pulse as u8); }
+                unsafe {
+                    w.pon().bits(pulse as u8);
+                }
             }
             match high_drive {
                 Some(config::HighDrive::On) => w.hd().set_bit(),
                 Some(config::HighDrive::Off) => w.hd().clear_bit(),
-                _ => w
+                _ => w,
             }
         });
 
-        //Wait for FCR to sync
+        // Wait for FCR to sync
         while self.inner.sr.read().fcrsf().bit_is_clear() {}
 
         self.inner.cr.modify(|_, w| {
             if let Some(bias) = bias {
-                unsafe { w.bias().bits(bias as u8); }
+                unsafe {
+                    w.bias().bits(bias as u8);
+                }
             }
             if let Some(duty) = duty {
-                unsafe { w.duty().bits(duty as u8); }
+                unsafe {
+                    w.duty().bits(duty as u8);
+                }
             }
             match voltage_source {
                 Some(config::VoltageSource::Internal) => w.vsel().set_bit(),
                 Some(config::VoltageSource::External) => w.vsel().clear_bit(),
-                _ => w
+                _ => w,
             };
             match mux_segment {
                 Some(config::MuxSegment::On) => w.mux_seg().set_bit(),
                 Some(config::MuxSegment::Off) => w.mux_seg().clear_bit(),
-                _ => w
+                _ => w,
             }
         });
     }
 
     #[inline]
-    ///Resets LCD's RAM.
+    /// Resets LCD's RAM.
     ///
-    ///To have effect user must request update.
+    /// To have effect user must request update.
     pub fn reset_ram(&mut self) {
         self.inner.ram_com0.reset();
         self.inner.ram_com1.reset();
@@ -226,24 +247,24 @@ impl LCD {
     }
 
     #[inline]
-    ///Requests to transfer written data to buffer by setting SR's UDR bit
+    /// Requests to transfer written data to buffer by setting SR's UDR bit
     ///
-    ///Note: Once set, it can be cleared only by hardware
-    ///In addition to that until value is cleared, RAM is write-protected.
+    /// Note: Once set, it can be cleared only by hardware
+    /// In addition to that until value is cleared, RAM is write-protected.
     ///
-    ///No update can occur until display shall be enabled.
+    /// No update can occur until display shall be enabled.
     pub fn update_request(&mut self) {
         self.inner.sr.modify(|_, w| w.udr().set_bit())
     }
 
     #[inline]
-    ///Turns LCD on by setting CR's EN bit
+    /// Turns LCD on by setting CR's EN bit
     pub fn on(&mut self) {
         self.inner.cr.modify(|_, w| w.lcden().set_bit())
     }
 
     #[inline]
-    ///Turns LCD off by clearing CR's EN bit
+    /// Turns LCD off by clearing CR's EN bit
     pub fn off(&mut self) {
         self.inner.cr.modify(|_, w| w.lcden().clear_bit())
     }
@@ -270,9 +291,9 @@ impl LCD {
     }
 
     pub fn into_raw(mut self) -> stm32l4x6::LCD {
-        //We cannot move out of value that implements Drop
-        //so let's trick it and since underlying LCD doesn't implement Drop it is safe.
-        let mut result = unsafe { mem::uninitialized::<stm32l4x6::LCD>()};
+        // We cannot move out of value that implements Drop
+        // so let's trick it and since underlying LCD doesn't implement Drop it is safe.
+        let mut result = unsafe { mem::uninitialized::<stm32l4x6::LCD>() };
         mem::swap(&mut result, &mut self.inner);
         mem::forget(self);
 
@@ -292,7 +313,7 @@ mod tests {
     pub fn calculate_frame_rate() {
         use super::config;
 
-        //Reference manual Ch. 25.3.2 Table 160
+        // Reference manual Ch. 25.3.2 Table 160
         let frame_rate = super::calculate_frame_rate(32_768, config::Prescaler::PS_8 as u32, config::Divider::DIV_17 as u32, config::Duty::OneTo8 as u8);
         assert_eq!(frame_rate, 30);
         let frame_rate = super::calculate_frame_rate(32_768, 4, 1, config::Duty::OneTo4 as u8);
