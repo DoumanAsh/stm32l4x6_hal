@@ -6,7 +6,7 @@
 //! use stm32l4x6_hal::gpio::stm32l496ag::gpio;
 //! ```
 
-use ::stm32l4x6;
+use stm32l4x6;
 
 use super::*;
 
@@ -20,8 +20,8 @@ impl_parts!(
 
 /// Description of GPIOs and PINs
 pub mod gpio {
-    use super::*;
     pub use super::super::*;
+    use super::*;
 
     impl_gpio!(D, GPIOD, gpioden, gpiodrst,
                AFRL: [PD0, 0; PD1, 1; PD2, 2; PD3, 3; PD4, 4; PD5, 5; PD6, 6; PD7, 7;],

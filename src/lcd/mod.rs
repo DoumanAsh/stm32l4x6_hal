@@ -8,9 +8,9 @@ use ::power::{
 use ::rcc::{
     BDCR,
     AHB,
-    APB1,
-    RtcClockType
+    APB1
 };
+use rcc::clocking::RtcClkSource;
 
 use ::mem;
 
@@ -73,7 +73,7 @@ impl LCD {
         pwr.remove_bdp();
         //TODO: Reset BDCR to change clock?
         bdcr.lse_enable(true);
-        bdcr.set_rtc_clock(RtcClockType::LSE);
+        bdcr.set_rtc_clock(RtcClkSource::LSE);
 
         //Turn LCD's clock
         apb1.enr1().modify(|_, w| w.lcden().set_bit());
@@ -120,11 +120,9 @@ impl LCD {
     ///
     ///HSE clock is not supported yet...
     pub fn validate(lcd: &mut stm32l4x6::LCD, bdcr: &mut BDCR, configuration: &config::Config) -> ValidationResult {
-        let clock_frequency: u32 = match bdcr.rtc_clock() {
-            RtcClockType::None => return ValidationResult::ClockNotSet,
-            RtcClockType::LSE => 32_000,
-            RtcClockType::LSI => 32_768,
-            RtcClockType::HSE => panic!("HSE clock is not supported yet")
+        let clock_frequency: u32 = match bdcr.rtc_clock().freq(None) {
+            Some(f) => f,
+            None => return ValidationResult::ClockNotSet,
         };
 
         let ps = configuration.prescaler.as_ref().map(|val| *val as u8).unwrap_or(lcd.fcr.read().ps().bits()) as u32;

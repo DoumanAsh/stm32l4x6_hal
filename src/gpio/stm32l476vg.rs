@@ -6,7 +6,7 @@
 //! use stm32l4x6_hal::gpio::stm32l476vg::gpio;
 //! ```
 
-use ::stm32l4x6;
+use stm32l4x6;
 
 use super::*;
 
@@ -18,8 +18,8 @@ impl_parts!(
 
 /// Description of GPIOs and PINs
 pub mod gpio {
-    use super::*;
     pub use super::super::*;
+    use super::*;
 
     impl_gpio!(D, GPIOD, gpioden, gpiodrst,
                AFRL: [PD0, 0; PD1, 1; PD2, 2; PD3, 3; PD4, 4; PD5, 5; PD6, 6; PD7, 7;],
@@ -36,25 +36,28 @@ pub mod gpio {
 
 /// Description of LEDs
 pub mod led {
-    use super::{
-        gpio,
-        Output,
-        PushPull,
-        Led
-    };
+    use super::{gpio, Led, Output, PushPull};
 
     define_led!(
         ///User LED with Red color.
-        Led4, gpio::PB2<Output<PushPull>>);
+        Led4,
+        gpio::PB2<Output<PushPull>>
+    );
 
     define_led!(
         ///User LED with Green color.
-        Led5, gpio::PE8<Output<PushPull>>);
+        Led5,
+        gpio::PE8<Output<PushPull>>
+    );
 
     ///Retrieve all LEDs
     pub fn leds(mut gpio_b: gpio::B, mut gpio_e: gpio::E) -> (Led4, Led5) {
-        let led4 = gpio_b.PB2.into_push_pull_output(&mut gpio_b.moder, &mut gpio_b.otyper);
-        let led5 = gpio_e.PE8.into_push_pull_output(&mut gpio_e.moder, &mut gpio_e.otyper);
+        let led4 = gpio_b
+            .PB2
+            .into_push_pull_output(&mut gpio_b.moder, &mut gpio_b.otyper);
+        let led5 = gpio_e
+            .PE8
+            .into_push_pull_output(&mut gpio_e.moder, &mut gpio_e.otyper);
 
         (Led4::new(led4), Led5::new(led5))
     }
