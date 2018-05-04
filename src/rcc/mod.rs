@@ -34,6 +34,7 @@ impl Constrain<Rcc> for RCC {
             apb1: APB1(()),
             apb2: APB2(()),
             bdcr: BDCR(()),
+            ccipr: CCIPR(()),
             csr: CSR(()),
             cfgr: CFGR {
                 hclk: None,
@@ -41,6 +42,7 @@ impl Constrain<Rcc> for RCC {
                 pclk2: None,
                 sysclk: clocking::SysClkSource::MSI(clocking::MediumSpeedInternalRC::new(4_000_000, false)),
             },
+            icscr: ICSCR(()),
         }
     }
 }
@@ -55,10 +57,14 @@ pub struct Rcc {
     pub apb2: APB2,
     /// Backup domain registers.
     pub bdcr: BDCR,
-    /// Control/status register.
-    pub csr: CSR,
+    /// Peripherals independent clock configuration register
+    pub ccipr: CCIPR,
     /// HW clock configuration.
     pub cfgr: CFGR,
+    /// Control/status register.
+    pub csr: CSR,
+    /// Internal clock sources calibration register
+    pub icscr: ICSCR,
 }
 
 /// AHB 1-3 register access
@@ -190,7 +196,29 @@ impl BDCR {
     }
 }
 
-/// Control/Status Register
+///Peripherals independent clock configuration register
+///
+///See Reference Manual 6.4.28
+pub struct CCIPR(());
+impl CCIPR {
+    #[inline]
+    pub fn inner(&mut self) -> &rcc::CCIPR {
+        unsafe { &(*RCC::ptr()).ccipr }
+    }
+}
+
+///Internal clock sources calibration register
+///
+///See Reference Manual 6.4.2
+pub struct ICSCR(());
+impl ICSCR {
+    #[inline]
+    pub fn inner(&mut self) -> &rcc::ICSCR {
+        unsafe { &(*RCC::ptr()).icscr }
+    }
+}
+
+///Control/Status Register
 ///
 /// See Reference manual Ch. 6.4.29
 pub struct CSR(());
@@ -259,9 +287,8 @@ impl CFGR {
             if let clocking::PLLClkSource::None = s.src {
                 panic!("PLL must have input clock to drive SYSCLK");
             }
-        } else {
-            self.sysclk = src;
         }
+        self.sysclk = src;
         self
     }
 
