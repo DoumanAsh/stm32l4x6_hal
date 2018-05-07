@@ -273,26 +273,28 @@ macro_rules! impl_pin {
             /// Configures the PIN to operate as Input Pin according to Mode.
             pub fn into_input<Mode: InputMode>(self, moder: &mut MODER<$GPIOX>, pupdr: &mut PUPDR<$GPIOX>) -> $PXi<Input<Mode>> {
                 moder.moder().modify(|r, w| unsafe { w.bits(r.bits() & !(0b11 << Self::OFFSET)) });
-                pupdr.pupdr()
-                     .modify(|r, w| unsafe { w.bits(Mode::modify_pupdr_bits(r.bits(), Self::OFFSET)) });
+                pupdr.pupdr().modify(|r, w| unsafe { w.bits(Mode::modify_pupdr_bits(r.bits(), Self::OFFSET)) });
 
                 $PXi(PhantomData)
             }
 
             /// Configures the PIN to operate as Output Pin according to Mode.
             pub fn into_output<Mode: OutputMode>(self, moder: &mut MODER<$GPIOX>, otyper: &mut OTYPER<$GPIOX>) -> $PXi<Output<Mode>> {
-                moder.moder()
-                     .modify(|r, w| unsafe { w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b01 << Self::OFFSET)) });
-                otyper.otyper().modify(|r, w| unsafe { w.bits(Mode::modify_otyper_bits(r.bits(), $i))});
+                moder
+                    .moder()
+                    .modify(|r, w| unsafe { w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b01 << Self::OFFSET)) });
+                otyper.otyper().modify(|r, w| unsafe { w.bits(Mode::modify_otyper_bits(r.bits(), $i)) });
 
                 $PXi(PhantomData)
             }
 
             /// Configures the PIN to operate as Alternate Function.
             pub fn into_alt_fun<AF: AltFun>(self, moder: &mut MODER<$GPIOX>, afr: &mut $AFR<$GPIOX>) -> $PXi<AF> {
-                moder.moder()
-                     .modify(|r, w| unsafe { w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b10 << Self::OFFSET)) });
-                afr.afr().modify(|r, w| unsafe { w.bits((r.bits() & !(0b1111 << Self::OFFSET)) | (AF::NUM << Self::OFFSET)) });
+                moder
+                    .moder()
+                    .modify(|r, w| unsafe { w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b10 << Self::OFFSET)) });
+                afr.afr()
+                    .modify(|r, w| unsafe { w.bits((r.bits() & !(0b1111 << Self::OFFSET)) | (AF::NUM << Self::OFFSET)) });
 
                 $PXi(PhantomData)
             }
