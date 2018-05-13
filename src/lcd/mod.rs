@@ -62,6 +62,7 @@ impl LCD {
             w.gpiocen().set_bit();
             w.gpioden().set_bit()
         });
+        // TODO: find out which pins exactly to configure
 
         // Configures RTC clock
         pwr.remove_bdp();
