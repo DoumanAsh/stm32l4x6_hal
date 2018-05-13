@@ -8,7 +8,11 @@
 use marker::PhantomData;
 use ops::Deref;
 
-use hal::digital::OutputPin;
+use hal::digital::{
+    OutputPin,
+    StatefulOutputPin,
+    toggleable
+};
 
 use stm32l4x6;
 
@@ -263,17 +267,6 @@ macro_rules! impl_pin {
         }
 
         impl<MODE> OutputPin for $PXi<Output<MODE>> {
-            /// Returns whether high bit is set.
-            fn is_high(&self) -> bool {
-                !self.is_low()
-            }
-
-            /// Returns whether low bit is set.
-            fn is_low(&self) -> bool {
-                // NOTE(unsafe) atomic read with no side effects
-                unsafe { (*$GPIOX::ptr()).odr.read().bits() & (1 << $i) == 0 }
-            }
-
             /// Sets high bit.
             fn set_high(&mut self) {
                 // NOTE(unsafe) atomic write to a stateless register
@@ -284,6 +277,19 @@ macro_rules! impl_pin {
             fn set_low(&mut self) {
                 // NOTE(unsafe) atomic write to a stateless register
                 unsafe { (*$GPIOX::ptr()).bsrr.write(|w| w.bits(1 << (16 + $i))) }
+            }
+        }
+
+        impl<MODE> StatefulOutputPin for $PXi<Output<MODE>> {
+            /// Returns whether high bit is set.
+            fn is_set_high(&self) -> bool {
+                !self.is_set_low()
+            }
+
+            /// Returns whether low bit is set.
+            fn is_set_low(&self) -> bool {
+                // NOTE(unsafe) atomic read with no side effects
+                unsafe { (*$GPIOX::ptr()).odr.read().bits() & (1 << $i) == 0 }
             }
         }
     };
@@ -299,7 +305,7 @@ macro_rules! impl_pins {
 
 /// Generic LED
 pub struct Led<PIN>(PIN);
-impl<PIN: OutputPin> Led<PIN> {
+impl<PIN: OutputPin + StatefulOutputPin> Led<PIN> {
     #[inline]
     /// Turns LED off.
     pub fn off(&mut self) {
@@ -308,7 +314,7 @@ impl<PIN: OutputPin> Led<PIN> {
     #[inline]
     /// Checks whether LED is off
     pub fn is_off(&mut self) -> bool {
-        self.0.is_low()
+        self.0.is_set_low()
     }
     #[inline]
     /// Turns LED on.
@@ -318,9 +324,33 @@ impl<PIN: OutputPin> Led<PIN> {
     #[inline]
     /// Checks whether LED is on
     pub fn is_on(&mut self) -> bool {
-        self.0.is_high()
+        self.0.is_set_high()
     }
 }
+
+impl<PIN: OutputPin> OutputPin for Led<PIN> {
+    #[inline]
+    fn set_high(&mut self) {
+        self.0.set_high();
+    }
+    #[inline]
+    fn set_low(&mut self) {
+        self.0.set_low();
+    }
+}
+
+impl<PIN: StatefulOutputPin> StatefulOutputPin for Led<PIN> {
+    #[inline]
+    fn is_set_high(&self) -> bool {
+        self.0.is_set_high()
+    }
+    #[inline]
+    fn is_set_low(&self) -> bool {
+        self.0.is_set_low()
+    }
+}
+
+impl<PIN: OutputPin + StatefulOutputPin> toggleable::Default for Led<PIN> {}
 
 impl<PIN> Deref for Led<PIN> {
     type Target = PIN;

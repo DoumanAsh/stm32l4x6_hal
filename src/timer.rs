@@ -1,4 +1,7 @@
 //! Hardware Timers
+extern crate void;
+
+use self::void::Void;
 use cortex_m::peripheral::syst::SystClkSource;
 use cortex_m::peripheral::SYST;
 use hal::timer::{CountDown, Periodic};
@@ -77,7 +80,7 @@ impl CountDown for Timer<SYST> {
         self.tim.enable_counter();
     }
 
-    fn wait(&mut self) -> nb::Result<(), !> {
+    fn wait(&mut self) -> nb::Result<(), Void> {
         match self.tim.has_wrapped() {
             true => Ok(()),
             false => Err(nb::Error::WouldBlock),
@@ -180,7 +183,7 @@ macro_rules! impl_timer {
                     self.tim.cr1.modify(|_, w| w.cen().set_bit());
                 }
 
-                 fn wait(&mut self) -> nb::Result<(), !> {
+                 fn wait(&mut self) -> nb::Result<(), Void> {
                      match self.tim.sr.read().uif().bit_is_clear() {
                          true => Err(nb::Error::WouldBlock),
                          false => {
