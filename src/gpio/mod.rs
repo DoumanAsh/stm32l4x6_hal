@@ -291,11 +291,11 @@ macro_rules! impl_pin {
             /// Configures the PIN to operate as Alternate Function.
             pub fn into_alt_fun<AF: AltFun>(self, moder: &mut MODER<$GPIOX>, afr: &mut $AFR<$GPIOX>) -> $PXi<AF> {
                 // AFRx pin fields are 4 bits wide, and each 8-pin bank has its own reg (L or H); e.g. pin 8's offset is _0_, within AFRH.
-                let afr_offset = ($i % 8) * 4;
+                const AFR_OFFSET: usize = ($i % 8) * 4;
                 moder
                     .moder()
                     .modify(|r, w| unsafe { w.bits((r.bits() & !(0b11 << Self::OFFSET)) | (0b10 << Self::OFFSET)) });
-                afr.afr().modify(|r, w| unsafe { w.bits((r.bits() & !(0b1111 << afr_offset)) | (AF::NUM << afr_offset)) });
+                afr.afr().modify(|r, w| unsafe { w.bits((r.bits() & !(0b1111 << AFR_OFFSET)) | (AF::NUM << AFR_OFFSET)) });
 
                 $PXi(PhantomData)
             }
