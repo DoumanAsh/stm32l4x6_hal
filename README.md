@@ -6,3 +6,9 @@
 
 HAL for STM32L4x6 family of microcontrollers.
 
+## Documentation
+
+There is separate set of docs that include board specific modules
+
+* [STM32L476VG](https://doumanash.github.io/stm32l4x6_hal/STM32L476VG/stm32l4x6_hal/)
+* [STM32L496AG](https://doumanash.github.io/stm32l4x6_hal/STM32L496AG/stm32l4x6_hal/)

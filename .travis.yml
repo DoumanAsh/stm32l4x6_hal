@@ -21,7 +21,9 @@ script:
   - cargo check --target $TARGET --features STM32L476VG
   - cargo check --target $TARGET --features STM32L496AG
 
-after_script: set +e
+after_script:
+  - sh ci/build_docs.sh
+  - set +e
 
 before_cache:
   # Travis can't cache files that are not readable by "others"
