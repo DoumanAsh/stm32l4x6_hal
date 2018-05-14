@@ -4,8 +4,13 @@ if [ $TARGET != thumbv7em-none-eabihf ]; then
     exit 0
 fi
 
-if [ $TRAVIS_BRANCH != master -o $TRAVIS_PULL_REQUEST = true ]; then
+if [ $TRAVIS_BRANCH != master ]; then
     echo "Skip since not master branch build"
+    exit 0
+fi
+
+if [ $TRAVIS_PULL_REQUEST != false ]; then
+    echo "Skip PR"
     exit 0
 fi
 
