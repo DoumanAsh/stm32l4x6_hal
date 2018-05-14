@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["PCROP2_ENDR","Value of the field"],["R","Value read from the register"],["W","Value to write to the register"],["_PCROP2_ENDW","Proxy"]]});

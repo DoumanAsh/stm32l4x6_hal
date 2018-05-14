@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `pwr` mod in crate `stm32l4x6`."><meta name="keywords" content="rust, rustlang, rust-lang, pwr"><title>stm32l4x6::pwr - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Module pwr</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li></ul></div><p class='location'><a href='../index.html'>stm32l4x6</a></p><script>window.sidebarCurrent = {name: 'pwr', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>stm32l4x6</a>::<wbr><a class="mod" href=''>pwr</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/stm32l4x6/lib.rs.html#76275-93462' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>Power control</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="cr1/index.html"
+                                  title='mod stm32l4x6::pwr::cr1'>cr1</a></td>
+                           <td class='docblock-short'>
+                                <p>Power control register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="cr2/index.html"
+                                  title='mod stm32l4x6::pwr::cr2'>cr2</a></td>
+                           <td class='docblock-short'>
+                                <p>Power control register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="cr3/index.html"
+                                  title='mod stm32l4x6::pwr::cr3'>cr3</a></td>
+                           <td class='docblock-short'>
+                                <p>Power control register 3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="cr4/index.html"
+                                  title='mod stm32l4x6::pwr::cr4'>cr4</a></td>
+                           <td class='docblock-short'>
+                                <p>Power control register 4</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pdcra/index.html"
+                                  title='mod stm32l4x6::pwr::pdcra'>pdcra</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port A pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pdcrb/index.html"
+                                  title='mod stm32l4x6::pwr::pdcrb'>pdcrb</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port B pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pdcrc/index.html"
+                                  title='mod stm32l4x6::pwr::pdcrc'>pdcrc</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port C pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pdcrd/index.html"
+                                  title='mod stm32l4x6::pwr::pdcrd'>pdcrd</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port D pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pdcre/index.html"
+                                  title='mod stm32l4x6::pwr::pdcre'>pdcre</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port E pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pdcrf/index.html"
+                                  title='mod stm32l4x6::pwr::pdcrf'>pdcrf</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port F pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pdcrg/index.html"
+                                  title='mod stm32l4x6::pwr::pdcrg'>pdcrg</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port G pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pdcrh/index.html"
+                                  title='mod stm32l4x6::pwr::pdcrh'>pdcrh</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port H pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pucra/index.html"
+                                  title='mod stm32l4x6::pwr::pucra'>pucra</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port A pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pucrb/index.html"
+                                  title='mod stm32l4x6::pwr::pucrb'>pucrb</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port B pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pucrc/index.html"
+                                  title='mod stm32l4x6::pwr::pucrc'>pucrc</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port C pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pucrd/index.html"
+                                  title='mod stm32l4x6::pwr::pucrd'>pucrd</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port D pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pucre/index.html"
+                                  title='mod stm32l4x6::pwr::pucre'>pucre</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port E pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pucrf/index.html"
+                                  title='mod stm32l4x6::pwr::pucrf'>pucrf</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port F pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pucrg/index.html"
+                                  title='mod stm32l4x6::pwr::pucrg'>pucrg</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port G pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pucrh/index.html"
+                                  title='mod stm32l4x6::pwr::pucrh'>pucrh</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port H pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="scr/index.html"
+                                  title='mod stm32l4x6::pwr::scr'>scr</a></td>
+                           <td class='docblock-short'>
+                                <p>Power status clear register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="sr1/index.html"
+                                  title='mod stm32l4x6::pwr::sr1'>sr1</a></td>
+                           <td class='docblock-short'>
+                                <p>Power status register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="sr2/index.html"
+                                  title='mod stm32l4x6::pwr::sr2'>sr2</a></td>
+                           <td class='docblock-short'>
+                                <p>Power status register 2</p>
+
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CR1.html"
+                                  title='struct stm32l4x6::pwr::CR1'>CR1</a></td>
+                           <td class='docblock-short'>
+                                <p>Power control register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CR2.html"
+                                  title='struct stm32l4x6::pwr::CR2'>CR2</a></td>
+                           <td class='docblock-short'>
+                                <p>Power control register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CR3.html"
+                                  title='struct stm32l4x6::pwr::CR3'>CR3</a></td>
+                           <td class='docblock-short'>
+                                <p>Power control register 3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CR4.html"
+                                  title='struct stm32l4x6::pwr::CR4'>CR4</a></td>
+                           <td class='docblock-short'>
+                                <p>Power control register 4</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PDCRA.html"
+                                  title='struct stm32l4x6::pwr::PDCRA'>PDCRA</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port A pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PDCRB.html"
+                                  title='struct stm32l4x6::pwr::PDCRB'>PDCRB</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port B pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PDCRC.html"
+                                  title='struct stm32l4x6::pwr::PDCRC'>PDCRC</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port C pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PDCRD.html"
+                                  title='struct stm32l4x6::pwr::PDCRD'>PDCRD</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port D pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PDCRE.html"
+                                  title='struct stm32l4x6::pwr::PDCRE'>PDCRE</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port E pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PDCRF.html"
+                                  title='struct stm32l4x6::pwr::PDCRF'>PDCRF</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port F pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PDCRG.html"
+                                  title='struct stm32l4x6::pwr::PDCRG'>PDCRG</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port G pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PDCRH.html"
+                                  title='struct stm32l4x6::pwr::PDCRH'>PDCRH</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port H pull-down control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PUCRA.html"
+                                  title='struct stm32l4x6::pwr::PUCRA'>PUCRA</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port A pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PUCRB.html"
+                                  title='struct stm32l4x6::pwr::PUCRB'>PUCRB</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port B pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PUCRC.html"
+                                  title='struct stm32l4x6::pwr::PUCRC'>PUCRC</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port C pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PUCRD.html"
+                                  title='struct stm32l4x6::pwr::PUCRD'>PUCRD</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port D pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PUCRE.html"
+                                  title='struct stm32l4x6::pwr::PUCRE'>PUCRE</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port E pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PUCRF.html"
+                                  title='struct stm32l4x6::pwr::PUCRF'>PUCRF</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port F pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PUCRG.html"
+                                  title='struct stm32l4x6::pwr::PUCRG'>PUCRG</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port G pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PUCRH.html"
+                                  title='struct stm32l4x6::pwr::PUCRH'>PUCRH</a></td>
+                           <td class='docblock-short'>
+                                <p>Power Port H pull-up control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RegisterBlock.html"
+                                  title='struct stm32l4x6::pwr::RegisterBlock'>RegisterBlock</a></td>
+                           <td class='docblock-short'>
+                                <p>Register block</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SCR.html"
+                                  title='struct stm32l4x6::pwr::SCR'>SCR</a></td>
+                           <td class='docblock-short'>
+                                <p>Power status clear register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SR1.html"
+                                  title='struct stm32l4x6::pwr::SR1'>SR1</a></td>
+                           <td class='docblock-short'>
+                                <p>Power status register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SR2.html"
+                                  title='struct stm32l4x6::pwr::SR2'>SR2</a></td>
+                           <td class='docblock-short'>
+                                <p>Power status register 2</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "stm32l4x6";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

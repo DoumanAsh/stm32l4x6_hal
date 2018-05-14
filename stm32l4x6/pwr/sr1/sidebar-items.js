@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CSBFR","Value of the field"],["CWUF1R","Value of the field"],["CWUF2R","Value of the field"],["CWUF3R","Value of the field"],["CWUF4R","Value of the field"],["CWUF5R","Value of the field"],["R","Value read from the register"],["WUFIR","Value of the field"]]});

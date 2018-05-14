@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CRCENR","Value of the field"],["DMA1ENR","Value of the field"],["DMA2ENR","Value of the field"],["FLASHENR","Value of the field"],["R","Value read from the register"],["TSCENR","Value of the field"],["W","Value to write to the register"],["_CRCENW","Proxy"],["_DMA1ENW","Proxy"],["_DMA2ENW","Proxy"],["_FLASHENW","Proxy"],["_TSCENW","Proxy"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DIFSEL_16_18R","Value of the field"],["DIFSEL_1_15R","Value of the field"],["R","Value read from the register"],["W","Value to write to the register"],["_DIFSEL_1_15W","Proxy"]]});

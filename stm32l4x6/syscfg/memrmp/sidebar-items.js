@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FB_MODER","Value of the field"],["MEM_MODER","Value of the field"],["QFSR","Value of the field"],["R","Value read from the register"],["W","Value to write to the register"],["_FB_MODEW","Proxy"],["_MEM_MODEW","Proxy"],["_QFSW","Proxy"]]});

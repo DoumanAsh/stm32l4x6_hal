@@ -1,0 +1,684 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `gpio` mod in crate `stm32l4x6_hal`."><meta name="keywords" content="rust, rustlang, rust-lang, gpio"><title>stm32l4x6_hal::gpio - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Module gpio</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>stm32l4x6_hal</a></p><script>window.sidebarCurrent = {name: 'gpio', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>stm32l4x6_hal</a>::<wbr><a class="mod" href=''>gpio</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/stm32l4x6_hal/gpio/mod.rs.html#1-459' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>General Purpose Input / Output</p>
+<p>This module provides common GPIO definitions that are available on all STM32L4x6 packages. By
+enabling features, you can use definitions for specific chips which may include additional
+GPIO lines. In that case, you will probably not want to <code>use</code> this module directly, but instead
+use it re-exported by the chip module.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="stm32l476vg/index.html"
+                                  title='mod stm32l4x6_hal::gpio::stm32l476vg'>stm32l476vg</a></td>
+                           <td class='docblock-short'>
+                                <p>GPIO specific to STM32L476VG</p>
+
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.A.html"
+                                  title='struct stm32l4x6_hal::gpio::A'>A</a></td>
+                           <td class='docblock-short'>
+                                <p>GPIO</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF0.html"
+                                  title='struct stm32l4x6_hal::gpio::AF0'>AF0</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 0 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF1.html"
+                                  title='struct stm32l4x6_hal::gpio::AF1'>AF1</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 1 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF2.html"
+                                  title='struct stm32l4x6_hal::gpio::AF2'>AF2</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 2 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF3.html"
+                                  title='struct stm32l4x6_hal::gpio::AF3'>AF3</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 3 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF4.html"
+                                  title='struct stm32l4x6_hal::gpio::AF4'>AF4</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 4 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF5.html"
+                                  title='struct stm32l4x6_hal::gpio::AF5'>AF5</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 5 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF6.html"
+                                  title='struct stm32l4x6_hal::gpio::AF6'>AF6</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 6 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF7.html"
+                                  title='struct stm32l4x6_hal::gpio::AF7'>AF7</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 7 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF8.html"
+                                  title='struct stm32l4x6_hal::gpio::AF8'>AF8</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 8 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF9.html"
+                                  title='struct stm32l4x6_hal::gpio::AF9'>AF9</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 9 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF10.html"
+                                  title='struct stm32l4x6_hal::gpio::AF10'>AF10</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 10 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF11.html"
+                                  title='struct stm32l4x6_hal::gpio::AF11'>AF11</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 11 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF12.html"
+                                  title='struct stm32l4x6_hal::gpio::AF12'>AF12</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 12 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF13.html"
+                                  title='struct stm32l4x6_hal::gpio::AF13'>AF13</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 13 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF14.html"
+                                  title='struct stm32l4x6_hal::gpio::AF14'>AF14</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 14 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AF15.html"
+                                  title='struct stm32l4x6_hal::gpio::AF15'>AF15</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate function 15 (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AFRH.html"
+                                  title='struct stm32l4x6_hal::gpio::AFRH'>AFRH</a></td>
+                           <td class='docblock-short'>
+                                <p>Opaque AFRH register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AFRL.html"
+                                  title='struct stm32l4x6_hal::gpio::AFRL'>AFRL</a></td>
+                           <td class='docblock-short'>
+                                <p>Opaque AFRL register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.B.html"
+                                  title='struct stm32l4x6_hal::gpio::B'>B</a></td>
+                           <td class='docblock-short'>
+                                <p>GPIO</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.C.html"
+                                  title='struct stm32l4x6_hal::gpio::C'>C</a></td>
+                           <td class='docblock-short'>
+                                <p>GPIO</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Floating.html"
+                                  title='struct stm32l4x6_hal::gpio::Floating'>Floating</a></td>
+                           <td class='docblock-short'>
+                                <p>Floating input (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Input.html"
+                                  title='struct stm32l4x6_hal::gpio::Input'>Input</a></td>
+                           <td class='docblock-short'>
+                                <p>Input mode (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Led.html"
+                                  title='struct stm32l4x6_hal::gpio::Led'>Led</a></td>
+                           <td class='docblock-short'>
+                                <p>Generic LED</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MODER.html"
+                                  title='struct stm32l4x6_hal::gpio::MODER'>MODER</a></td>
+                           <td class='docblock-short'>
+                                <p>Opaque MODER register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OTYPER.html"
+                                  title='struct stm32l4x6_hal::gpio::OTYPER'>OTYPER</a></td>
+                           <td class='docblock-short'>
+                                <p>Opaque OTYPER register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OpenDrain.html"
+                                  title='struct stm32l4x6_hal::gpio::OpenDrain'>OpenDrain</a></td>
+                           <td class='docblock-short'>
+                                <p>Open drain output (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Output.html"
+                                  title='struct stm32l4x6_hal::gpio::Output'>Output</a></td>
+                           <td class='docblock-short'>
+                                <p>Output mode (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA0.html"
+                                  title='struct stm32l4x6_hal::gpio::PA0'>PA0</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA1.html"
+                                  title='struct stm32l4x6_hal::gpio::PA1'>PA1</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA2.html"
+                                  title='struct stm32l4x6_hal::gpio::PA2'>PA2</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA3.html"
+                                  title='struct stm32l4x6_hal::gpio::PA3'>PA3</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA4.html"
+                                  title='struct stm32l4x6_hal::gpio::PA4'>PA4</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA5.html"
+                                  title='struct stm32l4x6_hal::gpio::PA5'>PA5</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA6.html"
+                                  title='struct stm32l4x6_hal::gpio::PA6'>PA6</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA7.html"
+                                  title='struct stm32l4x6_hal::gpio::PA7'>PA7</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA8.html"
+                                  title='struct stm32l4x6_hal::gpio::PA8'>PA8</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA9.html"
+                                  title='struct stm32l4x6_hal::gpio::PA9'>PA9</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA10.html"
+                                  title='struct stm32l4x6_hal::gpio::PA10'>PA10</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA11.html"
+                                  title='struct stm32l4x6_hal::gpio::PA11'>PA11</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA12.html"
+                                  title='struct stm32l4x6_hal::gpio::PA12'>PA12</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA13.html"
+                                  title='struct stm32l4x6_hal::gpio::PA13'>PA13</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA14.html"
+                                  title='struct stm32l4x6_hal::gpio::PA14'>PA14</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PA15.html"
+                                  title='struct stm32l4x6_hal::gpio::PA15'>PA15</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB0.html"
+                                  title='struct stm32l4x6_hal::gpio::PB0'>PB0</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB1.html"
+                                  title='struct stm32l4x6_hal::gpio::PB1'>PB1</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB2.html"
+                                  title='struct stm32l4x6_hal::gpio::PB2'>PB2</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB3.html"
+                                  title='struct stm32l4x6_hal::gpio::PB3'>PB3</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB4.html"
+                                  title='struct stm32l4x6_hal::gpio::PB4'>PB4</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB5.html"
+                                  title='struct stm32l4x6_hal::gpio::PB5'>PB5</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB6.html"
+                                  title='struct stm32l4x6_hal::gpio::PB6'>PB6</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB7.html"
+                                  title='struct stm32l4x6_hal::gpio::PB7'>PB7</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB8.html"
+                                  title='struct stm32l4x6_hal::gpio::PB8'>PB8</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB9.html"
+                                  title='struct stm32l4x6_hal::gpio::PB9'>PB9</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB10.html"
+                                  title='struct stm32l4x6_hal::gpio::PB10'>PB10</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB11.html"
+                                  title='struct stm32l4x6_hal::gpio::PB11'>PB11</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB12.html"
+                                  title='struct stm32l4x6_hal::gpio::PB12'>PB12</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB13.html"
+                                  title='struct stm32l4x6_hal::gpio::PB13'>PB13</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB14.html"
+                                  title='struct stm32l4x6_hal::gpio::PB14'>PB14</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PB15.html"
+                                  title='struct stm32l4x6_hal::gpio::PB15'>PB15</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC0.html"
+                                  title='struct stm32l4x6_hal::gpio::PC0'>PC0</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC1.html"
+                                  title='struct stm32l4x6_hal::gpio::PC1'>PC1</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC2.html"
+                                  title='struct stm32l4x6_hal::gpio::PC2'>PC2</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC3.html"
+                                  title='struct stm32l4x6_hal::gpio::PC3'>PC3</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC4.html"
+                                  title='struct stm32l4x6_hal::gpio::PC4'>PC4</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC5.html"
+                                  title='struct stm32l4x6_hal::gpio::PC5'>PC5</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC6.html"
+                                  title='struct stm32l4x6_hal::gpio::PC6'>PC6</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC7.html"
+                                  title='struct stm32l4x6_hal::gpio::PC7'>PC7</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC8.html"
+                                  title='struct stm32l4x6_hal::gpio::PC8'>PC8</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC9.html"
+                                  title='struct stm32l4x6_hal::gpio::PC9'>PC9</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC10.html"
+                                  title='struct stm32l4x6_hal::gpio::PC10'>PC10</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC11.html"
+                                  title='struct stm32l4x6_hal::gpio::PC11'>PC11</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC12.html"
+                                  title='struct stm32l4x6_hal::gpio::PC12'>PC12</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC13.html"
+                                  title='struct stm32l4x6_hal::gpio::PC13'>PC13</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC14.html"
+                                  title='struct stm32l4x6_hal::gpio::PC14'>PC14</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PC15.html"
+                                  title='struct stm32l4x6_hal::gpio::PC15'>PC15</a></td>
+                           <td class='docblock-short'>
+                                <p>Specific Pin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PUPDR.html"
+                                  title='struct stm32l4x6_hal::gpio::PUPDR'>PUPDR</a></td>
+                           <td class='docblock-short'>
+                                <p>Opaque PUPDR register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PullDown.html"
+                                  title='struct stm32l4x6_hal::gpio::PullDown'>PullDown</a></td>
+                           <td class='docblock-short'>
+                                <p>Pulled down input (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PullUp.html"
+                                  title='struct stm32l4x6_hal::gpio::PullUp'>PullUp</a></td>
+                           <td class='docblock-short'>
+                                <p>Pulled up input (type state)</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PushPull.html"
+                                  title='struct stm32l4x6_hal::gpio::PushPull'>PushPull</a></td>
+                           <td class='docblock-short'>
+                                <p>Push pull output (type state)</p>
+
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.AltFun.html"
+                                  title='trait stm32l4x6_hal::gpio::AltFun'>AltFun</a></td>
+                           <td class='docblock-short'>
+                                <p>Alternate Function Trait
+Implemented only for corresponding structs.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.InputMode.html"
+                                  title='trait stm32l4x6_hal::gpio::InputMode'>InputMode</a></td>
+                           <td class='docblock-short'>
+                                <p>Input Mode Trait
+Implemented only for corresponding structs.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.OutputMode.html"
+                                  title='trait stm32l4x6_hal::gpio::OutputMode'>OutputMode</a></td>
+                           <td class='docblock-short'>
+                                <p>Output Mode Trait
+Implemented only for corresponding structs.</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "stm32l4x6_hal";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

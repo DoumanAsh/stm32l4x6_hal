@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CCFR","Value of the field"],["R","Value read from the register"],["RDERRR","Value of the field"],["WRERRR","Value of the field"]]});

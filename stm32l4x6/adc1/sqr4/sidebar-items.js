@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["R","Value read from the register"],["SQ15R","Value of the field"],["SQ16R","Value of the field"],["W","Value to write to the register"],["_SQ15W","Proxy"],["_SQ16W","Proxy"]]});

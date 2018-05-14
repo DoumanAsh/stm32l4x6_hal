@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FMCRSTR","Value of the field"],["QSPIRSTR","Value of the field"],["R","Value read from the register"],["W","Value to write to the register"],["_FMCRSTW","Proxy"],["_QSPIRSTW","Proxy"]]});

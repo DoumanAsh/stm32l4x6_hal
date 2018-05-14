@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ADDR_ECCR","Value of the field"],["BK_ECCR","Value of the field"],["ECCCR","Value of the field"],["ECCDR","Value of the field"],["ECCIER","Value of the field"],["R","Value read from the register"],["SYSF_ECCR","Value of the field"],["W","Value to write to the register"],["_ECCCW","Proxy"],["_ECCDW","Proxy"],["_ECCIEW","Proxy"]]});

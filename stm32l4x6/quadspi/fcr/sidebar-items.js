@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CSMFR","Value of the field"],["CTCFR","Value of the field"],["CTEFR","Value of the field"],["CTOFR","Value of the field"],["R","Value read from the register"],["W","Value to write to the register"],["_CSMFW","Proxy"],["_CTCFW","Proxy"],["_CTEFW","Proxy"],["_CTOFW","Proxy"]]});

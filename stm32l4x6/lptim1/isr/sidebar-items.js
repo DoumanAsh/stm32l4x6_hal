@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ARRMR","Value of the field"],["ARROKR","Value of the field"],["CMPMR","Value of the field"],["CMPOKR","Value of the field"],["DOWNR","Value of the field"],["EXTTRIGR","Value of the field"],["R","Value read from the register"],["UPR","Value of the field"]]});

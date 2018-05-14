@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CCR5R","Value of the field"],["GC5C1R","Value of the field"],["GC5C2R","Value of the field"],["GC5C3R","Value of the field"],["R","Value read from the register"],["W","Value to write to the register"],["_CCR5W","Proxy"],["_GC5C1W","Proxy"],["_GC5C2W","Proxy"],["_GC5C3W","Proxy"]]});

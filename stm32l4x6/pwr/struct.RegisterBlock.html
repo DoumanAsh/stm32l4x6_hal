@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `RegisterBlock` struct in crate `stm32l4x6`."><meta name="keywords" content="rust, rustlang, rust-lang, RegisterBlock"><title>stm32l4x6::pwr::RegisterBlock - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc struct"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Struct RegisterBlock</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.cr1">cr1</a><a href="#structfield.cr2">cr2</a><a href="#structfield.cr3">cr3</a><a href="#structfield.cr4">cr4</a><a href="#structfield.sr1">sr1</a><a href="#structfield.sr2">sr2</a><a href="#structfield.scr">scr</a><a href="#structfield.pucra">pucra</a><a href="#structfield.pdcra">pdcra</a><a href="#structfield.pucrb">pucrb</a><a href="#structfield.pdcrb">pdcrb</a><a href="#structfield.pucrc">pucrc</a><a href="#structfield.pdcrc">pdcrc</a><a href="#structfield.pucrd">pucrd</a><a href="#structfield.pdcrd">pdcrd</a><a href="#structfield.pucre">pucre</a><a href="#structfield.pdcre">pdcre</a><a href="#structfield.pucrf">pucrf</a><a href="#structfield.pdcrf">pdcrf</a><a href="#structfield.pucrg">pucrg</a><a href="#structfield.pdcrg">pdcrg</a><a href="#structfield.pucrh">pucrh</a><a href="#structfield.pdcrh">pdcrh</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-Send">Send</a><a href="#impl-Sync">!Sync</a></div></div><p class='location'><a href='../index.html'>stm32l4x6</a>::<wbr><a href='index.html'>pwr</a></p><script>window.sidebarCurrent = {name: 'RegisterBlock', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>stm32l4x6</a>::<wbr><a href='index.html'>pwr</a>::<wbr><a class="struct" href=''>RegisterBlock</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/stm32l4x6/lib.rs.html#76279-76327' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust struct'><div class="docblock attributes">#[repr(C)]
+</div>pub struct RegisterBlock {
+    pub cr1: <a class="struct" href="../../stm32l4x6/pwr/struct.CR1.html" title="struct stm32l4x6::pwr::CR1">CR1</a>,
+    pub cr2: <a class="struct" href="../../stm32l4x6/pwr/struct.CR2.html" title="struct stm32l4x6::pwr::CR2">CR2</a>,
+    pub cr3: <a class="struct" href="../../stm32l4x6/pwr/struct.CR3.html" title="struct stm32l4x6::pwr::CR3">CR3</a>,
+    pub cr4: <a class="struct" href="../../stm32l4x6/pwr/struct.CR4.html" title="struct stm32l4x6::pwr::CR4">CR4</a>,
+    pub sr1: <a class="struct" href="../../stm32l4x6/pwr/struct.SR1.html" title="struct stm32l4x6::pwr::SR1">SR1</a>,
+    pub sr2: <a class="struct" href="../../stm32l4x6/pwr/struct.SR2.html" title="struct stm32l4x6::pwr::SR2">SR2</a>,
+    pub scr: <a class="struct" href="../../stm32l4x6/pwr/struct.SCR.html" title="struct stm32l4x6::pwr::SCR">SCR</a>,
+    pub pucra: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRA.html" title="struct stm32l4x6::pwr::PUCRA">PUCRA</a>,
+    pub pdcra: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRA.html" title="struct stm32l4x6::pwr::PDCRA">PDCRA</a>,
+    pub pucrb: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRB.html" title="struct stm32l4x6::pwr::PUCRB">PUCRB</a>,
+    pub pdcrb: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRB.html" title="struct stm32l4x6::pwr::PDCRB">PDCRB</a>,
+    pub pucrc: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRC.html" title="struct stm32l4x6::pwr::PUCRC">PUCRC</a>,
+    pub pdcrc: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRC.html" title="struct stm32l4x6::pwr::PDCRC">PDCRC</a>,
+    pub pucrd: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRD.html" title="struct stm32l4x6::pwr::PUCRD">PUCRD</a>,
+    pub pdcrd: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRD.html" title="struct stm32l4x6::pwr::PDCRD">PDCRD</a>,
+    pub pucre: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRE.html" title="struct stm32l4x6::pwr::PUCRE">PUCRE</a>,
+    pub pdcre: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRE.html" title="struct stm32l4x6::pwr::PDCRE">PDCRE</a>,
+    pub pucrf: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRF.html" title="struct stm32l4x6::pwr::PUCRF">PUCRF</a>,
+    pub pdcrf: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRF.html" title="struct stm32l4x6::pwr::PDCRF">PDCRF</a>,
+    pub pucrg: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRG.html" title="struct stm32l4x6::pwr::PUCRG">PUCRG</a>,
+    pub pdcrg: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRG.html" title="struct stm32l4x6::pwr::PDCRG">PDCRG</a>,
+    pub pucrh: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRH.html" title="struct stm32l4x6::pwr::PUCRH">PUCRH</a>,
+    pub pdcrh: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRH.html" title="struct stm32l4x6::pwr::PDCRH">PDCRH</a>,
+    // some fields omitted
+}</pre></div><div class='docblock'><p>Register block</p>
+</div><h2 id='fields' class='fields small-section-header'>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.cr1" class="structfield small-section-header">
+                           <a href="#structfield.cr1" class="anchor field"></a>
+                           <span id="cr1.v" class='invisible'>
+                           <code>cr1: <a class="struct" href="../../stm32l4x6/pwr/struct.CR1.html" title="struct stm32l4x6::pwr::CR1">CR1</a></code>
+                           </span></span><div class='docblock'><p>0x00 - Power control register 1</p>
+</div><span id="structfield.cr2" class="structfield small-section-header">
+                           <a href="#structfield.cr2" class="anchor field"></a>
+                           <span id="cr2.v" class='invisible'>
+                           <code>cr2: <a class="struct" href="../../stm32l4x6/pwr/struct.CR2.html" title="struct stm32l4x6::pwr::CR2">CR2</a></code>
+                           </span></span><div class='docblock'><p>0x04 - Power control register 2</p>
+</div><span id="structfield.cr3" class="structfield small-section-header">
+                           <a href="#structfield.cr3" class="anchor field"></a>
+                           <span id="cr3.v" class='invisible'>
+                           <code>cr3: <a class="struct" href="../../stm32l4x6/pwr/struct.CR3.html" title="struct stm32l4x6::pwr::CR3">CR3</a></code>
+                           </span></span><div class='docblock'><p>0x08 - Power control register 3</p>
+</div><span id="structfield.cr4" class="structfield small-section-header">
+                           <a href="#structfield.cr4" class="anchor field"></a>
+                           <span id="cr4.v" class='invisible'>
+                           <code>cr4: <a class="struct" href="../../stm32l4x6/pwr/struct.CR4.html" title="struct stm32l4x6::pwr::CR4">CR4</a></code>
+                           </span></span><div class='docblock'><p>0x0c - Power control register 4</p>
+</div><span id="structfield.sr1" class="structfield small-section-header">
+                           <a href="#structfield.sr1" class="anchor field"></a>
+                           <span id="sr1.v" class='invisible'>
+                           <code>sr1: <a class="struct" href="../../stm32l4x6/pwr/struct.SR1.html" title="struct stm32l4x6::pwr::SR1">SR1</a></code>
+                           </span></span><div class='docblock'><p>0x10 - Power status register 1</p>
+</div><span id="structfield.sr2" class="structfield small-section-header">
+                           <a href="#structfield.sr2" class="anchor field"></a>
+                           <span id="sr2.v" class='invisible'>
+                           <code>sr2: <a class="struct" href="../../stm32l4x6/pwr/struct.SR2.html" title="struct stm32l4x6::pwr::SR2">SR2</a></code>
+                           </span></span><div class='docblock'><p>0x14 - Power status register 2</p>
+</div><span id="structfield.scr" class="structfield small-section-header">
+                           <a href="#structfield.scr" class="anchor field"></a>
+                           <span id="scr.v" class='invisible'>
+                           <code>scr: <a class="struct" href="../../stm32l4x6/pwr/struct.SCR.html" title="struct stm32l4x6::pwr::SCR">SCR</a></code>
+                           </span></span><div class='docblock'><p>0x18 - Power status clear register</p>
+</div><span id="structfield.pucra" class="structfield small-section-header">
+                           <a href="#structfield.pucra" class="anchor field"></a>
+                           <span id="pucra.v" class='invisible'>
+                           <code>pucra: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRA.html" title="struct stm32l4x6::pwr::PUCRA">PUCRA</a></code>
+                           </span></span><div class='docblock'><p>0x20 - Power Port A pull-up control register</p>
+</div><span id="structfield.pdcra" class="structfield small-section-header">
+                           <a href="#structfield.pdcra" class="anchor field"></a>
+                           <span id="pdcra.v" class='invisible'>
+                           <code>pdcra: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRA.html" title="struct stm32l4x6::pwr::PDCRA">PDCRA</a></code>
+                           </span></span><div class='docblock'><p>0x24 - Power Port A pull-down control register</p>
+</div><span id="structfield.pucrb" class="structfield small-section-header">
+                           <a href="#structfield.pucrb" class="anchor field"></a>
+                           <span id="pucrb.v" class='invisible'>
+                           <code>pucrb: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRB.html" title="struct stm32l4x6::pwr::PUCRB">PUCRB</a></code>
+                           </span></span><div class='docblock'><p>0x28 - Power Port B pull-up control register</p>
+</div><span id="structfield.pdcrb" class="structfield small-section-header">
+                           <a href="#structfield.pdcrb" class="anchor field"></a>
+                           <span id="pdcrb.v" class='invisible'>
+                           <code>pdcrb: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRB.html" title="struct stm32l4x6::pwr::PDCRB">PDCRB</a></code>
+                           </span></span><div class='docblock'><p>0x2c - Power Port B pull-down control register</p>
+</div><span id="structfield.pucrc" class="structfield small-section-header">
+                           <a href="#structfield.pucrc" class="anchor field"></a>
+                           <span id="pucrc.v" class='invisible'>
+                           <code>pucrc: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRC.html" title="struct stm32l4x6::pwr::PUCRC">PUCRC</a></code>
+                           </span></span><div class='docblock'><p>0x30 - Power Port C pull-up control register</p>
+</div><span id="structfield.pdcrc" class="structfield small-section-header">
+                           <a href="#structfield.pdcrc" class="anchor field"></a>
+                           <span id="pdcrc.v" class='invisible'>
+                           <code>pdcrc: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRC.html" title="struct stm32l4x6::pwr::PDCRC">PDCRC</a></code>
+                           </span></span><div class='docblock'><p>0x34 - Power Port C pull-down control register</p>
+</div><span id="structfield.pucrd" class="structfield small-section-header">
+                           <a href="#structfield.pucrd" class="anchor field"></a>
+                           <span id="pucrd.v" class='invisible'>
+                           <code>pucrd: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRD.html" title="struct stm32l4x6::pwr::PUCRD">PUCRD</a></code>
+                           </span></span><div class='docblock'><p>0x38 - Power Port D pull-up control register</p>
+</div><span id="structfield.pdcrd" class="structfield small-section-header">
+                           <a href="#structfield.pdcrd" class="anchor field"></a>
+                           <span id="pdcrd.v" class='invisible'>
+                           <code>pdcrd: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRD.html" title="struct stm32l4x6::pwr::PDCRD">PDCRD</a></code>
+                           </span></span><div class='docblock'><p>0x3c - Power Port D pull-down control register</p>
+</div><span id="structfield.pucre" class="structfield small-section-header">
+                           <a href="#structfield.pucre" class="anchor field"></a>
+                           <span id="pucre.v" class='invisible'>
+                           <code>pucre: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRE.html" title="struct stm32l4x6::pwr::PUCRE">PUCRE</a></code>
+                           </span></span><div class='docblock'><p>0x40 - Power Port E pull-up control register</p>
+</div><span id="structfield.pdcre" class="structfield small-section-header">
+                           <a href="#structfield.pdcre" class="anchor field"></a>
+                           <span id="pdcre.v" class='invisible'>
+                           <code>pdcre: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRE.html" title="struct stm32l4x6::pwr::PDCRE">PDCRE</a></code>
+                           </span></span><div class='docblock'><p>0x44 - Power Port E pull-down control register</p>
+</div><span id="structfield.pucrf" class="structfield small-section-header">
+                           <a href="#structfield.pucrf" class="anchor field"></a>
+                           <span id="pucrf.v" class='invisible'>
+                           <code>pucrf: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRF.html" title="struct stm32l4x6::pwr::PUCRF">PUCRF</a></code>
+                           </span></span><div class='docblock'><p>0x48 - Power Port F pull-up control register</p>
+</div><span id="structfield.pdcrf" class="structfield small-section-header">
+                           <a href="#structfield.pdcrf" class="anchor field"></a>
+                           <span id="pdcrf.v" class='invisible'>
+                           <code>pdcrf: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRF.html" title="struct stm32l4x6::pwr::PDCRF">PDCRF</a></code>
+                           </span></span><div class='docblock'><p>0x4c - Power Port F pull-down control register</p>
+</div><span id="structfield.pucrg" class="structfield small-section-header">
+                           <a href="#structfield.pucrg" class="anchor field"></a>
+                           <span id="pucrg.v" class='invisible'>
+                           <code>pucrg: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRG.html" title="struct stm32l4x6::pwr::PUCRG">PUCRG</a></code>
+                           </span></span><div class='docblock'><p>0x50 - Power Port G pull-up control register</p>
+</div><span id="structfield.pdcrg" class="structfield small-section-header">
+                           <a href="#structfield.pdcrg" class="anchor field"></a>
+                           <span id="pdcrg.v" class='invisible'>
+                           <code>pdcrg: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRG.html" title="struct stm32l4x6::pwr::PDCRG">PDCRG</a></code>
+                           </span></span><div class='docblock'><p>0x54 - Power Port G pull-down control register</p>
+</div><span id="structfield.pucrh" class="structfield small-section-header">
+                           <a href="#structfield.pucrh" class="anchor field"></a>
+                           <span id="pucrh.v" class='invisible'>
+                           <code>pucrh: <a class="struct" href="../../stm32l4x6/pwr/struct.PUCRH.html" title="struct stm32l4x6::pwr::PUCRH">PUCRH</a></code>
+                           </span></span><div class='docblock'><p>0x58 - Power Port H pull-up control register</p>
+</div><span id="structfield.pdcrh" class="structfield small-section-header">
+                           <a href="#structfield.pdcrh" class="anchor field"></a>
+                           <span id="pdcrh.v" class='invisible'>
+                           <code>pdcrh: <a class="struct" href="../../stm32l4x6/pwr/struct.PDCRH.html" title="struct stm32l4x6::pwr::PDCRH">PDCRH</a></code>
+                           </span></span><div class='docblock'><p>0x5c - Power Port H pull-down control register</p>
+</div>
+                <h2 id='synthetic-implementations' class='small-section-header'>
+                  Auto Trait Implementations<a href='#synthetic-implementations' class='anchor'></a>
+                </h2>
+                <div id='synthetic-implementations-list'>
+            <h3 id='impl-Send' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> for <a class="struct" href="../../stm32l4x6/pwr/struct.RegisterBlock.html" title="struct stm32l4x6::pwr::RegisterBlock">RegisterBlock</a></code><a href='#impl-Send' class='anchor'></a></span></td><td><span class='out-of-band'></span></td></tr></tbody></table></h3><div class='impl-items'></div><h3 id='impl-Sync' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl !<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> for <a class="struct" href="../../stm32l4x6/pwr/struct.RegisterBlock.html" title="struct stm32l4x6::pwr::RegisterBlock">RegisterBlock</a></code><a href='#impl-Sync' class='anchor'></a></span></td><td><span class='out-of-band'></span></td></tr></tbody></table></h3><div class='impl-items'></div></div></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "stm32l4x6";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>
