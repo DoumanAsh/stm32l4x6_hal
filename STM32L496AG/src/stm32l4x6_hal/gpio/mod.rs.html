@@ -454,9 +454,6 @@
 <span id="454">454</span>
 <span id="455">455</span>
 <span id="456">456</span>
-<span id="457">457</span>
-<span id="458">458</span>
-<span id="459">459</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! General Purpose Input / Output</span>
 <span class="doccomment">//!</span>
@@ -468,11 +465,7 @@
 <span class="kw">use</span> <span class="ident">marker</span>::<span class="ident">PhantomData</span>;
 <span class="kw">use</span> <span class="ident">ops</span>::<span class="ident">Deref</span>;
 
-<span class="kw">use</span> <span class="ident">hal</span>::<span class="ident">digital</span>::{
-    <span class="ident">OutputPin</span>,
-    <span class="ident">StatefulOutputPin</span>,
-    <span class="ident">toggleable</span>
-};
+<span class="kw">use</span> <span class="ident">hal</span>::<span class="ident">digital</span>::{<span class="ident">toggleable</span>, <span class="ident">OutputPin</span>, <span class="ident">StatefulOutputPin</span>};
 
 <span class="kw">use</span> <span class="ident">stm32l4x6</span>;
 
@@ -754,11 +747,12 @@
 
             <span class="doccomment">/// Configures the PIN to operate as Alternate Function.</span>
             <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_alt_fun</span><span class="op">&lt;</span><span class="ident">AF</span>: <span class="ident">AltFun</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">moder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">MODER</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">GPIOX</span><span class="op">&gt;</span>, <span class="ident">afr</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">AFR</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">GPIOX</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">PXi</span><span class="op">&lt;</span><span class="ident">AF</span><span class="op">&gt;</span> {
+                <span class="comment">// AFRx pin fields are 4 bits wide, and each 8-pin bank has its own reg (L or H); e.g. pin 8&#39;s offset is _0_, within AFRH.</span>
+                <span class="kw">const</span> <span class="ident">AFR_OFFSET</span>: <span class="ident">usize</span> <span class="op">=</span> (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">i</span> <span class="op">%</span> <span class="number">8</span>) <span class="op">*</span> <span class="number">4</span>;
                 <span class="ident">moder</span>
                     .<span class="ident">moder</span>()
                     .<span class="ident">modify</span>(<span class="op">|</span><span class="ident">r</span>, <span class="ident">w</span><span class="op">|</span> <span class="kw">unsafe</span> { <span class="ident">w</span>.<span class="ident">bits</span>((<span class="ident">r</span>.<span class="ident">bits</span>() <span class="op">&amp;</span> <span class="op">!</span>(<span class="number">0b11</span> <span class="op">&lt;&lt;</span> <span class="self">Self</span>::<span class="ident">OFFSET</span>)) <span class="op">|</span> (<span class="number">0b10</span> <span class="op">&lt;&lt;</span> <span class="self">Self</span>::<span class="ident">OFFSET</span>)) });
-                <span class="ident">afr</span>.<span class="ident">afr</span>()
-                    .<span class="ident">modify</span>(<span class="op">|</span><span class="ident">r</span>, <span class="ident">w</span><span class="op">|</span> <span class="kw">unsafe</span> { <span class="ident">w</span>.<span class="ident">bits</span>((<span class="ident">r</span>.<span class="ident">bits</span>() <span class="op">&amp;</span> <span class="op">!</span>(<span class="number">0b1111</span> <span class="op">&lt;&lt;</span> <span class="self">Self</span>::<span class="ident">OFFSET</span>)) <span class="op">|</span> (<span class="ident">AF</span>::<span class="ident">NUM</span> <span class="op">&lt;&lt;</span> <span class="self">Self</span>::<span class="ident">OFFSET</span>)) });
+                <span class="ident">afr</span>.<span class="ident">afr</span>().<span class="ident">modify</span>(<span class="op">|</span><span class="ident">r</span>, <span class="ident">w</span><span class="op">|</span> <span class="kw">unsafe</span> { <span class="ident">w</span>.<span class="ident">bits</span>((<span class="ident">r</span>.<span class="ident">bits</span>() <span class="op">&amp;</span> <span class="op">!</span>(<span class="number">0b1111</span> <span class="op">&lt;&lt;</span> <span class="ident">AFR_OFFSET</span>)) <span class="op">|</span> (<span class="ident">AF</span>::<span class="ident">NUM</span> <span class="op">&lt;&lt;</span> <span class="ident">AFR_OFFSET</span>)) });
 
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">PXi</span>(<span class="ident">PhantomData</span>)
             }
