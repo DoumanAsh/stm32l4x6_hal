@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["R","Value read from the register"],["RTC_ALARM_TYPER","Value of the field"],["RTC_OUT_RMPR","Value of the field"],["W","Value to write to the register"],["_RTC_ALARM_TYPEW","Proxy"],["_RTC_OUT_RMPW","Proxy"]]});

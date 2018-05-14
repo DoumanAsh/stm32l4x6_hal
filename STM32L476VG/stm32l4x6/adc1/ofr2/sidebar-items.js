@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OFFSET2R","Value of the field"],["OFFSET2_CHR","Value of the field"],["OFFSET2_ENR","Value of the field"],["R","Value read from the register"],["W","Value to write to the register"],["_OFFSET2W","Proxy"],["_OFFSET2_CHW","Proxy"],["_OFFSET2_ENW","Proxy"]]});

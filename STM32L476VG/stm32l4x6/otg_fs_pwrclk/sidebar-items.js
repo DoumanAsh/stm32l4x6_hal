@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["fs_pcgcctl","OTG_FS power and clock gating control register (OTG_FS_PCGCCTL)"]],"struct":[["FS_PCGCCTL","OTG_FS power and clock gating control register (OTG_FS_PCGCCTL)"],["RegisterBlock","Register block"]]});

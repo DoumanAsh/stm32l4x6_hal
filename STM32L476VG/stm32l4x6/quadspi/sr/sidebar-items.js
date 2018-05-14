@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BUSYR","Value of the field"],["FLEVELR","Value of the field"],["FTFR","Value of the field"],["R","Value read from the register"],["SMFR","Value of the field"],["TCFR","Value of the field"],["TEFR","Value of the field"],["TOFR","Value of the field"]]});

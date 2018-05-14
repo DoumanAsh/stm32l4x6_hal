@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FT35R","Value of the field"],["FT36R","Value of the field"],["FT37R","Value of the field"],["FT38R","Value of the field"],["R","Value read from the register"],["W","Value to write to the register"],["_FT35W","Proxy"],["_FT36W","Proxy"],["_FT37W","Proxy"],["_FT38W","Proxy"]]});

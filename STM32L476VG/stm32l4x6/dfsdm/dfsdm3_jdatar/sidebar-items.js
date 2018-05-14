@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["JDATACHR","Value of the field"],["JDATAR","Value of the field"],["R","Value read from the register"]]});

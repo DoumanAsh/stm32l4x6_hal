@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BWST1R","Value of the field"],["BWST2R","Value of the field"],["CAL_FLAG1R","Value of the field"],["CAL_FLAG2R","Value of the field"],["DMAUDR1R","Value of the field"],["DMAUDR2R","Value of the field"],["R","Value read from the register"],["W","Value to write to the register"],["_DMAUDR1W","Proxy"],["_DMAUDR2W","Proxy"]]});

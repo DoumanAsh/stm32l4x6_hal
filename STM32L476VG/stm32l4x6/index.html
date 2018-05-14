@@ -1,0 +1,1031 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `stm32l4x6` crate."><meta name="keywords" content="rust, rustlang, rust-lang, stm32l4x6"><title>stm32l4x6 - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Crate stm32l4x6</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'stm32l4x6', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>stm32l4x6</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/stm32l4x6/lib.rs.html#1-407972' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>Peripheral access API for STM32L4X6 microcontrollers (generated using svd2rust v0.12.0)</p>
+<p>You can find an overview of the API <a href="https://docs.rs/svd2rust/0.12.0/svd2rust/#peripheral-api">here</a>.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="adc1/index.html"
+                                  title='mod stm32l4x6::adc1'>adc1</a></td>
+                           <td class='docblock-short'>
+                                <p>Analog-to-Digital Converter</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="adc123_common/index.html"
+                                  title='mod stm32l4x6::adc123_common'>adc123_common</a></td>
+                           <td class='docblock-short'>
+                                <p>Analog-to-Digital Converter</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="aes/index.html"
+                                  title='mod stm32l4x6::aes'>aes</a></td>
+                           <td class='docblock-short'>
+                                <p>Advanced encryption standard hardware accelerator</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="can/index.html"
+                                  title='mod stm32l4x6::can'>can</a></td>
+                           <td class='docblock-short'>
+                                <p>Controller area network</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="comp/index.html"
+                                  title='mod stm32l4x6::comp'>comp</a></td>
+                           <td class='docblock-short'>
+                                <p>Comparator</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="crc/index.html"
+                                  title='mod stm32l4x6::crc'>crc</a></td>
+                           <td class='docblock-short'>
+                                <p>Cyclic redundancy check calculation unit</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dac/index.html"
+                                  title='mod stm32l4x6::dac'>dac</a></td>
+                           <td class='docblock-short'>
+                                <p>Digital-to-analog converter</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dbgmcu/index.html"
+                                  title='mod stm32l4x6::dbgmcu'>dbgmcu</a></td>
+                           <td class='docblock-short'>
+                                <p>Debug support</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm/index.html"
+                                  title='mod stm32l4x6::dfsdm'>dfsdm</a></td>
+                           <td class='docblock-short'>
+                                <p>Digital filter for sigma delta modulators</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dma1/index.html"
+                                  title='mod stm32l4x6::dma1'>dma1</a></td>
+                           <td class='docblock-short'>
+                                <p>Direct memory access controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="exti/index.html"
+                                  title='mod stm32l4x6::exti'>exti</a></td>
+                           <td class='docblock-short'>
+                                <p>External interrupt/event controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="firewall/index.html"
+                                  title='mod stm32l4x6::firewall'>firewall</a></td>
+                           <td class='docblock-short'>
+                                <p>Firewall</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="flash/index.html"
+                                  title='mod stm32l4x6::flash'>flash</a></td>
+                           <td class='docblock-short'>
+                                <p>Flash</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="fmc/index.html"
+                                  title='mod stm32l4x6::fmc'>fmc</a></td>
+                           <td class='docblock-short'>
+                                <p>Flexible memory controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="gpioa/index.html"
+                                  title='mod stm32l4x6::gpioa'>gpioa</a></td>
+                           <td class='docblock-short'>
+                                <p>General-purpose I/Os</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="gpiob/index.html"
+                                  title='mod stm32l4x6::gpiob'>gpiob</a></td>
+                           <td class='docblock-short'>
+                                <p>General-purpose I/Os</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="gpioc/index.html"
+                                  title='mod stm32l4x6::gpioc'>gpioc</a></td>
+                           <td class='docblock-short'>
+                                <p>General-purpose I/Os</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="i2c1/index.html"
+                                  title='mod stm32l4x6::i2c1'>i2c1</a></td>
+                           <td class='docblock-short'>
+                                <p>Inter-integrated circuit</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="iwdg/index.html"
+                                  title='mod stm32l4x6::iwdg'>iwdg</a></td>
+                           <td class='docblock-short'>
+                                <p>Independent watchdog</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="lcd/index.html"
+                                  title='mod stm32l4x6::lcd'>lcd</a></td>
+                           <td class='docblock-short'>
+                                <p>Liquid crystal display controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="lptim1/index.html"
+                                  title='mod stm32l4x6::lptim1'>lptim1</a></td>
+                           <td class='docblock-short'>
+                                <p>Low power timer</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="lpuart1/index.html"
+                                  title='mod stm32l4x6::lpuart1'>lpuart1</a></td>
+                           <td class='docblock-short'>
+                                <p>Universal synchronous asynchronous receiver transmitter</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="opamp/index.html"
+                                  title='mod stm32l4x6::opamp'>opamp</a></td>
+                           <td class='docblock-short'>
+                                <p>Operational amplifiers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="otg_fs_device/index.html"
+                                  title='mod stm32l4x6::otg_fs_device'>otg_fs_device</a></td>
+                           <td class='docblock-short'>
+                                <p>USB on the go full speed</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="otg_fs_global/index.html"
+                                  title='mod stm32l4x6::otg_fs_global'>otg_fs_global</a></td>
+                           <td class='docblock-short'>
+                                <p>USB on the go full speed</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="otg_fs_host/index.html"
+                                  title='mod stm32l4x6::otg_fs_host'>otg_fs_host</a></td>
+                           <td class='docblock-short'>
+                                <p>USB on the go full speed</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="otg_fs_pwrclk/index.html"
+                                  title='mod stm32l4x6::otg_fs_pwrclk'>otg_fs_pwrclk</a></td>
+                           <td class='docblock-short'>
+                                <p>USB on the go full speed</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pwr/index.html"
+                                  title='mod stm32l4x6::pwr'>pwr</a></td>
+                           <td class='docblock-short'>
+                                <p>Power control</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="quadspi/index.html"
+                                  title='mod stm32l4x6::quadspi'>quadspi</a></td>
+                           <td class='docblock-short'>
+                                <p>QuadSPI interface</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="rcc/index.html"
+                                  title='mod stm32l4x6::rcc'>rcc</a></td>
+                           <td class='docblock-short'>
+                                <p>Reset and clock control</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="rng/index.html"
+                                  title='mod stm32l4x6::rng'>rng</a></td>
+                           <td class='docblock-short'>
+                                <p>Random number generator</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="rtc/index.html"
+                                  title='mod stm32l4x6::rtc'>rtc</a></td>
+                           <td class='docblock-short'>
+                                <p>Real-time clock</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="sai1/index.html"
+                                  title='mod stm32l4x6::sai1'>sai1</a></td>
+                           <td class='docblock-short'>
+                                <p>Serial audio interface</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="sdmmc/index.html"
+                                  title='mod stm32l4x6::sdmmc'>sdmmc</a></td>
+                           <td class='docblock-short'>
+                                <p>Secure digital input/output interface</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="spi1/index.html"
+                                  title='mod stm32l4x6::spi1'>spi1</a></td>
+                           <td class='docblock-short'>
+                                <p>Serial peripheral interface/Inter-IC sound</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="swpmi1/index.html"
+                                  title='mod stm32l4x6::swpmi1'>swpmi1</a></td>
+                           <td class='docblock-short'>
+                                <p>Single Wire Protocol Master Interface</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="syscfg/index.html"
+                                  title='mod stm32l4x6::syscfg'>syscfg</a></td>
+                           <td class='docblock-short'>
+                                <p>System configuration controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="tim1/index.html"
+                                  title='mod stm32l4x6::tim1'>tim1</a></td>
+                           <td class='docblock-short'>
+                                <p>Advanced-timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="tim2/index.html"
+                                  title='mod stm32l4x6::tim2'>tim2</a></td>
+                           <td class='docblock-short'>
+                                <p>General-purpose-timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="tim6/index.html"
+                                  title='mod stm32l4x6::tim6'>tim6</a></td>
+                           <td class='docblock-short'>
+                                <p>Basic-timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="tim8/index.html"
+                                  title='mod stm32l4x6::tim8'>tim8</a></td>
+                           <td class='docblock-short'>
+                                <p>Advanced-timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="tim15/index.html"
+                                  title='mod stm32l4x6::tim15'>tim15</a></td>
+                           <td class='docblock-short'>
+                                <p>General purpose timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="tim16/index.html"
+                                  title='mod stm32l4x6::tim16'>tim16</a></td>
+                           <td class='docblock-short'>
+                                <p>General purpose timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="tsc/index.html"
+                                  title='mod stm32l4x6::tsc'>tsc</a></td>
+                           <td class='docblock-short'>
+                                <p>Touch sensing controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="usart1/index.html"
+                                  title='mod stm32l4x6::usart1'>usart1</a></td>
+                           <td class='docblock-short'>
+                                <p>Universal synchronous asynchronous receiver transmitter</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="vref/index.html"
+                                  title='mod stm32l4x6::vref'>vref</a></td>
+                           <td class='docblock-short'>
+                                <p>Voltage reference buffer</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="wwdg/index.html"
+                                  title='mod stm32l4x6::wwdg'>wwdg</a></td>
+                           <td class='docblock-short'>
+                                <p>System window watchdog</p>
+
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ADC1.html"
+                                  title='struct stm32l4x6::ADC1'>ADC1</a></td>
+                           <td class='docblock-short'>
+                                <p>Analog-to-Digital Converter</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ADC2.html"
+                                  title='struct stm32l4x6::ADC2'>ADC2</a></td>
+                           <td class='docblock-short'>
+                                <p>ADC2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ADC3.html"
+                                  title='struct stm32l4x6::ADC3'>ADC3</a></td>
+                           <td class='docblock-short'>
+                                <p>ADC3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ADC123_COMMON.html"
+                                  title='struct stm32l4x6::ADC123_COMMON'>ADC123_COMMON</a></td>
+                           <td class='docblock-short'>
+                                <p>Analog-to-Digital Converter</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AES.html"
+                                  title='struct stm32l4x6::AES'>AES</a></td>
+                           <td class='docblock-short'>
+                                <p>Advanced encryption standard hardware accelerator</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CAN.html"
+                                  title='struct stm32l4x6::CAN'>CAN</a></td>
+                           <td class='docblock-short'>
+                                <p>Controller area network</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.COMP.html"
+                                  title='struct stm32l4x6::COMP'>COMP</a></td>
+                           <td class='docblock-short'>
+                                <p>Comparator</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CPUID.html"
+                                  title='struct stm32l4x6::CPUID'>CPUID</a></td>
+                           <td class='docblock-short'>
+                                <p>CPUID</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CRC.html"
+                                  title='struct stm32l4x6::CRC'>CRC</a></td>
+                           <td class='docblock-short'>
+                                <p>Cyclic redundancy check calculation unit</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CorePeripherals.html"
+                                  title='struct stm32l4x6::CorePeripherals'>CorePeripherals</a></td>
+                           <td class='docblock-short'>
+                                <p>Core peripherals</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DAC.html"
+                                  title='struct stm32l4x6::DAC'>DAC</a></td>
+                           <td class='docblock-short'>
+                                <p>Digital-to-analog converter</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DBGMCU.html"
+                                  title='struct stm32l4x6::DBGMCU'>DBGMCU</a></td>
+                           <td class='docblock-short'>
+                                <p>Debug support</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DCB.html"
+                                  title='struct stm32l4x6::DCB'>DCB</a></td>
+                           <td class='docblock-short'>
+                                <p>Debug Control Block</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM.html"
+                                  title='struct stm32l4x6::DFSDM'>DFSDM</a></td>
+                           <td class='docblock-short'>
+                                <p>Digital filter for sigma delta modulators</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DMA1.html"
+                                  title='struct stm32l4x6::DMA1'>DMA1</a></td>
+                           <td class='docblock-short'>
+                                <p>Direct memory access controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DMA2.html"
+                                  title='struct stm32l4x6::DMA2'>DMA2</a></td>
+                           <td class='docblock-short'>
+                                <p>DMA2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DWT.html"
+                                  title='struct stm32l4x6::DWT'>DWT</a></td>
+                           <td class='docblock-short'>
+                                <p>Data Watchpoint and Trace unit</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.EXTI.html"
+                                  title='struct stm32l4x6::EXTI'>EXTI</a></td>
+                           <td class='docblock-short'>
+                                <p>External interrupt/event controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.FIREWALL.html"
+                                  title='struct stm32l4x6::FIREWALL'>FIREWALL</a></td>
+                           <td class='docblock-short'>
+                                <p>Firewall</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.FLASH.html"
+                                  title='struct stm32l4x6::FLASH'>FLASH</a></td>
+                           <td class='docblock-short'>
+                                <p>Flash</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.FMC.html"
+                                  title='struct stm32l4x6::FMC'>FMC</a></td>
+                           <td class='docblock-short'>
+                                <p>Flexible memory controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.GPIOA.html"
+                                  title='struct stm32l4x6::GPIOA'>GPIOA</a></td>
+                           <td class='docblock-short'>
+                                <p>General-purpose I/Os</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.GPIOB.html"
+                                  title='struct stm32l4x6::GPIOB'>GPIOB</a></td>
+                           <td class='docblock-short'>
+                                <p>General-purpose I/Os</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.GPIOC.html"
+                                  title='struct stm32l4x6::GPIOC'>GPIOC</a></td>
+                           <td class='docblock-short'>
+                                <p>General-purpose I/Os</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.GPIOD.html"
+                                  title='struct stm32l4x6::GPIOD'>GPIOD</a></td>
+                           <td class='docblock-short'>
+                                <p>GPIOD</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.GPIOE.html"
+                                  title='struct stm32l4x6::GPIOE'>GPIOE</a></td>
+                           <td class='docblock-short'>
+                                <p>GPIOE</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.GPIOF.html"
+                                  title='struct stm32l4x6::GPIOF'>GPIOF</a></td>
+                           <td class='docblock-short'>
+                                <p>GPIOF</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.GPIOG.html"
+                                  title='struct stm32l4x6::GPIOG'>GPIOG</a></td>
+                           <td class='docblock-short'>
+                                <p>GPIOG</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.GPIOH.html"
+                                  title='struct stm32l4x6::GPIOH'>GPIOH</a></td>
+                           <td class='docblock-short'>
+                                <p>GPIOH</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.I2C1.html"
+                                  title='struct stm32l4x6::I2C1'>I2C1</a></td>
+                           <td class='docblock-short'>
+                                <p>Inter-integrated circuit</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.I2C2.html"
+                                  title='struct stm32l4x6::I2C2'>I2C2</a></td>
+                           <td class='docblock-short'>
+                                <p>I2C2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.I2C3.html"
+                                  title='struct stm32l4x6::I2C3'>I2C3</a></td>
+                           <td class='docblock-short'>
+                                <p>I2C3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.IWDG.html"
+                                  title='struct stm32l4x6::IWDG'>IWDG</a></td>
+                           <td class='docblock-short'>
+                                <p>Independent watchdog</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.LCD.html"
+                                  title='struct stm32l4x6::LCD'>LCD</a></td>
+                           <td class='docblock-short'>
+                                <p>Liquid crystal display controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.LPTIM1.html"
+                                  title='struct stm32l4x6::LPTIM1'>LPTIM1</a></td>
+                           <td class='docblock-short'>
+                                <p>Low power timer</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.LPTIM2.html"
+                                  title='struct stm32l4x6::LPTIM2'>LPTIM2</a></td>
+                           <td class='docblock-short'>
+                                <p>LPTIM2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.LPUART1.html"
+                                  title='struct stm32l4x6::LPUART1'>LPUART1</a></td>
+                           <td class='docblock-short'>
+                                <p>Universal synchronous asynchronous receiver transmitter</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MPU.html"
+                                  title='struct stm32l4x6::MPU'>MPU</a></td>
+                           <td class='docblock-short'>
+                                <p>Memory Protection Unit</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.NVIC.html"
+                                  title='struct stm32l4x6::NVIC'>NVIC</a></td>
+                           <td class='docblock-short'>
+                                <p>Nested Vector Interrupt Controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OPAMP.html"
+                                  title='struct stm32l4x6::OPAMP'>OPAMP</a></td>
+                           <td class='docblock-short'>
+                                <p>Operational amplifiers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OTG_FS_DEVICE.html"
+                                  title='struct stm32l4x6::OTG_FS_DEVICE'>OTG_FS_DEVICE</a></td>
+                           <td class='docblock-short'>
+                                <p>USB on the go full speed</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OTG_FS_GLOBAL.html"
+                                  title='struct stm32l4x6::OTG_FS_GLOBAL'>OTG_FS_GLOBAL</a></td>
+                           <td class='docblock-short'>
+                                <p>USB on the go full speed</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OTG_FS_HOST.html"
+                                  title='struct stm32l4x6::OTG_FS_HOST'>OTG_FS_HOST</a></td>
+                           <td class='docblock-short'>
+                                <p>USB on the go full speed</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OTG_FS_PWRCLK.html"
+                                  title='struct stm32l4x6::OTG_FS_PWRCLK'>OTG_FS_PWRCLK</a></td>
+                           <td class='docblock-short'>
+                                <p>USB on the go full speed</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PWR.html"
+                                  title='struct stm32l4x6::PWR'>PWR</a></td>
+                           <td class='docblock-short'>
+                                <p>Power control</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Peripherals.html"
+                                  title='struct stm32l4x6::Peripherals'>Peripherals</a></td>
+                           <td class='docblock-short'>
+                                <p>All the peripherals</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.QUADSPI.html"
+                                  title='struct stm32l4x6::QUADSPI'>QUADSPI</a></td>
+                           <td class='docblock-short'>
+                                <p>QuadSPI interface</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RCC.html"
+                                  title='struct stm32l4x6::RCC'>RCC</a></td>
+                           <td class='docblock-short'>
+                                <p>Reset and clock control</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RNG.html"
+                                  title='struct stm32l4x6::RNG'>RNG</a></td>
+                           <td class='docblock-short'>
+                                <p>Random number generator</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RTC.html"
+                                  title='struct stm32l4x6::RTC'>RTC</a></td>
+                           <td class='docblock-short'>
+                                <p>Real-time clock</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SAI1.html"
+                                  title='struct stm32l4x6::SAI1'>SAI1</a></td>
+                           <td class='docblock-short'>
+                                <p>Serial audio interface</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SAI2.html"
+                                  title='struct stm32l4x6::SAI2'>SAI2</a></td>
+                           <td class='docblock-short'>
+                                <p>SAI2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SCB.html"
+                                  title='struct stm32l4x6::SCB'>SCB</a></td>
+                           <td class='docblock-short'>
+                                <p>System Control Block</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SDMMC.html"
+                                  title='struct stm32l4x6::SDMMC'>SDMMC</a></td>
+                           <td class='docblock-short'>
+                                <p>Secure digital input/output interface</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SPI1.html"
+                                  title='struct stm32l4x6::SPI1'>SPI1</a></td>
+                           <td class='docblock-short'>
+                                <p>Serial peripheral interface/Inter-IC sound</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SPI2.html"
+                                  title='struct stm32l4x6::SPI2'>SPI2</a></td>
+                           <td class='docblock-short'>
+                                <p>SPI2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SPI3.html"
+                                  title='struct stm32l4x6::SPI3'>SPI3</a></td>
+                           <td class='docblock-short'>
+                                <p>SPI3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SWPMI1.html"
+                                  title='struct stm32l4x6::SWPMI1'>SWPMI1</a></td>
+                           <td class='docblock-short'>
+                                <p>Single Wire Protocol Master Interface</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SYSCFG.html"
+                                  title='struct stm32l4x6::SYSCFG'>SYSCFG</a></td>
+                           <td class='docblock-short'>
+                                <p>System configuration controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SYST.html"
+                                  title='struct stm32l4x6::SYST'>SYST</a></td>
+                           <td class='docblock-short'>
+                                <p>SysTick: System Timer</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM1.html"
+                                  title='struct stm32l4x6::TIM1'>TIM1</a></td>
+                           <td class='docblock-short'>
+                                <p>Advanced-timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM2.html"
+                                  title='struct stm32l4x6::TIM2'>TIM2</a></td>
+                           <td class='docblock-short'>
+                                <p>General-purpose-timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM3.html"
+                                  title='struct stm32l4x6::TIM3'>TIM3</a></td>
+                           <td class='docblock-short'>
+                                <p>TIM3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM4.html"
+                                  title='struct stm32l4x6::TIM4'>TIM4</a></td>
+                           <td class='docblock-short'>
+                                <p>TIM4</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM5.html"
+                                  title='struct stm32l4x6::TIM5'>TIM5</a></td>
+                           <td class='docblock-short'>
+                                <p>TIM5</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM6.html"
+                                  title='struct stm32l4x6::TIM6'>TIM6</a></td>
+                           <td class='docblock-short'>
+                                <p>Basic-timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM7.html"
+                                  title='struct stm32l4x6::TIM7'>TIM7</a></td>
+                           <td class='docblock-short'>
+                                <p>TIM7</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM8.html"
+                                  title='struct stm32l4x6::TIM8'>TIM8</a></td>
+                           <td class='docblock-short'>
+                                <p>Advanced-timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM15.html"
+                                  title='struct stm32l4x6::TIM15'>TIM15</a></td>
+                           <td class='docblock-short'>
+                                <p>General purpose timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM16.html"
+                                  title='struct stm32l4x6::TIM16'>TIM16</a></td>
+                           <td class='docblock-short'>
+                                <p>General purpose timers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TIM17.html"
+                                  title='struct stm32l4x6::TIM17'>TIM17</a></td>
+                           <td class='docblock-short'>
+                                <p>TIM17</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TSC.html"
+                                  title='struct stm32l4x6::TSC'>TSC</a></td>
+                           <td class='docblock-short'>
+                                <p>Touch sensing controller</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.UART4.html"
+                                  title='struct stm32l4x6::UART4'>UART4</a></td>
+                           <td class='docblock-short'>
+                                <p>UART4</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.UART5.html"
+                                  title='struct stm32l4x6::UART5'>UART5</a></td>
+                           <td class='docblock-short'>
+                                <p>UART5</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.USART1.html"
+                                  title='struct stm32l4x6::USART1'>USART1</a></td>
+                           <td class='docblock-short'>
+                                <p>Universal synchronous asynchronous receiver transmitter</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.USART2.html"
+                                  title='struct stm32l4x6::USART2'>USART2</a></td>
+                           <td class='docblock-short'>
+                                <p>USART2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.USART3.html"
+                                  title='struct stm32l4x6::USART3'>USART3</a></td>
+                           <td class='docblock-short'>
+                                <p>USART3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.VREF.html"
+                                  title='struct stm32l4x6::VREF'>VREF</a></td>
+                           <td class='docblock-short'>
+                                <p>Voltage reference buffer</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.WWDG.html"
+                                  title='struct stm32l4x6::WWDG'>WWDG</a></td>
+                           <td class='docblock-short'>
+                                <p>System window watchdog</p>
+
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Interrupt.html"
+                                  title='enum stm32l4x6::Interrupt'>Interrupt</a></td>
+                           <td class='docblock-short'>
+                                <p>Enumeration of all the interrupts</p>
+
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.NVIC_PRIO_BITS.html"
+                                  title='constant stm32l4x6::NVIC_PRIO_BITS'>NVIC_PRIO_BITS</a></td>
+                           <td class='docblock-short'>
+                                <p>Number available in the NVIC for configuring priority</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "stm32l4x6";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

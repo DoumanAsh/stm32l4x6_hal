@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["comp1_csr","Comparator 1 control and status register"],["comp2_csr","Comparator 2 control and status register"]],"struct":[["COMP1_CSR","Comparator 1 control and status register"],["COMP2_CSR","Comparator 2 control and status register"],["RegisterBlock","Register block"]]});

@@ -1,0 +1,460 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `adc1` mod in crate `stm32l4x6`."><meta name="keywords" content="rust, rustlang, rust-lang, adc1"><title>stm32l4x6::adc1 - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Module adc1</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li></ul></div><p class='location'><a href='../index.html'>stm32l4x6</a></p><script>window.sidebarCurrent = {name: 'adc1', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>stm32l4x6</a>::<wbr><a class="mod" href=''>adc1</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/stm32l4x6/lib.rs.html#121096-129033' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>Analog-to-Digital Converter</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="awd2cr/index.html"
+                                  title='mod stm32l4x6::adc1::awd2cr'>awd2cr</a></td>
+                           <td class='docblock-short'>
+                                <p>Analog Watchdog 2 Configuration Register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="awd3cr/index.html"
+                                  title='mod stm32l4x6::adc1::awd3cr'>awd3cr</a></td>
+                           <td class='docblock-short'>
+                                <p>Analog Watchdog 3 Configuration Register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="calfact/index.html"
+                                  title='mod stm32l4x6::adc1::calfact'>calfact</a></td>
+                           <td class='docblock-short'>
+                                <p>Calibration Factors</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="cfgr/index.html"
+                                  title='mod stm32l4x6::adc1::cfgr'>cfgr</a></td>
+                           <td class='docblock-short'>
+                                <p>configuration register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="cfgr2/index.html"
+                                  title='mod stm32l4x6::adc1::cfgr2'>cfgr2</a></td>
+                           <td class='docblock-short'>
+                                <p>configuration register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="cr/index.html"
+                                  title='mod stm32l4x6::adc1::cr'>cr</a></td>
+                           <td class='docblock-short'>
+                                <p>control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="difsel/index.html"
+                                  title='mod stm32l4x6::adc1::difsel'>difsel</a></td>
+                           <td class='docblock-short'>
+                                <p>Differential Mode Selection Register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dr/index.html"
+                                  title='mod stm32l4x6::adc1::dr'>dr</a></td>
+                           <td class='docblock-short'>
+                                <p>regular Data Register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="ier/index.html"
+                                  title='mod stm32l4x6::adc1::ier'>ier</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt enable register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="isr/index.html"
+                                  title='mod stm32l4x6::adc1::isr'>isr</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt and status register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="jdr1/index.html"
+                                  title='mod stm32l4x6::adc1::jdr1'>jdr1</a></td>
+                           <td class='docblock-short'>
+                                <p>injected data register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="jdr2/index.html"
+                                  title='mod stm32l4x6::adc1::jdr2'>jdr2</a></td>
+                           <td class='docblock-short'>
+                                <p>injected data register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="jdr3/index.html"
+                                  title='mod stm32l4x6::adc1::jdr3'>jdr3</a></td>
+                           <td class='docblock-short'>
+                                <p>injected data register 3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="jdr4/index.html"
+                                  title='mod stm32l4x6::adc1::jdr4'>jdr4</a></td>
+                           <td class='docblock-short'>
+                                <p>injected data register 4</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="jsqr/index.html"
+                                  title='mod stm32l4x6::adc1::jsqr'>jsqr</a></td>
+                           <td class='docblock-short'>
+                                <p>injected sequence register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="ofr1/index.html"
+                                  title='mod stm32l4x6::adc1::ofr1'>ofr1</a></td>
+                           <td class='docblock-short'>
+                                <p>offset register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="ofr2/index.html"
+                                  title='mod stm32l4x6::adc1::ofr2'>ofr2</a></td>
+                           <td class='docblock-short'>
+                                <p>offset register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="ofr3/index.html"
+                                  title='mod stm32l4x6::adc1::ofr3'>ofr3</a></td>
+                           <td class='docblock-short'>
+                                <p>offset register 3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="ofr4/index.html"
+                                  title='mod stm32l4x6::adc1::ofr4'>ofr4</a></td>
+                           <td class='docblock-short'>
+                                <p>offset register 4</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="smpr1/index.html"
+                                  title='mod stm32l4x6::adc1::smpr1'>smpr1</a></td>
+                           <td class='docblock-short'>
+                                <p>sample time register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="smpr2/index.html"
+                                  title='mod stm32l4x6::adc1::smpr2'>smpr2</a></td>
+                           <td class='docblock-short'>
+                                <p>sample time register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="sqr1/index.html"
+                                  title='mod stm32l4x6::adc1::sqr1'>sqr1</a></td>
+                           <td class='docblock-short'>
+                                <p>regular sequence register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="sqr2/index.html"
+                                  title='mod stm32l4x6::adc1::sqr2'>sqr2</a></td>
+                           <td class='docblock-short'>
+                                <p>regular sequence register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="sqr3/index.html"
+                                  title='mod stm32l4x6::adc1::sqr3'>sqr3</a></td>
+                           <td class='docblock-short'>
+                                <p>regular sequence register 3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="sqr4/index.html"
+                                  title='mod stm32l4x6::adc1::sqr4'>sqr4</a></td>
+                           <td class='docblock-short'>
+                                <p>regular sequence register 4</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="tr1/index.html"
+                                  title='mod stm32l4x6::adc1::tr1'>tr1</a></td>
+                           <td class='docblock-short'>
+                                <p>watchdog threshold register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="tr2/index.html"
+                                  title='mod stm32l4x6::adc1::tr2'>tr2</a></td>
+                           <td class='docblock-short'>
+                                <p>watchdog threshold register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="tr3/index.html"
+                                  title='mod stm32l4x6::adc1::tr3'>tr3</a></td>
+                           <td class='docblock-short'>
+                                <p>watchdog threshold register 3</p>
+
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AWD2CR.html"
+                                  title='struct stm32l4x6::adc1::AWD2CR'>AWD2CR</a></td>
+                           <td class='docblock-short'>
+                                <p>Analog Watchdog 2 Configuration Register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AWD3CR.html"
+                                  title='struct stm32l4x6::adc1::AWD3CR'>AWD3CR</a></td>
+                           <td class='docblock-short'>
+                                <p>Analog Watchdog 3 Configuration Register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CALFACT.html"
+                                  title='struct stm32l4x6::adc1::CALFACT'>CALFACT</a></td>
+                           <td class='docblock-short'>
+                                <p>Calibration Factors</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CFGR.html"
+                                  title='struct stm32l4x6::adc1::CFGR'>CFGR</a></td>
+                           <td class='docblock-short'>
+                                <p>configuration register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CFGR2.html"
+                                  title='struct stm32l4x6::adc1::CFGR2'>CFGR2</a></td>
+                           <td class='docblock-short'>
+                                <p>configuration register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CR.html"
+                                  title='struct stm32l4x6::adc1::CR'>CR</a></td>
+                           <td class='docblock-short'>
+                                <p>control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DIFSEL.html"
+                                  title='struct stm32l4x6::adc1::DIFSEL'>DIFSEL</a></td>
+                           <td class='docblock-short'>
+                                <p>Differential Mode Selection Register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DR.html"
+                                  title='struct stm32l4x6::adc1::DR'>DR</a></td>
+                           <td class='docblock-short'>
+                                <p>regular Data Register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.IER.html"
+                                  title='struct stm32l4x6::adc1::IER'>IER</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt enable register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ISR.html"
+                                  title='struct stm32l4x6::adc1::ISR'>ISR</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt and status register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.JDR1.html"
+                                  title='struct stm32l4x6::adc1::JDR1'>JDR1</a></td>
+                           <td class='docblock-short'>
+                                <p>injected data register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.JDR2.html"
+                                  title='struct stm32l4x6::adc1::JDR2'>JDR2</a></td>
+                           <td class='docblock-short'>
+                                <p>injected data register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.JDR3.html"
+                                  title='struct stm32l4x6::adc1::JDR3'>JDR3</a></td>
+                           <td class='docblock-short'>
+                                <p>injected data register 3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.JDR4.html"
+                                  title='struct stm32l4x6::adc1::JDR4'>JDR4</a></td>
+                           <td class='docblock-short'>
+                                <p>injected data register 4</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.JSQR.html"
+                                  title='struct stm32l4x6::adc1::JSQR'>JSQR</a></td>
+                           <td class='docblock-short'>
+                                <p>injected sequence register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OFR1.html"
+                                  title='struct stm32l4x6::adc1::OFR1'>OFR1</a></td>
+                           <td class='docblock-short'>
+                                <p>offset register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OFR2.html"
+                                  title='struct stm32l4x6::adc1::OFR2'>OFR2</a></td>
+                           <td class='docblock-short'>
+                                <p>offset register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OFR3.html"
+                                  title='struct stm32l4x6::adc1::OFR3'>OFR3</a></td>
+                           <td class='docblock-short'>
+                                <p>offset register 3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.OFR4.html"
+                                  title='struct stm32l4x6::adc1::OFR4'>OFR4</a></td>
+                           <td class='docblock-short'>
+                                <p>offset register 4</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RegisterBlock.html"
+                                  title='struct stm32l4x6::adc1::RegisterBlock'>RegisterBlock</a></td>
+                           <td class='docblock-short'>
+                                <p>Register block</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SMPR1.html"
+                                  title='struct stm32l4x6::adc1::SMPR1'>SMPR1</a></td>
+                           <td class='docblock-short'>
+                                <p>sample time register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SMPR2.html"
+                                  title='struct stm32l4x6::adc1::SMPR2'>SMPR2</a></td>
+                           <td class='docblock-short'>
+                                <p>sample time register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SQR1.html"
+                                  title='struct stm32l4x6::adc1::SQR1'>SQR1</a></td>
+                           <td class='docblock-short'>
+                                <p>regular sequence register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SQR2.html"
+                                  title='struct stm32l4x6::adc1::SQR2'>SQR2</a></td>
+                           <td class='docblock-short'>
+                                <p>regular sequence register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SQR3.html"
+                                  title='struct stm32l4x6::adc1::SQR3'>SQR3</a></td>
+                           <td class='docblock-short'>
+                                <p>regular sequence register 3</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SQR4.html"
+                                  title='struct stm32l4x6::adc1::SQR4'>SQR4</a></td>
+                           <td class='docblock-short'>
+                                <p>regular sequence register 4</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TR1.html"
+                                  title='struct stm32l4x6::adc1::TR1'>TR1</a></td>
+                           <td class='docblock-short'>
+                                <p>watchdog threshold register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TR2.html"
+                                  title='struct stm32l4x6::adc1::TR2'>TR2</a></td>
+                           <td class='docblock-short'>
+                                <p>watchdog threshold register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TR3.html"
+                                  title='struct stm32l4x6::adc1::TR3'>TR3</a></td>
+                           <td class='docblock-short'>
+                                <p>watchdog threshold register 3</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "stm32l4x6";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

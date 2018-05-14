@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CKMODER","Value of the field"],["CSHTR","Value of the field"],["FSIZER","Value of the field"],["R","Value read from the register"],["W","Value to write to the register"],["_CKMODEW","Proxy"],["_CSHTW","Proxy"],["_FSIZEW","Proxy"]]});

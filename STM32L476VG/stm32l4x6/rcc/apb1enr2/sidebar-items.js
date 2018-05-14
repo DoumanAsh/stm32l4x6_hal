@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["LPTIM2ENR","Value of the field"],["LPUART1ENR","Value of the field"],["R","Value read from the register"],["SWPMI1ENR","Value of the field"],["W","Value to write to the register"],["_LPTIM2ENW","Proxy"],["_LPUART1ENW","Proxy"],["_SWPMI1ENW","Proxy"]]});

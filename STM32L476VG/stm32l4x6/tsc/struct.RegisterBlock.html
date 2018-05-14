@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `RegisterBlock` struct in crate `stm32l4x6`."><meta name="keywords" content="rust, rustlang, rust-lang, RegisterBlock"><title>stm32l4x6::tsc::RegisterBlock - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc struct"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Struct RegisterBlock</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.cr">cr</a><a href="#structfield.ier">ier</a><a href="#structfield.icr">icr</a><a href="#structfield.isr">isr</a><a href="#structfield.iohcr">iohcr</a><a href="#structfield.ioascr">ioascr</a><a href="#structfield.ioscr">ioscr</a><a href="#structfield.ioccr">ioccr</a><a href="#structfield.iogcsr">iogcsr</a><a href="#structfield.iog1cr">iog1cr</a><a href="#structfield.iog2cr">iog2cr</a><a href="#structfield.iog3cr">iog3cr</a><a href="#structfield.iog4cr">iog4cr</a><a href="#structfield.iog5cr">iog5cr</a><a href="#structfield.iog6cr">iog6cr</a><a href="#structfield.iog7cr">iog7cr</a><a href="#structfield.iog8cr">iog8cr</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-Send">Send</a><a href="#impl-Sync">!Sync</a></div></div><p class='location'><a href='../index.html'>stm32l4x6</a>::<wbr><a href='index.html'>tsc</a></p><script>window.sidebarCurrent = {name: 'RegisterBlock', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>stm32l4x6</a>::<wbr><a href='index.html'>tsc</a>::<wbr><a class="struct" href=''>RegisterBlock</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/stm32l4x6/lib.rs.html#31231-31270' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust struct'><div class="docblock attributes">#[repr(C)]
+</div>pub struct RegisterBlock {
+    pub cr: <a class="struct" href="../../stm32l4x6/tsc/struct.CR.html" title="struct stm32l4x6::tsc::CR">CR</a>,
+    pub ier: <a class="struct" href="../../stm32l4x6/tsc/struct.IER.html" title="struct stm32l4x6::tsc::IER">IER</a>,
+    pub icr: <a class="struct" href="../../stm32l4x6/tsc/struct.ICR.html" title="struct stm32l4x6::tsc::ICR">ICR</a>,
+    pub isr: <a class="struct" href="../../stm32l4x6/tsc/struct.ISR.html" title="struct stm32l4x6::tsc::ISR">ISR</a>,
+    pub iohcr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOHCR.html" title="struct stm32l4x6::tsc::IOHCR">IOHCR</a>,
+    pub ioascr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOASCR.html" title="struct stm32l4x6::tsc::IOASCR">IOASCR</a>,
+    pub ioscr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOSCR.html" title="struct stm32l4x6::tsc::IOSCR">IOSCR</a>,
+    pub ioccr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOCCR.html" title="struct stm32l4x6::tsc::IOCCR">IOCCR</a>,
+    pub iogcsr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOGCSR.html" title="struct stm32l4x6::tsc::IOGCSR">IOGCSR</a>,
+    pub iog1cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG1CR.html" title="struct stm32l4x6::tsc::IOG1CR">IOG1CR</a>,
+    pub iog2cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG2CR.html" title="struct stm32l4x6::tsc::IOG2CR">IOG2CR</a>,
+    pub iog3cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG3CR.html" title="struct stm32l4x6::tsc::IOG3CR">IOG3CR</a>,
+    pub iog4cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG4CR.html" title="struct stm32l4x6::tsc::IOG4CR">IOG4CR</a>,
+    pub iog5cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG5CR.html" title="struct stm32l4x6::tsc::IOG5CR">IOG5CR</a>,
+    pub iog6cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG6CR.html" title="struct stm32l4x6::tsc::IOG6CR">IOG6CR</a>,
+    pub iog7cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG7CR.html" title="struct stm32l4x6::tsc::IOG7CR">IOG7CR</a>,
+    pub iog8cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG8CR.html" title="struct stm32l4x6::tsc::IOG8CR">IOG8CR</a>,
+    // some fields omitted
+}</pre></div><div class='docblock'><p>Register block</p>
+</div><h2 id='fields' class='fields small-section-header'>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.cr" class="structfield small-section-header">
+                           <a href="#structfield.cr" class="anchor field"></a>
+                           <span id="cr.v" class='invisible'>
+                           <code>cr: <a class="struct" href="../../stm32l4x6/tsc/struct.CR.html" title="struct stm32l4x6::tsc::CR">CR</a></code>
+                           </span></span><div class='docblock'><p>0x00 - control register</p>
+</div><span id="structfield.ier" class="structfield small-section-header">
+                           <a href="#structfield.ier" class="anchor field"></a>
+                           <span id="ier.v" class='invisible'>
+                           <code>ier: <a class="struct" href="../../stm32l4x6/tsc/struct.IER.html" title="struct stm32l4x6::tsc::IER">IER</a></code>
+                           </span></span><div class='docblock'><p>0x04 - interrupt enable register</p>
+</div><span id="structfield.icr" class="structfield small-section-header">
+                           <a href="#structfield.icr" class="anchor field"></a>
+                           <span id="icr.v" class='invisible'>
+                           <code>icr: <a class="struct" href="../../stm32l4x6/tsc/struct.ICR.html" title="struct stm32l4x6::tsc::ICR">ICR</a></code>
+                           </span></span><div class='docblock'><p>0x08 - interrupt clear register</p>
+</div><span id="structfield.isr" class="structfield small-section-header">
+                           <a href="#structfield.isr" class="anchor field"></a>
+                           <span id="isr.v" class='invisible'>
+                           <code>isr: <a class="struct" href="../../stm32l4x6/tsc/struct.ISR.html" title="struct stm32l4x6::tsc::ISR">ISR</a></code>
+                           </span></span><div class='docblock'><p>0x0c - interrupt status register</p>
+</div><span id="structfield.iohcr" class="structfield small-section-header">
+                           <a href="#structfield.iohcr" class="anchor field"></a>
+                           <span id="iohcr.v" class='invisible'>
+                           <code>iohcr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOHCR.html" title="struct stm32l4x6::tsc::IOHCR">IOHCR</a></code>
+                           </span></span><div class='docblock'><p>0x10 - I/O hysteresis control register</p>
+</div><span id="structfield.ioascr" class="structfield small-section-header">
+                           <a href="#structfield.ioascr" class="anchor field"></a>
+                           <span id="ioascr.v" class='invisible'>
+                           <code>ioascr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOASCR.html" title="struct stm32l4x6::tsc::IOASCR">IOASCR</a></code>
+                           </span></span><div class='docblock'><p>0x18 - I/O analog switch control register</p>
+</div><span id="structfield.ioscr" class="structfield small-section-header">
+                           <a href="#structfield.ioscr" class="anchor field"></a>
+                           <span id="ioscr.v" class='invisible'>
+                           <code>ioscr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOSCR.html" title="struct stm32l4x6::tsc::IOSCR">IOSCR</a></code>
+                           </span></span><div class='docblock'><p>0x20 - I/O sampling control register</p>
+</div><span id="structfield.ioccr" class="structfield small-section-header">
+                           <a href="#structfield.ioccr" class="anchor field"></a>
+                           <span id="ioccr.v" class='invisible'>
+                           <code>ioccr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOCCR.html" title="struct stm32l4x6::tsc::IOCCR">IOCCR</a></code>
+                           </span></span><div class='docblock'><p>0x28 - I/O channel control register</p>
+</div><span id="structfield.iogcsr" class="structfield small-section-header">
+                           <a href="#structfield.iogcsr" class="anchor field"></a>
+                           <span id="iogcsr.v" class='invisible'>
+                           <code>iogcsr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOGCSR.html" title="struct stm32l4x6::tsc::IOGCSR">IOGCSR</a></code>
+                           </span></span><div class='docblock'><p>0x30 - I/O group control status register</p>
+</div><span id="structfield.iog1cr" class="structfield small-section-header">
+                           <a href="#structfield.iog1cr" class="anchor field"></a>
+                           <span id="iog1cr.v" class='invisible'>
+                           <code>iog1cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG1CR.html" title="struct stm32l4x6::tsc::IOG1CR">IOG1CR</a></code>
+                           </span></span><div class='docblock'><p>0x34 - I/O group x counter register</p>
+</div><span id="structfield.iog2cr" class="structfield small-section-header">
+                           <a href="#structfield.iog2cr" class="anchor field"></a>
+                           <span id="iog2cr.v" class='invisible'>
+                           <code>iog2cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG2CR.html" title="struct stm32l4x6::tsc::IOG2CR">IOG2CR</a></code>
+                           </span></span><div class='docblock'><p>0x38 - I/O group x counter register</p>
+</div><span id="structfield.iog3cr" class="structfield small-section-header">
+                           <a href="#structfield.iog3cr" class="anchor field"></a>
+                           <span id="iog3cr.v" class='invisible'>
+                           <code>iog3cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG3CR.html" title="struct stm32l4x6::tsc::IOG3CR">IOG3CR</a></code>
+                           </span></span><div class='docblock'><p>0x3c - I/O group x counter register</p>
+</div><span id="structfield.iog4cr" class="structfield small-section-header">
+                           <a href="#structfield.iog4cr" class="anchor field"></a>
+                           <span id="iog4cr.v" class='invisible'>
+                           <code>iog4cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG4CR.html" title="struct stm32l4x6::tsc::IOG4CR">IOG4CR</a></code>
+                           </span></span><div class='docblock'><p>0x40 - I/O group x counter register</p>
+</div><span id="structfield.iog5cr" class="structfield small-section-header">
+                           <a href="#structfield.iog5cr" class="anchor field"></a>
+                           <span id="iog5cr.v" class='invisible'>
+                           <code>iog5cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG5CR.html" title="struct stm32l4x6::tsc::IOG5CR">IOG5CR</a></code>
+                           </span></span><div class='docblock'><p>0x44 - I/O group x counter register</p>
+</div><span id="structfield.iog6cr" class="structfield small-section-header">
+                           <a href="#structfield.iog6cr" class="anchor field"></a>
+                           <span id="iog6cr.v" class='invisible'>
+                           <code>iog6cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG6CR.html" title="struct stm32l4x6::tsc::IOG6CR">IOG6CR</a></code>
+                           </span></span><div class='docblock'><p>0x48 - I/O group x counter register</p>
+</div><span id="structfield.iog7cr" class="structfield small-section-header">
+                           <a href="#structfield.iog7cr" class="anchor field"></a>
+                           <span id="iog7cr.v" class='invisible'>
+                           <code>iog7cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG7CR.html" title="struct stm32l4x6::tsc::IOG7CR">IOG7CR</a></code>
+                           </span></span><div class='docblock'><p>0x4c - I/O group x counter register</p>
+</div><span id="structfield.iog8cr" class="structfield small-section-header">
+                           <a href="#structfield.iog8cr" class="anchor field"></a>
+                           <span id="iog8cr.v" class='invisible'>
+                           <code>iog8cr: <a class="struct" href="../../stm32l4x6/tsc/struct.IOG8CR.html" title="struct stm32l4x6::tsc::IOG8CR">IOG8CR</a></code>
+                           </span></span><div class='docblock'><p>0x50 - I/O group x counter register</p>
+</div>
+                <h2 id='synthetic-implementations' class='small-section-header'>
+                  Auto Trait Implementations<a href='#synthetic-implementations' class='anchor'></a>
+                </h2>
+                <div id='synthetic-implementations-list'>
+            <h3 id='impl-Send' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> for <a class="struct" href="../../stm32l4x6/tsc/struct.RegisterBlock.html" title="struct stm32l4x6::tsc::RegisterBlock">RegisterBlock</a></code><a href='#impl-Send' class='anchor'></a></span></td><td><span class='out-of-band'></span></td></tr></tbody></table></h3><div class='impl-items'></div><h3 id='impl-Sync' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl !<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> for <a class="struct" href="../../stm32l4x6/tsc/struct.RegisterBlock.html" title="struct stm32l4x6::tsc::RegisterBlock">RegisterBlock</a></code><a href='#impl-Sync' class='anchor'></a></span></td><td><span class='out-of-band'></span></td></tr></tbody></table></h3><div class='impl-items'></div></div></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "stm32l4x6";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>
