@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Five","Access RAM5"],["Four","Access RAM4"],["One","Access RAM1"],["Seven","Access RAM7"],["Six","Access RAM6"],["Three","Access RAM3"],["Two","Access RAM2"],["Zero","Access RAM0"]]});

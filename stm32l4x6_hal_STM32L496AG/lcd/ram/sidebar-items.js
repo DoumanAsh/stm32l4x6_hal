@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["index","RAM index accessors."]],"trait":[["Index",""]]});

@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["ValidationResult",""]],"mod":[["config","LCD configuration values"],["ram",""]],"struct":[["LCD","LCD representations that provides access to HW LCD"]]});
