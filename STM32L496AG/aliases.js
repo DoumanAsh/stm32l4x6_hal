@@ -8,7 +8,6 @@ ALIASES['nb'] = {};
 ALIASES['stm32l4x6'] = {};
 ALIASES['stm32l4x6_hal'] = {};
 ALIASES['stm32l4x6_hal'] = {};
-ALIASES['untagged_option'] = {};
 ALIASES['vcell'] = {};
 ALIASES['void'] = {};
 ALIASES['volatile_register'] = {};

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `RegisterBlock` struct in crate `cortex_m`."><meta name="keywords" content="rust, rustlang, rust-lang, RegisterBlock"><title>cortex_m::peripheral::cpuid::RegisterBlock - Rust</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script></head><body class="rustdoc struct"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Struct RegisterBlock</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.base">base</a><a href="#structfield.pfr">pfr</a><a href="#structfield.dfr">dfr</a><a href="#structfield.afr">afr</a><a href="#structfield.mmfr">mmfr</a><a href="#structfield.isar">isar</a><a href="#structfield.clidr">clidr</a><a href="#structfield.ctr">ctr</a><a href="#structfield.ccsidr">ccsidr</a><a href="#structfield.csselr">csselr</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-Send">Send</a><a href="#impl-Sync">!Sync</a></div></div><p class='location'><a href='../../index.html'>cortex_m</a>::<wbr><a href='../index.html'>peripheral</a>::<wbr><a href='index.html'>cpuid</a></p><script>window.sidebarCurrent = {name: 'RegisterBlock', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>cortex_m</a>::<wbr><a href='../index.html'>peripheral</a>::<wbr><a href='index.html'>cpuid</a>::<wbr><a class="struct" href=''>RegisterBlock</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../../src/cortex_m/peripheral/cpuid.rs.html#12-39' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust struct'><div class="docblock attributes">#[repr(C)]
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `RegisterBlock` struct in crate `cortex_m`."><meta name="keywords" content="rust, rustlang, rust-lang, RegisterBlock"><title>cortex_m::peripheral::cpuid::RegisterBlock - Rust</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script></head><body class="rustdoc struct"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Struct RegisterBlock</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.base">base</a><a href="#structfield.pfr">pfr</a><a href="#structfield.dfr">dfr</a><a href="#structfield.afr">afr</a><a href="#structfield.mmfr">mmfr</a><a href="#structfield.isar">isar</a><a href="#structfield.clidr">clidr</a><a href="#structfield.ctr">ctr</a><a href="#structfield.ccsidr">ccsidr</a><a href="#structfield.csselr">csselr</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-Send">Send</a><a href="#impl-Sync">!Sync</a></div></div><p class='location'><a href='../../index.html'>cortex_m</a>::<wbr><a href='../index.html'>peripheral</a>::<wbr><a href='index.html'>cpuid</a></p><script>window.sidebarCurrent = {name: 'RegisterBlock', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>cortex_m</a>::<wbr><a href='../index.html'>peripheral</a>::<wbr><a href='index.html'>cpuid</a>::<wbr><a class="struct" href=''>RegisterBlock</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../../src/cortex_m/peripheral/cpuid.rs.html#12-65' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust struct'><div class="docblock attributes">#[repr(C)]
 </div>pub struct RegisterBlock {
     pub base: <a class="struct" href="../../../volatile_register/struct.RO.html" title="struct volatile_register::RO">RO</a>&lt;u32&gt;,
     pub pfr: [<a class="struct" href="../../../volatile_register/struct.RO.html" title="struct volatile_register::RO">RO</a>&lt;u32&gt;; 2],
@@ -22,47 +22,47 @@
                            <a href="#structfield.pfr" class="anchor field"></a>
                            <span id="pfr.v" class='invisible'>
                            <code>pfr: [<a class="struct" href="../../../volatile_register/struct.RO.html" title="struct volatile_register::RO">RO</a>&lt;u32&gt;; 2]</code>
-                           </span></span><div class='docblock'><p>Processor Feature</p>
+                           </span></span><div class='docblock'><p>Processor Feature (not present on Cortex-M0 variants)</p>
 </div><span id="structfield.dfr" class="structfield small-section-header">
                            <a href="#structfield.dfr" class="anchor field"></a>
                            <span id="dfr.v" class='invisible'>
                            <code>dfr: <a class="struct" href="../../../volatile_register/struct.RO.html" title="struct volatile_register::RO">RO</a>&lt;u32&gt;</code>
-                           </span></span><div class='docblock'><p>Debug Feature</p>
+                           </span></span><div class='docblock'><p>Debug Feature (not present on Cortex-M0 variants)</p>
 </div><span id="structfield.afr" class="structfield small-section-header">
                            <a href="#structfield.afr" class="anchor field"></a>
                            <span id="afr.v" class='invisible'>
                            <code>afr: <a class="struct" href="../../../volatile_register/struct.RO.html" title="struct volatile_register::RO">RO</a>&lt;u32&gt;</code>
-                           </span></span><div class='docblock'><p>Auxiliary Feature</p>
+                           </span></span><div class='docblock'><p>Auxiliary Feature (not present on Cortex-M0 variants)</p>
 </div><span id="structfield.mmfr" class="structfield small-section-header">
                            <a href="#structfield.mmfr" class="anchor field"></a>
                            <span id="mmfr.v" class='invisible'>
                            <code>mmfr: [<a class="struct" href="../../../volatile_register/struct.RO.html" title="struct volatile_register::RO">RO</a>&lt;u32&gt;; 4]</code>
-                           </span></span><div class='docblock'><p>Memory Model Feature</p>
+                           </span></span><div class='docblock'><p>Memory Model Feature (not present on Cortex-M0 variants)</p>
 </div><span id="structfield.isar" class="structfield small-section-header">
                            <a href="#structfield.isar" class="anchor field"></a>
                            <span id="isar.v" class='invisible'>
                            <code>isar: [<a class="struct" href="../../../volatile_register/struct.RO.html" title="struct volatile_register::RO">RO</a>&lt;u32&gt;; 5]</code>
-                           </span></span><div class='docblock'><p>Instruction Set Attribute</p>
+                           </span></span><div class='docblock'><p>Instruction Set Attribute (not present on Cortex-M0 variants)</p>
 </div><span id="structfield.clidr" class="structfield small-section-header">
                            <a href="#structfield.clidr" class="anchor field"></a>
                            <span id="clidr.v" class='invisible'>
                            <code>clidr: <a class="struct" href="../../../volatile_register/struct.RO.html" title="struct volatile_register::RO">RO</a>&lt;u32&gt;</code>
-                           </span></span><div class='docblock'><p>Cache Level ID</p>
+                           </span></span><div class='docblock'><p>Cache Level ID (only present on Cortex-M7)</p>
 </div><span id="structfield.ctr" class="structfield small-section-header">
                            <a href="#structfield.ctr" class="anchor field"></a>
                            <span id="ctr.v" class='invisible'>
                            <code>ctr: <a class="struct" href="../../../volatile_register/struct.RO.html" title="struct volatile_register::RO">RO</a>&lt;u32&gt;</code>
-                           </span></span><div class='docblock'><p>Cache Type</p>
+                           </span></span><div class='docblock'><p>Cache Type (only present on Cortex-M7)</p>
 </div><span id="structfield.ccsidr" class="structfield small-section-header">
                            <a href="#structfield.ccsidr" class="anchor field"></a>
                            <span id="ccsidr.v" class='invisible'>
                            <code>ccsidr: <a class="struct" href="../../../volatile_register/struct.RO.html" title="struct volatile_register::RO">RO</a>&lt;u32&gt;</code>
-                           </span></span><div class='docblock'><p>Cache Size ID</p>
+                           </span></span><div class='docblock'><p>Cache Size ID (only present on Cortex-M7)</p>
 </div><span id="structfield.csselr" class="structfield small-section-header">
                            <a href="#structfield.csselr" class="anchor field"></a>
                            <span id="csselr.v" class='invisible'>
                            <code>csselr: <a class="struct" href="../../../volatile_register/struct.RW.html" title="struct volatile_register::RW">RW</a>&lt;u32&gt;</code>
-                           </span></span><div class='docblock'><p>Cache Size Selection</p>
+                           </span></span><div class='docblock'><p>Cache Size Selection (only present on Cortex-M7)</p>
 </div>
                 <h2 id='synthetic-implementations' class='small-section-header'>
                   Auto Trait Implementations<a href='#synthetic-implementations' class='anchor'></a>

@@ -993,7 +993,7 @@
                             Math.min(results_returned[fullId].lev, returned);
                     }
                     if (index !== -1 || lev <= MAX_LEV_DISTANCE) {
-                        if (index !== -1 && paths.length < 2) {
+                        if (index !== -1) {
                             lev = 0;
                         }
                         if (results[fullId] === undefined) {
