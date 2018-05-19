@@ -13,7 +13,6 @@
 //!
 //! [cortex-m-quickstart]: https://docs.rs/cortex-m-quickstart/~0.2.3
 
-#![feature(never_type)]
 #![no_std]
 
 extern crate cast;
