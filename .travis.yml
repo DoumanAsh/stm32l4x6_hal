@@ -3,9 +3,17 @@ language: rust
 matrix:
   include:
     - env: TARGET=thumbv7em-none-eabi
-      rust: nightly
+      rust: beta
+      addons:
+        apt:
+          packages:
+            - gcc-arm-none-eabi
     - env: TARGET=thumbv7em-none-eabihf
-      rust: nightly
+      rust: beta
+      addons:
+        apt:
+          packages:
+            - gcc-arm-none-eabi
 
 cache: cargo
 
