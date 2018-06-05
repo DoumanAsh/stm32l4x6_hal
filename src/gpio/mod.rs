@@ -428,6 +428,8 @@ impl_parts!(
     GPIOA, gpioa;
     GPIOB, gpiob;
     GPIOC, gpioc;
+    GPIOD, gpioc;
+    GPIOE, gpioc;
     );
 
 // Each I/O pin (except PH3 for STM32L496xx/4A6xx devices) has a multiplexer with up to
@@ -448,6 +450,15 @@ impl_gpio!(C, GPIOC, gpiocen, gpiocrst,
            AFRL: [PC0, 0; PC1, 1; PC2, 2; PC3, 3; PC4, 4; PC5, 5; PC6, 6; PC7, 7;],
            AFRH: [PC8, 8; PC9, 9; PC10, 10; PC11, 11; PC12, 12; PC13, 13; PC14, 14; PC15, 15; ]
           );
+impl_gpio!(D, GPIOD, gpioden, gpiodrst,
+           AFRL: [PD0, 0; PD1, 1; PD2, 2; PD3, 3; PD4, 4; PD5, 5; PD6, 6; PD7, 7;],
+           AFRH: [PD8, 8; PD9, 9; PD10, 10; PD11, 11; PD12, 12; PD13, 13; PD14, 14; PD15, 15; ]
+);
+impl_gpio!(E, GPIOE, gpioeen, gpioerst,
+           AFRL: [PE0, 0; PE1, 1; PE2, 2; PE3, 3; PE4, 4; PE5, 5; PE6, 6; PE7, 7;],
+           AFRH: [PE8, 8; PE9, 9; PE10, 10; PE11, 11; PE12, 12; PE13, 13; PE14, 14; PE15, 15; ]
+);
+
 
 #[cfg(feature = "STM32L476VG")]
 pub mod stm32l476vg;
