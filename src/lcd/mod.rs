@@ -1,7 +1,10 @@
 //! LCD module
+//!
+//! TODO: Work in progress
 
 use stm32l4x6;
 
+use gpio;
 use power::Power;
 use rcc::clocking::RtcClkSource;
 use rcc::{APB1, AHB, BDCR};
@@ -60,9 +63,93 @@ impl LCD {
             w.gpioaen().set_bit();
             w.gpioben().set_bit();
             w.gpiocen().set_bit();
-            w.gpioden().set_bit()
+            //TODO: there are more pins in D/E sections which are currently
+            //      board specific
+
+            //w.gpioden().set_bit()
+            //w.gpioeen().set_bit()
         });
-        // TODO: find out which pins exactly to configure
+        let mut gpio = gpio::C::new(ahb);
+        let _vlcd = gpio.PC3.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+
+        //TODO: For some reason USB Leds get enabled after firing up these alt functions.
+        //      AF11 is supposed to be LCD only function, yet why usb leds are on?
+
+        //Enable segments
+        //SEG18
+        gpio.PC0.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG19
+        gpio.PC1.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG20
+        gpio.PC2.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG22
+        gpio.PC4.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG23
+        gpio.PC5.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG24
+        gpio.PC6.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG25
+        gpio.PC7.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG26
+        gpio.PC8.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //SEG27
+        gpio.PC9.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //COM4/SEG28/40
+        gpio.PC10.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //COM5/SEG29/41
+        gpio.PC11.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //COM6/SEG30/42
+        gpio.PC12.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+
+        let mut gpio = gpio::A::new(ahb);
+        //SEG0
+        gpio.PA1.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG1
+        gpio.PA2.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG2
+        gpio.PA3.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG3
+        gpio.PA6.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG4
+        gpio.PA7.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //COM0
+        gpio.PA8.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //COM1
+        gpio.PA9.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //COM2
+        gpio.PA10.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //SEG17
+        gpio.PA15.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+
+        let mut gpio = gpio::B::new(ahb);
+        //SEG5
+        gpio.PB0.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG6
+        gpio.PB1.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG7
+        gpio.PB3.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG8
+        gpio.PB4.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG9
+        gpio.PB5.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG21
+        gpio.PB7.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrl);
+        //SEG16
+        gpio.PB8.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //COM3
+        gpio.PB9.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //SEG10
+        gpio.PB10.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //SEG11
+        gpio.PB11.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //SEG12
+        gpio.PB12.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //SEG13
+        gpio.PB13.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //SEG14
+        gpio.PB14.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
+        //SEG15
+        gpio.PB15.into_alt_fun::<gpio::AF11>(&mut gpio.moder, &mut gpio.afrh);
 
         // Configures RTC clock
         pwr.remove_bdp();
