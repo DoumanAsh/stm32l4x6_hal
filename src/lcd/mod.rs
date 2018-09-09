@@ -60,9 +60,9 @@ impl LCD {
         apb1.enr1().modify(|_, w| w.pwren().set_bit());
         // Enables LCD GPIO
         ahb.enr2().modify(|_, w| {
-            w.gpioaen().set_bit();
-            w.gpioben().set_bit();
-            w.gpiocen().set_bit();
+            w.gpioaen().set_bit()
+             .gpioben().set_bit()
+             .gpiocen().set_bit()
             //TODO: there are more pins in D/E sections which are currently
             //      board specific
 
