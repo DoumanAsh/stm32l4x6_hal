@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.2/src/peripheral/scb.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>scb.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.7/src/peripheral/scb.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>scb.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -598,6 +598,23 @@
 <span id="598">598</span>
 <span id="599">599</span>
 <span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+<span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
+<span id="616">616</span>
+<span id="617">617</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! System Control Block</span>
 
@@ -620,10 +637,7 @@
     <span class="kw">pub</span> <span class="ident">icsr</span>: <span class="ident">RW</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Vector Table Offset (not present on Cortex-M0 variants)</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">armv6m</span>))]</span>
     <span class="kw">pub</span> <span class="ident">vtor</span>: <span class="ident">RW</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">armv6m</span>)]</span>
-    <span class="ident">_reserved0</span>: <span class="ident">u32</span>,
 
     <span class="doccomment">/// Application Interrupt and Reset Control</span>
     <span class="kw">pub</span> <span class="ident">aircr</span>: <span class="ident">RW</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
@@ -1196,6 +1210,26 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_sleepdeep</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">unsafe</span> {
             <span class="self">self</span>.<span class="ident">scr</span>.<span class="ident">modify</span>(<span class="op">|</span><span class="ident">scr</span><span class="op">|</span> <span class="ident">scr</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">SCB_SCR_SLEEPDEEP</span>);
+        }
+    }
+}
+
+<span class="kw">const</span> <span class="ident">SCB_AIRCR_VECTKEY</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">0x05FA</span> <span class="op">&lt;&lt;</span> <span class="number">16</span>;
+<span class="kw">const</span> <span class="ident">SCB_AIRCR_PRIGROUP_MASK</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">0x5</span> <span class="op">&lt;&lt;</span> <span class="number">8</span>;
+<span class="kw">const</span> <span class="ident">SCB_AIRCR_SYSRESETREQ</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;&lt;</span> <span class="number">2</span>;
+
+<span class="kw">impl</span> <span class="ident">SCB</span> {
+    <span class="doccomment">/// Initiate a system reset request to reset the MCU</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">system_reset</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="op">!</span> {
+        ::<span class="ident">asm</span>::<span class="ident">dsb</span>();
+        <span class="kw">unsafe</span> { <span class="self">self</span>.<span class="ident">aircr</span>.<span class="ident">modify</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span>
+            <span class="ident">SCB_AIRCR_VECTKEY</span> <span class="op">|</span> <span class="comment">// otherwise the write is ignored</span>
+            <span class="ident">r</span> <span class="op">&amp;</span> <span class="ident">SCB_AIRCR_PRIGROUP_MASK</span> <span class="op">|</span> <span class="comment">// keep priority group unchanged</span>
+            <span class="ident">SCB_AIRCR_SYSRESETREQ</span> <span class="comment">// set the bit</span>
+        ) };
+        ::<span class="ident">asm</span>::<span class="ident">dsb</span>();
+        <span class="kw">loop</span> { <span class="comment">// wait for the reset</span>
+            ::<span class="ident">asm</span>::<span class="ident">nop</span>(); <span class="comment">// avoid rust-lang/rust#28728</span>
         }
     }
 }

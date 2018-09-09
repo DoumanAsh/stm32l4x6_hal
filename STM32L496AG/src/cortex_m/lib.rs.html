@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.2/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1"> 1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.7/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -50,13 +50,6 @@
 <span id="50">50</span>
 <span id="51">51</span>
 <span id="52">52</span>
-<span id="53">53</span>
-<span id="54">54</span>
-<span id="55">55</span>
-<span id="56">56</span>
-<span id="57">57</span>
-<span id="58">58</span>
-<span id="59">59</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Low level access to Cortex-M processors</span>
 <span class="doccomment">//!</span>
@@ -67,24 +60,17 @@
 <span class="doccomment">//! - Interrupt manipulation mechanisms</span>
 <span class="doccomment">//! - Safe wrappers around Cortex-M specific instructions like `bkpt`</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! # Requirements</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! To use this crate on the stable or beta channel `arm-none-eabi-gcc` needs to be installed and</span>
-<span class="doccomment">//! available in your `$PATH`.</span>
-<span class="doccomment">//!</span>
 <span class="doccomment">//! # Optional features</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## `inline-asm`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! When this feature is enabled the implementation of all the functions inside the `asm` and</span>
 <span class="doccomment">//! `register` modules use inline assembly (`asm!`) instead of external assembly (FFI into separate</span>
-<span class="doccomment">//! assembly files compiled using `arm-none-eabi-gcc`). The advantages the enabling `inline-asm`</span>
+<span class="doccomment">//! assembly files pre-compiled using `arm-none-eabi-gcc`). The advantages of enabling `inline-asm`</span>
 <span class="doccomment">//! are:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! - Reduced overhead. FFI eliminates the possibility of inlining so all operations include a</span>
 <span class="doccomment">//! function call overhead when `inline-asm` is not enabled.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! - `arm-none-eabi-gcc` is not required for building this crate.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! - Some of the `register` API only becomes available only when `inline-asm` is enabled. Check the</span>
 <span class="doccomment">//! API docs for details.</span>
