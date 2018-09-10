@@ -16,10 +16,12 @@
 #![no_std]
 
 extern crate cast;
-extern crate cortex_m;
-extern crate embedded_hal as hal;
-extern crate nb;
+pub extern crate cortex_m;
+pub extern crate nb;
+pub extern crate embedded_hal;
 pub extern crate stm32l4x6;
+
+use embedded_hal as hal;
 
 use core::cmp;
 use core::marker;
