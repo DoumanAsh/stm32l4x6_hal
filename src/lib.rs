@@ -27,6 +27,7 @@ use core::cmp;
 use core::marker;
 use core::mem;
 use core::ops;
+use core::ptr;
 
 pub mod common;
 pub mod config;
@@ -38,3 +39,4 @@ pub mod power;
 pub mod rcc;
 pub mod time;
 pub mod timer;
+pub mod spi;
