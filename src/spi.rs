@@ -2,7 +2,7 @@
 
 use ::nb;
 use ::hal::spi::{FullDuplex, Mode, Phase, Polarity};
-use ::stm32l4x6::{SPI1, SPI2};
+use ::stm32l4x6::{SPI1, SPI2, SPI3};
 
 use ::time::Hertz;
 use ::rcc::{APB1, APB2, Clocks};
@@ -72,9 +72,6 @@ pub mod gpio {
 
 ///Describes set of SPI pins
 pub trait Pins<SPI, APB> where Self: Sized {
-    ///Whether pins require remapping
-    const REMAP: bool;
-
     ///Creates SPI out of pins.
     ///
     ///## Arguments:
@@ -99,14 +96,11 @@ macro_rules! impl_spi_pin {
                 rst: $spiXrst:ident,
                 pclk: $pclkX:ident,
             },
-            AF: $AF:ident,
-            REMAP: $REMAP:expr,
+            AF: $AF:ident
         }
     },)+) => {
         $(
             impl Pins<$SPIx, $APB> for ($(::gpio::$PIN<::gpio::$AF>,)+) {
-                const REMAP: bool = $REMAP;
-
                 fn spi(self, spi: $SPIx, freq: Hertz, mode: Mode, apb: &mut $APB, clocks: &Clocks) -> Spi<$SPIx, Self> {
                     // Reference: Ch. 42.4.7 Configuration of SPI
 
@@ -220,8 +214,7 @@ impl_spi_pin!(
                 rst: spi1rst,
                 pclk: pclk2,
             },
-            AF: AF5,
-            REMAP: false,
+            AF: AF5
         }
     },
     SPI1 = {
@@ -235,8 +228,7 @@ impl_spi_pin!(
                 rst: spi1rst,
                 pclk: pclk2,
             },
-            AF: AF5,
-            REMAP: false,
+            AF: AF5
         }
     },
     SPI2 = {
@@ -250,8 +242,7 @@ impl_spi_pin!(
                 rst: spi3rst,
                 pclk: pclk1,
             },
-            AF: AF5,
-            REMAP: false,
+            AF: AF5
         }
     },
     SPI2 = {
@@ -265,24 +256,38 @@ impl_spi_pin!(
                 rst: spi3rst,
                 pclk: pclk1,
             },
-            AF: AF5,
-            REMAP: false,
+            AF: AF5
         }
     },
-    //TODO: there is no spi3en, investigate how to enable pins it.
-    //SPI3 = {
-    //    list: [PA4, PB4, PB15,],
-    //    config: {
-    //        APB: {
-    //            name: APB1,
-    //            en: spi3en,
-    //            rst: spi3rst,
-    //        }
-    //        AF: AF6,
-    //        REMAP: true,
-    //    }
-    //},
-
+    SPI3 = {
+        list: [PB3, PB4, PB15,],
+        config: {
+            APB: {
+                name: APB1,
+                enr: enr1,
+                rstr: rstr1,
+                //Dunno why but svd has sp3en, not spi3en
+                en: sp3en,
+                rst: spi3rst,
+                pclk: pclk1,
+            },
+            AF: AF6
+        }
+    },
+    SPI3 = {
+        list: [PC10, PC11, PC12,],
+        config: {
+            APB: {
+                name: APB1,
+                enr: enr1,
+                rstr: rstr1,
+                en: sp3en,
+                rst: spi3rst,
+                pclk: pclk1,
+            },
+            AF: AF6
+        }
+    },
 );
 
 /// SPI errors.
