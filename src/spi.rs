@@ -17,15 +17,23 @@ pub mod gpio {
     pub mod spi1 {
         pub mod nss {
             pub use ::gpio::{PA4, PA15};
+            #[cfg(feature = "STM32L476VG")]
+            pub use ::gpio::stm32l476vg::gpio::{PE12};
         }
         pub mod sck {
             pub use ::gpio::{PA5, PB3};
+            #[cfg(feature = "STM32L476VG")]
+            pub use ::gpio::stm32l476vg::gpio::{PE13};
         }
         pub mod miso {
             pub use ::gpio::{PA6, PB4};
+            #[cfg(feature = "STM32L476VG")]
+            pub use ::gpio::stm32l476vg::gpio::{PE14};
         }
         pub mod mosi {
             pub use ::gpio::{PA7, PB5};
+            #[cfg(feature = "STM32L476VG")]
+            pub use ::gpio::stm32l476vg::gpio::{PE15};
         }
     }
 
@@ -70,6 +78,16 @@ pub mod gpio {
     }
 }
 
+use self::gpio::spi1::sck::*;
+use self::gpio::spi1::miso::*;
+use self::gpio::spi1::mosi::*;
+use self::gpio::spi2::sck::*;
+use self::gpio::spi2::miso::*;
+use self::gpio::spi2::mosi::*;
+use self::gpio::spi3::sck::*;
+use self::gpio::spi3::miso::*;
+use self::gpio::spi3::mosi::*;
+
 ///Describes set of SPI pins
 pub trait Pins<SPI, APB> where Self: Sized {
     ///Creates SPI out of pins.
@@ -100,7 +118,7 @@ macro_rules! impl_spi_pin {
         }
     },)+) => {
         $(
-            impl Pins<$SPIx, $APB> for ($(::gpio::$PIN<::gpio::$AF>,)+) {
+            impl Pins<$SPIx, $APB> for ($($PIN<::gpio::$AF>,)+) {
                 fn spi(self, spi: $SPIx, freq: Hertz, mode: Mode, apb: &mut $APB, clocks: &Clocks) -> Spi<$SPIx, Self> {
                     // Reference: Ch. 42.4.7 Configuration of SPI
 
@@ -152,7 +170,7 @@ macro_rules! impl_spi_pin {
                 }
             }
 
-            impl FullDuplex<u8> for Spi<$SPIx, ($(::gpio::$PIN<::gpio::$AF>,)+)> {
+            impl FullDuplex<u8> for Spi<$SPIx, ($($PIN<::gpio::$AF>,)+)> {
                 type Error = Error;
 
                 fn read(&mut self) -> nb::Result<u8, Error> {
@@ -194,9 +212,9 @@ macro_rules! impl_spi_pin {
                 }
             }
 
-            impl ::hal::blocking::spi::transfer::Default<u8> for Spi<$SPIx, ($(::gpio::$PIN<::gpio::$AF>,)+)> {}
+            impl ::hal::blocking::spi::transfer::Default<u8> for Spi<$SPIx, ($($PIN<::gpio::$AF>,)+)> {}
 
-            impl ::hal::blocking::spi::write::Default<u8> for Spi<$SPIx, ($(::gpio::$PIN<::gpio::$AF>,)+)> {}
+            impl ::hal::blocking::spi::write::Default<u8> for Spi<$SPIx, ($($PIN<::gpio::$AF>,)+)> {}
         )+
     };
 }
@@ -286,6 +304,24 @@ impl_spi_pin!(
                 pclk: pclk1,
             },
             AF: AF6
+        }
+    },
+);
+
+#[cfg(feature = "STM32L476VG")]
+impl_spi_pin!(
+    SPI1 = {
+        list: [PE13, PE14, PE15,],
+        config: {
+            APB: {
+                name: APB2,
+                enr: enr,
+                rstr: rstr,
+                en: spi1en,
+                rst: spi1rst,
+                pclk: pclk2,
+            },
+            AF: AF5
         }
     },
 );
