@@ -88,243 +88,257 @@ use self::gpio::spi3::sck::*;
 use self::gpio::spi3::miso::*;
 use self::gpio::spi3::mosi::*;
 
-///Describes set of SPI pins
-pub trait Pins<SPI, APB> where Self: Sized {
-    ///Creates SPI out of pins.
-    ///
-    ///## Arguments:
-    ///
-    ///- `spi` - stm32l4x6 SPI's struct.
-    ///- `freq` - SPI's frequency.
-    ///- `mode` - SPI's mode to use.
-    ///- `apb` - APB that corresponds to used pins.
-    ///- `clocks` - Used to retrieve configured clock's frequency.
-    fn spi(self, spi: SPI, freq: Hertz, mode: Mode, apb: &mut APB, clocks: &Clocks) -> Spi<SPI, Self>;
+pub use ::gpio::{AF5, AF6};
+
+///Describes SCK Pin
+pub trait SCK {
+    ///SPI index
+    const SPI_IDX: u8;
 }
 
-macro_rules! impl_spi_pin {
-    ($($SPIx:ident = {
-        list: [$($PIN:ident,)+],
-        config: {
-            APB: {
-                name: $APB:ident,
-                enr: $enrX:ident,
-                rstr: $rstrX:ident,
-                en: $spiXen:ident,
-                rst: $spiXrst:ident,
-                pclk: $pclkX:ident,
-            },
-            AF: $AF:ident
-        }
-    },)+) => {
+///Describes MISO Pin
+pub trait MISO {
+    ///SPI index
+    const SPI_IDX: u8;
+}
+
+///Describes MOSI Pin
+pub trait MOSI {
+    ///SPI index
+    const SPI_IDX: u8;
+}
+
+macro_rules! impl_pins_trait {
+    ($IDX:expr => {
+        TRAIT: $TRAIT:ident,
+        AF: $AFx:ident,
+        PINS: [$($PIN:ident,)+]
+    }) => {
         $(
-            impl Pins<$SPIx, $APB> for ($($PIN<::gpio::$AF>,)+) {
-                fn spi(self, spi: $SPIx, freq: Hertz, mode: Mode, apb: &mut $APB, clocks: &Clocks) -> Spi<$SPIx, Self> {
-                    // Reference: Ch. 42.4.7 Configuration of SPI
-
-                    // enable and/or reset SPI
-                    apb.$enrX().modify(|_, w| w.$spiXen().set_bit());
-                    apb.$rstrX().modify(|_, w| w.$spiXrst().set_bit());
-                    apb.$rstrX().modify(|_, w| w.$spiXrst().clear_bit());
-
-                    //Confire CR1
-                    let br = match clocks.$pclkX().0 / freq.0 {
-                        0 => unreachable!(),
-                        1...2 => 0b000,
-                        3...5 => 0b001,
-                        6...11 => 0b010,
-                        12...23 => 0b011,
-                        24...39 => 0b100,
-                        40...95 => 0b101,
-                        96...191 => 0b110,
-                        _ => 0b111,
-                    };
-
-                    spi.cr1.write(|w| unsafe {
-                        w.br().bits(br)
-                         .cpol().bit(mode.polarity == Polarity::IdleHigh)
-                         .cpha().bit(mode.phase == Phase::CaptureOnSecondTransition)
-                         //2-line undirectional for Master mode
-                         .bidimode().clear_bit()
-                         .lsbfirst().clear_bit()
-                         //TODO: CRC option?
-                         .crcen().clear_bit()
-                         .ssi().set_bit()
-                         .ssm().set_bit()
-                         .mstr().set_bit()
-                    });
-
-                    //Configure CR2
-                    spi.cr2.write(|w| unsafe {
-                        //Data size 8 bit
-                        w.ds().bits(0b111)
-                         .ssoe().set_bit()
-                         //RXNE event is generated if the FIFO level is greater than or equal to 1/4 (8-bit)
-                         .frxth().set_bit()
-                    });
-
-                    Spi {
-                        spi,
-                        pins: self
-                    }
-                }
+            impl $TRAIT for $PIN<$AFx> {
+                const SPI_IDX: u8 = $IDX;
             }
-
-            impl FullDuplex<u8> for Spi<$SPIx, ($($PIN<::gpio::$AF>,)+)> {
-                type Error = Error;
-
-                fn read(&mut self) -> nb::Result<u8, Error> {
-                    let sr = self.spi.sr.read();
-
-                    Err(if sr.ovr().bit_is_set() {
-                        nb::Error::Other(Error::Overrun)
-                    } else if sr.modf().bit_is_set() {
-                        nb::Error::Other(Error::ModeFault)
-                    } else if sr.crcerr().bit_is_set() {
-                        nb::Error::Other(Error::Crc)
-                    } else if sr.rxne().bit_is_set() {
-                        // NOTE(read_volatile) read only 1 byte (the svd2rust API only allows
-                        // reading a half-word)
-                        return Ok(unsafe {
-                            ptr::read_volatile(&self.spi.dr as *const _ as *const u8)
-                        });
-                    } else {
-                        nb::Error::WouldBlock
-                    })
-                }
-
-                fn send(&mut self, byte: u8) -> nb::Result<(), Error> {
-                    let sr = self.spi.sr.read();
-
-                    Err(if sr.ovr().bit_is_set() {
-                        nb::Error::Other(Error::Overrun)
-                    } else if sr.modf().bit_is_set() {
-                        nb::Error::Other(Error::ModeFault)
-                    } else if sr.crcerr().bit_is_set() {
-                        nb::Error::Other(Error::Crc)
-                    } else if sr.txe().bit_is_set() {
-                        // NOTE(write_volatile) see note above
-                        unsafe { ptr::write_volatile(&self.spi.dr as *const _ as *mut u8, byte) }
-                        return Ok(());
-                    } else {
-                        nb::Error::WouldBlock
-                    })
-                }
-            }
-
-            impl ::hal::blocking::spi::transfer::Default<u8> for Spi<$SPIx, ($($PIN<::gpio::$AF>,)+)> {}
-
-            impl ::hal::blocking::spi::write::Default<u8> for Spi<$SPIx, ($($PIN<::gpio::$AF>,)+)> {}
         )+
-    };
+    }
 }
 
-//Configure GPIO for MOSI, MISO and SCK pins
-impl_spi_pin!(
-    SPI1 = {
-        list: [PA5, PA6, PA7,],
-        config: {
-            APB: {
-                name: APB2,
-                enr: enr,
-                rstr: rstr,
-                en: spi1en,
-                rst: spi1rst,
-                pclk: pclk2,
-            },
-            AF: AF5
-        }
-    },
-    SPI1 = {
-        list: [PB3, PB4, PB5,],
-        config: {
-            APB: {
-                name: APB2,
-                enr: enr,
-                rstr: rstr,
-                en: spi1en,
-                rst: spi1rst,
-                pclk: pclk2,
-            },
-            AF: AF5
-        }
-    },
-    SPI2 = {
-        list: [PB10, PB14, PB15,],
-        config: {
-            APB: {
-                name: APB1,
-                enr: enr1,
-                rstr: rstr1,
-                en: spi2en,
-                rst: spi3rst,
-                pclk: pclk1,
-            },
-            AF: AF5
-        }
-    },
-    SPI2 = {
-        list: [PB13, PC2, PC3,],
-        config: {
-            APB: {
-                name: APB1,
-                enr: enr1,
-                rstr: rstr1,
-                en: spi2en,
-                rst: spi3rst,
-                pclk: pclk1,
-            },
-            AF: AF5
-        }
-    },
-    SPI3 = {
-        list: [PB3, PB4, PB15,],
-        config: {
-            APB: {
-                name: APB1,
-                enr: enr1,
-                rstr: rstr1,
-                //Dunno why but svd has sp3en, not spi3en
-                en: sp3en,
-                rst: spi3rst,
-                pclk: pclk1,
-            },
-            AF: AF6
-        }
-    },
-    SPI3 = {
-        list: [PC10, PC11, PC12,],
-        config: {
-            APB: {
-                name: APB1,
-                enr: enr1,
-                rstr: rstr1,
-                en: sp3en,
-                rst: spi3rst,
-                pclk: pclk1,
-            },
-            AF: AF6
-        }
-    },
-);
+impl_pins_trait!(1 => {
+    TRAIT: SCK,
+    AF: AF5,
+    PINS: [PA5, PB3,]
+});
+impl_pins_trait!(1 => {
+    TRAIT: MISO,
+    AF: AF5,
+    PINS: [PA6, PB3,]
+});
+impl_pins_trait!(1 => {
+    TRAIT: MOSI,
+    AF: AF5,
+    PINS: [PA7, PB5,]
+});
 
 #[cfg(feature = "STM32L476VG")]
-impl_spi_pin!(
-    SPI1 = {
-        list: [PE13, PE14, PE15,],
-        config: {
-            APB: {
-                name: APB2,
-                enr: enr,
-                rstr: rstr,
-                en: spi1en,
-                rst: spi1rst,
-                pclk: pclk2,
-            },
-            AF: AF5
-        }
-    },
-);
+impl_pins_trait!(1 => {
+    TRAIT: SCK,
+    AF: AF5,
+    PINS: [PE13,]
+});
+#[cfg(feature = "STM32L476VG")]
+impl_pins_trait!(1 => {
+    TRAIT: MISO,
+    AF: AF5,
+    PINS: [PE14,]
+});
+#[cfg(feature = "STM32L476VG")]
+impl_pins_trait!(1 => {
+    TRAIT: MOSI,
+    AF: AF5,
+    PINS: [PE15,]
+});
+
+impl_pins_trait!(2 => {
+    TRAIT: SCK,
+    AF: AF5,
+    PINS: [PB10, PB13,]
+});
+impl_pins_trait!(2 => {
+    TRAIT: MISO,
+    AF: AF5,
+    PINS: [PB14, PC2,]
+});
+impl_pins_trait!(2 => {
+    TRAIT: MOSI,
+    AF: AF5,
+    PINS: [PB15, PC3,]
+});
+
+//Reference: Ch. 42.4.7 Configuration of SPI
+///Describes raw SPI from device crate
+pub trait InnerSpi where Self: Sized {
+    ///Index of SPI, used at runtime to verify that correct PIN is used.
+    const IDX: u8;
+    ///Type of APB used by SPI.
+    type APB;
+
+    ///Retrieves Clocks frequency corresponding to SPI.
+    fn get_clock_freq(clocks: &Clocks) -> Hertz;
+
+    ///Retrieves CR1 register block.
+    fn cr1(&self) -> & ::stm32l4x6::spi1::CR1;
+
+    ///Retrieves CR2 register block.
+    fn cr2(&self) -> & ::stm32l4x6::spi1::CR2;
+
+    ///Retrieves SR register block.
+    fn sr(&self) -> & ::stm32l4x6::spi1::SR;
+
+    ///Retrieves DR register block.
+    fn dr(&self) -> & ::stm32l4x6::spi1::DR;
+
+    ///Configures CR1 register
+    fn configure_cr1(&self, freq: Hertz, clocks: &Clocks, mode: Mode) {
+        let br = match Self::get_clock_freq(clocks).0 / freq.0 {
+            0 => unreachable!(),
+            1...2 => 0b000,
+            3...5 => 0b001,
+            6...11 => 0b010,
+            12...23 => 0b011,
+            24...39 => 0b100,
+            40...95 => 0b101,
+            96...191 => 0b110,
+            _ => 0b111,
+        };
+
+        self.cr1().write(|w| unsafe {
+            w.br().bits(br)
+             .cpol().bit(mode.polarity == Polarity::IdleHigh)
+             .cpha().bit(mode.phase == Phase::CaptureOnSecondTransition)
+             //2-line undirectional for Master mode
+             .bidimode().clear_bit()
+             .lsbfirst().clear_bit()
+             //TODO: CRC option?
+             .crcen().clear_bit()
+             .ssi().set_bit()
+             .ssm().set_bit()
+             .mstr().set_bit()
+        });
+    }
+
+    ///Configures CR2 register
+    fn configure_cr2(&self) {
+        self.cr2().write(|w| unsafe {
+            //Data size 8 bit
+            w.ds().bits(0b111)
+             .ssoe().set_bit()
+             //RXNE event is generated if the FIFO level is greater than or equal to 1/4 (8-bit)
+             .frxth().set_bit()
+        });
+    }
+
+    ///Enables SPI
+    fn enable(apb: &mut Self::APB);
+}
+
+impl InnerSpi for SPI1 {
+    const IDX: u8 = 1;
+    type APB = APB2;
+
+    #[inline]
+    fn get_clock_freq(clocks: &Clocks) -> Hertz {
+        clocks.pclk2()
+    }
+
+    fn cr1(&self) -> &::stm32l4x6::spi1::CR1 {
+        &self.cr1
+    }
+
+    fn cr2(&self) -> &::stm32l4x6::spi1::CR2 {
+        &self.cr2
+    }
+
+    fn sr(&self) -> &::stm32l4x6::spi1::SR {
+        &self.sr
+    }
+
+    fn dr(&self) -> &::stm32l4x6::spi1::DR {
+        &self.dr
+    }
+
+    fn enable(apb: &mut Self::APB) {
+        // enable and/or reset SPI
+        apb.enr().modify(|_, w| w.spi1en().set_bit());
+        apb.rstr().modify(|_, w| w.spi1rst().set_bit());
+        apb.rstr().modify(|_, w| w.spi1rst().clear_bit());
+    }
+}
+
+impl InnerSpi for SPI2 {
+    const IDX: u8 = 2;
+    type APB = APB1;
+
+    #[inline]
+    fn get_clock_freq(clocks: &Clocks) -> Hertz {
+        clocks.pclk2()
+    }
+
+    fn cr1(&self) -> &::stm32l4x6::spi1::CR1 {
+        &self.cr1
+    }
+
+    fn cr2(&self) -> &::stm32l4x6::spi1::CR2 {
+        &self.cr2
+    }
+
+    fn sr(&self) -> &::stm32l4x6::spi1::SR {
+        &self.sr
+    }
+
+    fn dr(&self) -> &::stm32l4x6::spi1::DR {
+        &self.dr
+    }
+
+    fn enable(apb: &mut Self::APB) {
+        // enable and/or reset SPI
+        apb.enr1().modify(|_, w| w.spi2en().set_bit());
+        apb.rstr1().modify(|_, w| w.spi2rst().set_bit());
+        apb.rstr1().modify(|_, w| w.spi2rst().clear_bit());
+    }
+}
+
+impl InnerSpi for SPI3 {
+    const IDX: u8 = 3;
+    type APB = APB1;
+
+    #[inline]
+    fn get_clock_freq(clocks: &Clocks) -> Hertz {
+        clocks.pclk2()
+    }
+
+    fn cr1(&self) -> &::stm32l4x6::spi1::CR1 {
+        &self.cr1
+    }
+
+    fn cr2(&self) -> &::stm32l4x6::spi1::CR2 {
+        &self.cr2
+    }
+
+    fn sr(&self) -> &::stm32l4x6::spi1::SR {
+        &self.sr
+    }
+
+    fn dr(&self) -> &::stm32l4x6::spi1::DR {
+        &self.dr
+    }
+
+    fn enable(apb: &mut Self::APB) {
+        // enable and/or reset SPI
+        apb.enr1().modify(|_, w| w.sp3en().set_bit());
+        apb.rstr1().modify(|_, w| w.spi3rst().set_bit());
+        apb.rstr1().modify(|_, w| w.spi3rst().clear_bit());
+    }
+}
+
 
 /// SPI errors.
 pub enum Error {
@@ -337,14 +351,86 @@ pub enum Error {
 }
 
 /// SPI
-pub struct Spi<SPI, PINS> {
+pub struct Spi<SPI, SCK, MISO, MOSI> {
     pub spi: SPI,
-    pub pins: PINS,
+    pub pins: (SCK, MISO, MOSI),
 }
 
-impl<SPI, PINS> Spi<SPI, PINS> {
+impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> Spi<SPI, S, MI, MO> {
+    pub fn new(spi: SPI, pins: (S, MI, MO), freq: Hertz, mode: Mode, clocks: &Clocks, apb: &mut SPI::APB) -> Self {
+        #[cfg(debug_assertions)]
+        {
+            assert_eq!(SPI::IDX, S::SPI_IDX);
+            assert_eq!(SPI::IDX, MI::SPI_IDX);
+            assert_eq!(SPI::IDX, MO::SPI_IDX);
+        }
+
+        SPI::enable(apb);
+
+        spi.configure_cr1(freq, clocks, mode);
+        spi.configure_cr2();
+
+        Self {
+            spi,
+            pins
+        }
+    }
+
+    pub fn from_raw(spi: SPI, pins: (S, MI, MO)) -> Self {
+        Self {
+            spi,
+            pins
+        }
+    }
+
     ///Consumes self and returns SPI and PINS
-    pub fn into_raw(self) -> (SPI, PINS) {
+    pub fn into_raw(self) -> (SPI, (S, MI, MO)) {
         (self.spi, self.pins)
     }
 }
+
+impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> FullDuplex<u8> for Spi<SPI, S, MI, MO> {
+    type Error = Error;
+
+    fn read(&mut self) -> nb::Result<u8, Error> {
+        let sr = self.spi.sr().read();
+
+        Err(if sr.ovr().bit_is_set() {
+            nb::Error::Other(Error::Overrun)
+        } else if sr.modf().bit_is_set() {
+            nb::Error::Other(Error::ModeFault)
+        } else if sr.crcerr().bit_is_set() {
+            nb::Error::Other(Error::Crc)
+        } else if sr.rxne().bit_is_set() {
+            // NOTE(read_volatile) read only 1 byte (the svd2rust API only allows
+            // reading a half-word)
+            return Ok(unsafe {
+                ptr::read_volatile(&self.spi.dr() as *const _ as *const u8)
+            });
+        } else {
+            nb::Error::WouldBlock
+        })
+    }
+
+    fn send(&mut self, byte: u8) -> nb::Result<(), Error> {
+        let sr = self.spi.sr().read();
+
+        Err(if sr.ovr().bit_is_set() {
+            nb::Error::Other(Error::Overrun)
+        } else if sr.modf().bit_is_set() {
+            nb::Error::Other(Error::ModeFault)
+        } else if sr.crcerr().bit_is_set() {
+            nb::Error::Other(Error::Crc)
+        } else if sr.txe().bit_is_set() {
+            // NOTE(write_volatile) see note above
+            unsafe { ptr::write_volatile(&self.spi.dr() as *const _ as *mut u8, byte) }
+            return Ok(());
+        } else {
+            nb::Error::WouldBlock
+        })
+    }
+}
+
+impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> ::hal::blocking::spi::transfer::Default<u8> for Spi<SPI, S, MI, MO> {}
+
+impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> ::hal::blocking::spi::write::Default<u8> for Spi<SPI, S, MI, MO> {}
