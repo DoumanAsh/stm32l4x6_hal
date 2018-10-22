@@ -62,18 +62,26 @@ pub mod gpio {
     pub mod spi3 {
         pub mod nss {
             pub use ::gpio::{PA4, PA15};
+            #[cfg(feature = "STM32L476VG")]
+            pub use ::gpio::stm32l476vg::gpio::{PG12};
         }
 
         pub mod sck {
             pub use ::gpio::{PB3, PC10};
+            #[cfg(feature = "STM32L476VG")]
+            pub use ::gpio::stm32l476vg::gpio::{PG9};
         }
 
         pub mod miso {
             pub use ::gpio::{PB4, PC11};
+            #[cfg(feature = "STM32L476VG")]
+            pub use ::gpio::stm32l476vg::gpio::{PG10};
         }
 
         pub mod mosi {
             pub use ::gpio::{PB15, PC12};
+            #[cfg(feature = "STM32L476VG")]
+            pub use ::gpio::stm32l476vg::gpio::{PG11};
         }
     }
 }
@@ -189,6 +197,24 @@ impl_pins_trait!(3 => {
     PINS: [PC12,]
 });
 
+#[cfg(feature = "STM32L476VG")]
+impl_pins_trait!(1 => {
+    TRAIT: SCK,
+    AF: AF5,
+    PINS: [PG9,]
+});
+#[cfg(feature = "STM32L476VG")]
+impl_pins_trait!(1 => {
+    TRAIT: MISO,
+    AF: AF5,
+    PINS: [PG10,]
+});
+#[cfg(feature = "STM32L476VG")]
+impl_pins_trait!(1 => {
+    TRAIT: MOSI,
+    AF: AF5,
+    PINS: [PG11,]
+});
 
 //Reference: Ch. 42.4.7 Configuration of SPI
 ///Describes raw SPI from device crate
