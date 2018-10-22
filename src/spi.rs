@@ -173,6 +173,23 @@ impl_pins_trait!(2 => {
     PINS: [PB15, PC3,]
 });
 
+impl_pins_trait!(3 => {
+    TRAIT: SCK,
+    AF: AF6,
+    PINS: [PC10,]
+});
+impl_pins_trait!(3 => {
+    TRAIT: MISO,
+    AF: AF6,
+    PINS: [PC11,]
+});
+impl_pins_trait!(3 => {
+    TRAIT: MOSI,
+    AF: AF6,
+    PINS: [PC12,]
+});
+
+
 //Reference: Ch. 42.4.7 Configuration of SPI
 ///Describes raw SPI from device crate
 pub trait InnerSpi where Self: Sized {
