@@ -352,11 +352,24 @@ pub enum Error {
 
 /// SPI
 pub struct Spi<SPI, SCK, MISO, MOSI> {
-    pub spi: SPI,
-    pub pins: (SCK, MISO, MOSI),
+    spi: SPI,
+    pins: (SCK, MISO, MOSI),
 }
 
 impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> Spi<SPI, S, MI, MO> {
+    /// Creates new instance of SPI.
+    ///
+    /// It takes ownership of raw SPI object and corresponding PINs.
+    ///
+    /// Function performs following actions:
+    ///
+    /// - Reset and enable SPI;
+    /// - Configure CR1;
+    /// - Configure CR2;
+    ///
+    /// # Pancis:
+    ///
+    /// In debug mode the function checks if index of each PIN corresponds to SPI's index.
     pub fn new(spi: SPI, pins: (S, MI, MO), freq: Hertz, mode: Mode, clocks: &Clocks, apb: &mut SPI::APB) -> Self {
         #[cfg(debug_assertions)]
         {
@@ -376,6 +389,9 @@ impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> Spi<SPI, S, MI, MO> {
         }
     }
 
+    ///Re-creates SPI instance from its components.
+    ///
+    ///Note: it is up to user to ensure that SPI has been created using [new](#method.new) previously
     pub fn from_raw(spi: SPI, pins: (S, MI, MO)) -> Self {
         Self {
             spi,
