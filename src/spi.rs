@@ -130,7 +130,7 @@ impl_pins_trait!(1 => {
 impl_pins_trait!(1 => {
     TRAIT: MISO,
     AF: AF5,
-    PINS: [PA6, PB3,]
+    PINS: [PA6, PB4,]
 });
 impl_pins_trait!(1 => {
     TRAIT: MOSI,
