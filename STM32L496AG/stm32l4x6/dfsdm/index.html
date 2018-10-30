@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `dfsdm` mod in crate `stm32l4x6`."><meta name="keywords" content="rust, rustlang, rust-lang, dfsdm"><title>stm32l4x6::dfsdm - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Module dfsdm</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li></ul></div><p class='location'><a href='../index.html'>stm32l4x6</a></p><script>window.sidebarCurrent = {name: 'dfsdm', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>stm32l4x6</a>::<wbr><a class="mod" href=''>dfsdm</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/stm32l4x6/dfsdm/mod.rs.html#1-815' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>Digital filter for sigma delta modulators</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `dfsdm` mod in crate `stm32l4x6`."><meta name="keywords" content="rust, rustlang, rust-lang, dfsdm"><title>stm32l4x6::dfsdm - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Module dfsdm</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li></ul></div><p class='location'><a href='../index.html'>stm32l4x6</a></p><script>window.sidebarCurrent = {name: 'dfsdm', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/stm32l4x6/dfsdm/mod.rs.html#1-815' title='goto source code'>[src]</a></span><span class='in-band'>Module <a href='../index.html'>stm32l4x6</a>::<wbr><a class="mod" href=''>dfsdm</a></span></h1><div class='docblock'><p>Digital filter for sigma delta modulators</p>
 </div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
@@ -322,10 +322,42 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm0_awcfr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm0_awcfr'>dfsdm0_awcfr</a></td>
+                           <td><a class="mod" href="dfsdm0_isr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm0_isr'>dfsdm0_isr</a></td>
                            <td class='docblock-short'>
-                                <p>analog watchdog clear flag register</p>
+                                <p>interrupt and status register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm0_icr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm0_icr'>dfsdm0_icr</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt flag clear register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm0_fcr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm0_fcr'>dfsdm0_fcr</a></td>
+                           <td class='docblock-short'>
+                                <p>filter control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm0_awsr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm0_awsr'>dfsdm0_awsr</a></td>
+                           <td class='docblock-short'>
+                                <p>analog watchdog status register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm0_jchgr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm0_jchgr'>dfsdm0_jchgr</a></td>
+                           <td class='docblock-short'>
+                                <p>injected channel group selection register</p>
 
                            </td>
                        </tr>
@@ -346,34 +378,10 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm0_awsr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm0_awsr'>dfsdm0_awsr</a></td>
+                           <td><a class="mod" href="dfsdm0_awcfr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm0_awcfr'>dfsdm0_awcfr</a></td>
                            <td class='docblock-short'>
-                                <p>analog watchdog status register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm0_cnvtimr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm0_cnvtimr'>dfsdm0_cnvtimr</a></td>
-                           <td class='docblock-short'>
-                                <p>conversion timer register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm0_cr1/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm0_cr1'>dfsdm0_cr1</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 1</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm0_cr2/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm0_cr2'>dfsdm0_cr2</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 2</p>
+                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -394,38 +402,6 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm0_fcr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm0_fcr'>dfsdm0_fcr</a></td>
-                           <td class='docblock-short'>
-                                <p>filter control register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm0_icr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm0_icr'>dfsdm0_icr</a></td>
-                           <td class='docblock-short'>
-                                <p>interrupt flag clear register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm0_isr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm0_isr'>dfsdm0_isr</a></td>
-                           <td class='docblock-short'>
-                                <p>interrupt and status register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm0_jchgr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm0_jchgr'>dfsdm0_jchgr</a></td>
-                           <td class='docblock-short'>
-                                <p>injected channel group selection register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
                            <td><a class="mod" href="dfsdm0_jdatar/index.html"
                                   title='mod stm32l4x6::dfsdm::dfsdm0_jdatar'>dfsdm0_jdatar</a></td>
                            <td class='docblock-short'>
@@ -442,10 +418,58 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm1_awcfr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm1_awcfr'>dfsdm1_awcfr</a></td>
+                           <td><a class="mod" href="dfsdm0_cnvtimr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm0_cnvtimr'>dfsdm0_cnvtimr</a></td>
                            <td class='docblock-short'>
-                                <p>analog watchdog clear flag register</p>
+                                <p>conversion timer register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm1_isr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm1_isr'>dfsdm1_isr</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt and status register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm1_icr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm1_icr'>dfsdm1_icr</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt flag clear register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm1_jchgr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm1_jchgr'>dfsdm1_jchgr</a></td>
+                           <td class='docblock-short'>
+                                <p>injected channel group selection register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm1_fcr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm1_fcr'>dfsdm1_fcr</a></td>
+                           <td class='docblock-short'>
+                                <p>filter control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm1_jdatar/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm1_jdatar'>dfsdm1_jdatar</a></td>
+                           <td class='docblock-short'>
+                                <p>data register for injected group</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm1_rdatar/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm1_rdatar'>dfsdm1_rdatar</a></td>
+                           <td class='docblock-short'>
+                                <p>data register for the regular channel</p>
 
                            </td>
                        </tr>
@@ -474,26 +498,10 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm1_cnvtimr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm1_cnvtimr'>dfsdm1_cnvtimr</a></td>
+                           <td><a class="mod" href="dfsdm1_awcfr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm1_awcfr'>dfsdm1_awcfr</a></td>
                            <td class='docblock-short'>
-                                <p>conversion timer register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm1_cr1/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm1_cr1'>dfsdm1_cr1</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 1</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm1_cr2/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm1_cr2'>dfsdm1_cr2</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 2</p>
+                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -514,58 +522,58 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm1_fcr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm1_fcr'>dfsdm1_fcr</a></td>
+                           <td><a class="mod" href="dfsdm1_cnvtimr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm1_cnvtimr'>dfsdm1_cnvtimr</a></td>
                            <td class='docblock-short'>
-                                <p>filter control register</p>
+                                <p>conversion timer register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm1_icr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm1_icr'>dfsdm1_icr</a></td>
-                           <td class='docblock-short'>
-                                <p>interrupt flag clear register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm1_isr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm1_isr'>dfsdm1_isr</a></td>
+                           <td><a class="mod" href="dfsdm2_isr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm2_isr'>dfsdm2_isr</a></td>
                            <td class='docblock-short'>
                                 <p>interrupt and status register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm1_jchgr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm1_jchgr'>dfsdm1_jchgr</a></td>
+                           <td><a class="mod" href="dfsdm2_icr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm2_icr'>dfsdm2_icr</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt flag clear register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm2_jchgr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm2_jchgr'>dfsdm2_jchgr</a></td>
                            <td class='docblock-short'>
                                 <p>injected channel group selection register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm1_jdatar/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm1_jdatar'>dfsdm1_jdatar</a></td>
+                           <td><a class="mod" href="dfsdm2_fcr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm2_fcr'>dfsdm2_fcr</a></td>
+                           <td class='docblock-short'>
+                                <p>filter control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm2_jdatar/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm2_jdatar'>dfsdm2_jdatar</a></td>
                            <td class='docblock-short'>
                                 <p>data register for injected group</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm1_rdatar/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm1_rdatar'>dfsdm1_rdatar</a></td>
+                           <td><a class="mod" href="dfsdm2_rdatar/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm2_rdatar'>dfsdm2_rdatar</a></td>
                            <td class='docblock-short'>
                                 <p>data register for the regular channel</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm2_awcfr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm2_awcfr'>dfsdm2_awcfr</a></td>
-                           <td class='docblock-short'>
-                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -594,26 +602,10 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm2_cnvtimr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm2_cnvtimr'>dfsdm2_cnvtimr</a></td>
+                           <td><a class="mod" href="dfsdm2_awcfr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm2_awcfr'>dfsdm2_awcfr</a></td>
                            <td class='docblock-short'>
-                                <p>conversion timer register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm2_cr1/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm2_cr1'>dfsdm2_cr1</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 1</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm2_cr2/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm2_cr2'>dfsdm2_cr2</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 2</p>
+                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -634,58 +626,58 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm2_fcr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm2_fcr'>dfsdm2_fcr</a></td>
+                           <td><a class="mod" href="dfsdm2_cnvtimr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm2_cnvtimr'>dfsdm2_cnvtimr</a></td>
                            <td class='docblock-short'>
-                                <p>filter control register</p>
+                                <p>conversion timer register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm2_icr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm2_icr'>dfsdm2_icr</a></td>
-                           <td class='docblock-short'>
-                                <p>interrupt flag clear register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm2_isr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm2_isr'>dfsdm2_isr</a></td>
+                           <td><a class="mod" href="dfsdm3_isr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm3_isr'>dfsdm3_isr</a></td>
                            <td class='docblock-short'>
                                 <p>interrupt and status register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm2_jchgr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm2_jchgr'>dfsdm2_jchgr</a></td>
+                           <td><a class="mod" href="dfsdm3_icr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm3_icr'>dfsdm3_icr</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt flag clear register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm3_jchgr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm3_jchgr'>dfsdm3_jchgr</a></td>
                            <td class='docblock-short'>
                                 <p>injected channel group selection register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm2_jdatar/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm2_jdatar'>dfsdm2_jdatar</a></td>
+                           <td><a class="mod" href="dfsdm3_fcr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm3_fcr'>dfsdm3_fcr</a></td>
+                           <td class='docblock-short'>
+                                <p>filter control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm3_jdatar/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm3_jdatar'>dfsdm3_jdatar</a></td>
                            <td class='docblock-short'>
                                 <p>data register for injected group</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm2_rdatar/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm2_rdatar'>dfsdm2_rdatar</a></td>
+                           <td><a class="mod" href="dfsdm3_rdatar/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm3_rdatar'>dfsdm3_rdatar</a></td>
                            <td class='docblock-short'>
                                 <p>data register for the regular channel</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm3_awcfr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm3_awcfr'>dfsdm3_awcfr</a></td>
-                           <td class='docblock-short'>
-                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -714,26 +706,10 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm3_cnvtimr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm3_cnvtimr'>dfsdm3_cnvtimr</a></td>
+                           <td><a class="mod" href="dfsdm3_awcfr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm3_awcfr'>dfsdm3_awcfr</a></td>
                            <td class='docblock-short'>
-                                <p>conversion timer register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm3_cr1/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm3_cr1'>dfsdm3_cr1</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 1</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm3_cr2/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm3_cr2'>dfsdm3_cr2</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 2</p>
+                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -754,50 +730,74 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm3_fcr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm3_fcr'>dfsdm3_fcr</a></td>
+                           <td><a class="mod" href="dfsdm3_cnvtimr/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm3_cnvtimr'>dfsdm3_cnvtimr</a></td>
                            <td class='docblock-short'>
-                                <p>filter control register</p>
+                                <p>conversion timer register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm3_icr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm3_icr'>dfsdm3_icr</a></td>
+                           <td><a class="mod" href="dfsdm0_cr1/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm0_cr1'>dfsdm0_cr1</a></td>
                            <td class='docblock-short'>
-                                <p>interrupt flag clear register</p>
+                                <p>control register 1</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm3_isr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm3_isr'>dfsdm3_isr</a></td>
+                           <td><a class="mod" href="dfsdm0_cr2/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm0_cr2'>dfsdm0_cr2</a></td>
                            <td class='docblock-short'>
-                                <p>interrupt and status register</p>
+                                <p>control register 2</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm3_jchgr/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm3_jchgr'>dfsdm3_jchgr</a></td>
+                           <td><a class="mod" href="dfsdm1_cr1/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm1_cr1'>dfsdm1_cr1</a></td>
                            <td class='docblock-short'>
-                                <p>injected channel group selection register</p>
+                                <p>control register 1</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm3_jdatar/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm3_jdatar'>dfsdm3_jdatar</a></td>
+                           <td><a class="mod" href="dfsdm1_cr2/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm1_cr2'>dfsdm1_cr2</a></td>
                            <td class='docblock-short'>
-                                <p>data register for injected group</p>
+                                <p>control register 2</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="dfsdm3_rdatar/index.html"
-                                  title='mod stm32l4x6::dfsdm::dfsdm3_rdatar'>dfsdm3_rdatar</a></td>
+                           <td><a class="mod" href="dfsdm2_cr1/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm2_cr1'>dfsdm2_cr1</a></td>
                            <td class='docblock-short'>
-                                <p>data register for the regular channel</p>
+                                <p>control register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm2_cr2/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm2_cr2'>dfsdm2_cr2</a></td>
+                           <td class='docblock-short'>
+                                <p>control register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm3_cr1/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm3_cr1'>dfsdm3_cr1</a></td>
+                           <td class='docblock-short'>
+                                <p>control register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="dfsdm3_cr2/index.html"
+                                  title='mod stm32l4x6::dfsdm::dfsdm3_cr2'>dfsdm3_cr2</a></td>
+                           <td class='docblock-short'>
+                                <p>control register 2</p>
 
                            </td>
                        </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
@@ -1123,10 +1123,42 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM0_AWCFR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM0_AWCFR'>DFSDM0_AWCFR</a></td>
+                           <td><a class="struct" href="struct.DFSDM0_ISR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM0_ISR'>DFSDM0_ISR</a></td>
                            <td class='docblock-short'>
-                                <p>analog watchdog clear flag register</p>
+                                <p>interrupt and status register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM0_ICR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM0_ICR'>DFSDM0_ICR</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt flag clear register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM0_FCR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM0_FCR'>DFSDM0_FCR</a></td>
+                           <td class='docblock-short'>
+                                <p>filter control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM0_AWSR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM0_AWSR'>DFSDM0_AWSR</a></td>
+                           <td class='docblock-short'>
+                                <p>analog watchdog status register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM0_JCHGR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM0_JCHGR'>DFSDM0_JCHGR</a></td>
+                           <td class='docblock-short'>
+                                <p>injected channel group selection register</p>
 
                            </td>
                        </tr>
@@ -1147,34 +1179,10 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM0_AWSR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM0_AWSR'>DFSDM0_AWSR</a></td>
+                           <td><a class="struct" href="struct.DFSDM0_AWCFR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM0_AWCFR'>DFSDM0_AWCFR</a></td>
                            <td class='docblock-short'>
-                                <p>analog watchdog status register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM0_CNVTIMR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM0_CNVTIMR'>DFSDM0_CNVTIMR</a></td>
-                           <td class='docblock-short'>
-                                <p>conversion timer register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM0_CR1.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM0_CR1'>DFSDM0_CR1</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 1</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM0_CR2.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM0_CR2'>DFSDM0_CR2</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 2</p>
+                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -1195,38 +1203,6 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM0_FCR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM0_FCR'>DFSDM0_FCR</a></td>
-                           <td class='docblock-short'>
-                                <p>filter control register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM0_ICR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM0_ICR'>DFSDM0_ICR</a></td>
-                           <td class='docblock-short'>
-                                <p>interrupt flag clear register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM0_ISR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM0_ISR'>DFSDM0_ISR</a></td>
-                           <td class='docblock-short'>
-                                <p>interrupt and status register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM0_JCHGR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM0_JCHGR'>DFSDM0_JCHGR</a></td>
-                           <td class='docblock-short'>
-                                <p>injected channel group selection register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
                            <td><a class="struct" href="struct.DFSDM0_JDATAR.html"
                                   title='struct stm32l4x6::dfsdm::DFSDM0_JDATAR'>DFSDM0_JDATAR</a></td>
                            <td class='docblock-short'>
@@ -1243,10 +1219,58 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM1_AWCFR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM1_AWCFR'>DFSDM1_AWCFR</a></td>
+                           <td><a class="struct" href="struct.DFSDM0_CNVTIMR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM0_CNVTIMR'>DFSDM0_CNVTIMR</a></td>
                            <td class='docblock-short'>
-                                <p>analog watchdog clear flag register</p>
+                                <p>conversion timer register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM1_ISR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM1_ISR'>DFSDM1_ISR</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt and status register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM1_ICR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM1_ICR'>DFSDM1_ICR</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt flag clear register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM1_JCHGR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM1_JCHGR'>DFSDM1_JCHGR</a></td>
+                           <td class='docblock-short'>
+                                <p>injected channel group selection register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM1_FCR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM1_FCR'>DFSDM1_FCR</a></td>
+                           <td class='docblock-short'>
+                                <p>filter control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM1_JDATAR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM1_JDATAR'>DFSDM1_JDATAR</a></td>
+                           <td class='docblock-short'>
+                                <p>data register for injected group</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM1_RDATAR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM1_RDATAR'>DFSDM1_RDATAR</a></td>
+                           <td class='docblock-short'>
+                                <p>data register for the regular channel</p>
 
                            </td>
                        </tr>
@@ -1275,26 +1299,10 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM1_CNVTIMR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM1_CNVTIMR'>DFSDM1_CNVTIMR</a></td>
+                           <td><a class="struct" href="struct.DFSDM1_AWCFR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM1_AWCFR'>DFSDM1_AWCFR</a></td>
                            <td class='docblock-short'>
-                                <p>conversion timer register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM1_CR1.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM1_CR1'>DFSDM1_CR1</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 1</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM1_CR2.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM1_CR2'>DFSDM1_CR2</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 2</p>
+                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -1315,58 +1323,58 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM1_FCR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM1_FCR'>DFSDM1_FCR</a></td>
+                           <td><a class="struct" href="struct.DFSDM1_CNVTIMR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM1_CNVTIMR'>DFSDM1_CNVTIMR</a></td>
                            <td class='docblock-short'>
-                                <p>filter control register</p>
+                                <p>conversion timer register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM1_ICR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM1_ICR'>DFSDM1_ICR</a></td>
-                           <td class='docblock-short'>
-                                <p>interrupt flag clear register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM1_ISR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM1_ISR'>DFSDM1_ISR</a></td>
+                           <td><a class="struct" href="struct.DFSDM2_ISR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM2_ISR'>DFSDM2_ISR</a></td>
                            <td class='docblock-short'>
                                 <p>interrupt and status register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM1_JCHGR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM1_JCHGR'>DFSDM1_JCHGR</a></td>
+                           <td><a class="struct" href="struct.DFSDM2_ICR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM2_ICR'>DFSDM2_ICR</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt flag clear register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM2_JCHGR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM2_JCHGR'>DFSDM2_JCHGR</a></td>
                            <td class='docblock-short'>
                                 <p>injected channel group selection register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM1_JDATAR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM1_JDATAR'>DFSDM1_JDATAR</a></td>
+                           <td><a class="struct" href="struct.DFSDM2_FCR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM2_FCR'>DFSDM2_FCR</a></td>
+                           <td class='docblock-short'>
+                                <p>filter control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM2_JDATAR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM2_JDATAR'>DFSDM2_JDATAR</a></td>
                            <td class='docblock-short'>
                                 <p>data register for injected group</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM1_RDATAR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM1_RDATAR'>DFSDM1_RDATAR</a></td>
+                           <td><a class="struct" href="struct.DFSDM2_RDATAR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM2_RDATAR'>DFSDM2_RDATAR</a></td>
                            <td class='docblock-short'>
                                 <p>data register for the regular channel</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM2_AWCFR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM2_AWCFR'>DFSDM2_AWCFR</a></td>
-                           <td class='docblock-short'>
-                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -1395,26 +1403,10 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM2_CNVTIMR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM2_CNVTIMR'>DFSDM2_CNVTIMR</a></td>
+                           <td><a class="struct" href="struct.DFSDM2_AWCFR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM2_AWCFR'>DFSDM2_AWCFR</a></td>
                            <td class='docblock-short'>
-                                <p>conversion timer register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM2_CR1.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM2_CR1'>DFSDM2_CR1</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 1</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM2_CR2.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM2_CR2'>DFSDM2_CR2</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 2</p>
+                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -1435,58 +1427,58 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM2_FCR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM2_FCR'>DFSDM2_FCR</a></td>
+                           <td><a class="struct" href="struct.DFSDM2_CNVTIMR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM2_CNVTIMR'>DFSDM2_CNVTIMR</a></td>
                            <td class='docblock-short'>
-                                <p>filter control register</p>
+                                <p>conversion timer register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM2_ICR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM2_ICR'>DFSDM2_ICR</a></td>
-                           <td class='docblock-short'>
-                                <p>interrupt flag clear register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM2_ISR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM2_ISR'>DFSDM2_ISR</a></td>
+                           <td><a class="struct" href="struct.DFSDM3_ISR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM3_ISR'>DFSDM3_ISR</a></td>
                            <td class='docblock-short'>
                                 <p>interrupt and status register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM2_JCHGR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM2_JCHGR'>DFSDM2_JCHGR</a></td>
+                           <td><a class="struct" href="struct.DFSDM3_ICR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM3_ICR'>DFSDM3_ICR</a></td>
+                           <td class='docblock-short'>
+                                <p>interrupt flag clear register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM3_JCHGR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM3_JCHGR'>DFSDM3_JCHGR</a></td>
                            <td class='docblock-short'>
                                 <p>injected channel group selection register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM2_JDATAR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM2_JDATAR'>DFSDM2_JDATAR</a></td>
+                           <td><a class="struct" href="struct.DFSDM3_FCR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM3_FCR'>DFSDM3_FCR</a></td>
+                           <td class='docblock-short'>
+                                <p>filter control register</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM3_JDATAR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM3_JDATAR'>DFSDM3_JDATAR</a></td>
                            <td class='docblock-short'>
                                 <p>data register for injected group</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM2_RDATAR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM2_RDATAR'>DFSDM2_RDATAR</a></td>
+                           <td><a class="struct" href="struct.DFSDM3_RDATAR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM3_RDATAR'>DFSDM3_RDATAR</a></td>
                            <td class='docblock-short'>
                                 <p>data register for the regular channel</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM3_AWCFR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM3_AWCFR'>DFSDM3_AWCFR</a></td>
-                           <td class='docblock-short'>
-                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -1515,26 +1507,10 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM3_CNVTIMR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM3_CNVTIMR'>DFSDM3_CNVTIMR</a></td>
+                           <td><a class="struct" href="struct.DFSDM3_AWCFR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM3_AWCFR'>DFSDM3_AWCFR</a></td>
                            <td class='docblock-short'>
-                                <p>conversion timer register</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM3_CR1.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM3_CR1'>DFSDM3_CR1</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 1</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM3_CR2.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM3_CR2'>DFSDM3_CR2</a></td>
-                           <td class='docblock-short'>
-                                <p>control register 2</p>
+                                <p>analog watchdog clear flag register</p>
 
                            </td>
                        </tr>
@@ -1555,50 +1531,74 @@
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM3_FCR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM3_FCR'>DFSDM3_FCR</a></td>
+                           <td><a class="struct" href="struct.DFSDM3_CNVTIMR.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM3_CNVTIMR'>DFSDM3_CNVTIMR</a></td>
                            <td class='docblock-short'>
-                                <p>filter control register</p>
+                                <p>conversion timer register</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM3_ICR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM3_ICR'>DFSDM3_ICR</a></td>
+                           <td><a class="struct" href="struct.DFSDM0_CR1.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM0_CR1'>DFSDM0_CR1</a></td>
                            <td class='docblock-short'>
-                                <p>interrupt flag clear register</p>
+                                <p>control register 1</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM3_ISR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM3_ISR'>DFSDM3_ISR</a></td>
+                           <td><a class="struct" href="struct.DFSDM0_CR2.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM0_CR2'>DFSDM0_CR2</a></td>
                            <td class='docblock-short'>
-                                <p>interrupt and status register</p>
+                                <p>control register 2</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM3_JCHGR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM3_JCHGR'>DFSDM3_JCHGR</a></td>
+                           <td><a class="struct" href="struct.DFSDM1_CR1.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM1_CR1'>DFSDM1_CR1</a></td>
                            <td class='docblock-short'>
-                                <p>injected channel group selection register</p>
+                                <p>control register 1</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM3_JDATAR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM3_JDATAR'>DFSDM3_JDATAR</a></td>
+                           <td><a class="struct" href="struct.DFSDM1_CR2.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM1_CR2'>DFSDM1_CR2</a></td>
                            <td class='docblock-short'>
-                                <p>data register for injected group</p>
+                                <p>control register 2</p>
 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DFSDM3_RDATAR.html"
-                                  title='struct stm32l4x6::dfsdm::DFSDM3_RDATAR'>DFSDM3_RDATAR</a></td>
+                           <td><a class="struct" href="struct.DFSDM2_CR1.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM2_CR1'>DFSDM2_CR1</a></td>
                            <td class='docblock-short'>
-                                <p>data register for the regular channel</p>
+                                <p>control register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM2_CR2.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM2_CR2'>DFSDM2_CR2</a></td>
+                           <td class='docblock-short'>
+                                <p>control register 2</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM3_CR1.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM3_CR1'>DFSDM3_CR1</a></td>
+                           <td class='docblock-short'>
+                                <p>control register 1</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DFSDM3_CR2.html"
+                                  title='struct stm32l4x6::dfsdm::DFSDM3_CR2'>DFSDM3_CR2</a></td>
+                           <td class='docblock-short'>
+                                <p>control register 2</p>
 
                            </td>
                        </tr>

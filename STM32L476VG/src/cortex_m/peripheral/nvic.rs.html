@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.7/src/peripheral/nvic.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>nvic.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.8/src/peripheral/nvic.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>nvic.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -214,6 +214,31 @@
 <span id="214">214</span>
 <span id="215">215</span>
 <span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Nested Vector Interrupt Controller</span>
 
@@ -286,13 +311,12 @@
 
 <span class="kw">impl</span> <span class="ident">NVIC</span> {
     <span class="doccomment">/// Clears `interrupt`&#39;s pending state</span>
+    <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.5.8&quot;</span>, <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Use `NVIC::unpend`&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_pending</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">interrupt</span>: <span class="ident">I</span>)
     <span class="kw">where</span>
         <span class="ident">I</span>: <span class="ident">Nr</span>,
     {
-        <span class="kw">let</span> <span class="ident">nr</span> <span class="op">=</span> <span class="ident">interrupt</span>.<span class="ident">nr</span>();
-
-        <span class="kw">unsafe</span> { <span class="self">self</span>.<span class="ident">icpr</span>[<span class="ident">usize</span>::<span class="ident">from</span>(<span class="ident">nr</span> <span class="op">/</span> <span class="number">32</span>)].<span class="ident">write</span>(<span class="number">1</span> <span class="op">&lt;&lt;</span> (<span class="ident">nr</span> <span class="op">%</span> <span class="number">32</span>)) }
+        <span class="self">Self</span>::<span class="ident">unpend</span>(<span class="ident">interrupt</span>)
     }
 
     <span class="doccomment">/// Disables `interrupt`</span>
@@ -378,13 +402,23 @@
     }
 
     <span class="doccomment">/// Forces `interrupt` into pending state</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_pending</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">interrupt</span>: <span class="ident">I</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pend</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="ident">interrupt</span>: <span class="ident">I</span>)
     <span class="kw">where</span>
         <span class="ident">I</span>: <span class="ident">Nr</span>,
     {
         <span class="kw">let</span> <span class="ident">nr</span> <span class="op">=</span> <span class="ident">interrupt</span>.<span class="ident">nr</span>();
 
-        <span class="kw">unsafe</span> { <span class="self">self</span>.<span class="ident">ispr</span>[<span class="ident">usize</span>::<span class="ident">from</span>(<span class="ident">nr</span> <span class="op">/</span> <span class="number">32</span>)].<span class="ident">write</span>(<span class="number">1</span> <span class="op">&lt;&lt;</span> (<span class="ident">nr</span> <span class="op">%</span> <span class="number">32</span>)) }
+        <span class="comment">// NOTE(unsafe) atomic stateless write; ICPR doesn&#39;t store any state</span>
+        <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">Self</span>::<span class="ident">ptr</span>()).<span class="ident">ispr</span>[<span class="ident">usize</span>::<span class="ident">from</span>(<span class="ident">nr</span> <span class="op">/</span> <span class="number">32</span>)].<span class="ident">write</span>(<span class="number">1</span> <span class="op">&lt;&lt;</span> (<span class="ident">nr</span> <span class="op">%</span> <span class="number">32</span>)) }
+    }
+
+    <span class="doccomment">/// Forces `interrupt` into pending state</span>
+    <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.5.8&quot;</span>, <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Use `NVIC::pend`&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_pending</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">interrupt</span>: <span class="ident">I</span>)
+    <span class="kw">where</span>
+        <span class="ident">I</span>: <span class="ident">Nr</span>,
+    {
+        <span class="self">Self</span>::<span class="ident">pend</span>(<span class="ident">interrupt</span>)
     }
 
     <span class="doccomment">/// Sets the &quot;priority&quot; of `interrupt` to `prio`</span>
@@ -394,6 +428,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// On ARMv6-M, updating an interrupt priority requires a read-modify-write operation. On</span>
     <span class="doccomment">/// ARMv7-M, the operation is performed in a single atomic write operation.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Unsafety</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Changing priority levels can break priority-based critical sections (see</span>
+    <span class="doccomment">/// [`register::basepri`](../register/basepri/index.html)) and compromise memory safety.</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_priority</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">interrupt</span>: <span class="ident">I</span>, <span class="ident">prio</span>: <span class="ident">u8</span>)
     <span class="kw">where</span>
         <span class="ident">I</span>: <span class="ident">Nr</span>,
@@ -413,6 +452,17 @@
                 (<span class="ident">value</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">mask</span>) <span class="op">|</span> <span class="ident">prio</span>
             })
         }
+    }
+
+    <span class="doccomment">/// Clears `interrupt`&#39;s pending state</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unpend</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="ident">interrupt</span>: <span class="ident">I</span>)
+    <span class="kw">where</span>
+        <span class="ident">I</span>: <span class="ident">Nr</span>,
+    {
+        <span class="kw">let</span> <span class="ident">nr</span> <span class="op">=</span> <span class="ident">interrupt</span>.<span class="ident">nr</span>();
+
+        <span class="comment">// NOTE(unsafe) atomic stateless write; ICPR doesn&#39;t store any state</span>
+        <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">Self</span>::<span class="ident">ptr</span>()).<span class="ident">icpr</span>[<span class="ident">usize</span>::<span class="ident">from</span>(<span class="ident">nr</span> <span class="op">/</span> <span class="number">32</span>)].<span class="ident">write</span>(<span class="number">1</span> <span class="op">&lt;&lt;</span> (<span class="ident">nr</span> <span class="op">%</span> <span class="number">32</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">armv6m</span>)]</span>
