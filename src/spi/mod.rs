@@ -9,94 +9,37 @@ use ::rcc::{APB1, APB2, Clocks};
 
 use ::ptr;
 
-///Describes GPIO Pins to be used by SPI.
-pub mod gpio {
-    ///SPI1 Pins
-    ///
-    ///Uses AF5
-    pub mod spi1 {
-        pub mod nss {
-            pub use ::gpio::{PA4, PA15};
-            #[cfg(feature = "STM32L476VG")]
-            pub use ::gpio::stm32l476vg::gpio::{PE12};
-        }
-        pub mod sck {
-            pub use ::gpio::{PA5, PB3};
-            #[cfg(feature = "STM32L476VG")]
-            pub use ::gpio::stm32l476vg::gpio::{PE13};
-        }
-        pub mod miso {
-            pub use ::gpio::{PA6, PB4};
-            #[cfg(feature = "STM32L476VG")]
-            pub use ::gpio::stm32l476vg::gpio::{PE14};
-        }
-        pub mod mosi {
-            pub use ::gpio::{PA7, PB5};
-            #[cfg(feature = "STM32L476VG")]
-            pub use ::gpio::stm32l476vg::gpio::{PE15};
-        }
-    }
-
-    ///SPI2 Pins
-    ///
-    ///Uses AF5
-    pub mod spi2 {
-        pub mod nss {
-            pub use ::gpio::{PB9, PB12};
-        }
-        pub mod sck {
-            pub use ::gpio::{PB10, PB13};
-        }
-        pub mod miso {
-            pub use ::gpio::{PB14, PC2};
-        }
-        pub mod mosi {
-            pub use ::gpio::{PB15, PC3};
-        }
-    }
-
-    ///SPI3 Pins
-    ///
-    ///Uses AF6.
-    ///Can overlap with others.
-    pub mod spi3 {
-        pub mod nss {
-            pub use ::gpio::{PA4, PA15};
-            #[cfg(feature = "STM32L476VG")]
-            pub use ::gpio::stm32l476vg::gpio::{PG12};
-        }
-
-        pub mod sck {
-            pub use ::gpio::{PB3, PC10};
-            #[cfg(feature = "STM32L476VG")]
-            pub use ::gpio::stm32l476vg::gpio::{PG9};
-        }
-
-        pub mod miso {
-            pub use ::gpio::{PB4, PC11};
-            #[cfg(feature = "STM32L476VG")]
-            pub use ::gpio::stm32l476vg::gpio::{PG10};
-        }
-
-        pub mod mosi {
-            pub use ::gpio::{PB15, PC12};
-            #[cfg(feature = "STM32L476VG")]
-            pub use ::gpio::stm32l476vg::gpio::{PG11};
-        }
-    }
-}
-
-use self::gpio::spi1::sck::*;
-use self::gpio::spi1::miso::*;
-use self::gpio::spi1::mosi::*;
-use self::gpio::spi2::sck::*;
-use self::gpio::spi2::miso::*;
-use self::gpio::spi2::mosi::*;
-use self::gpio::spi3::sck::*;
-use self::gpio::spi3::miso::*;
-use self::gpio::spi3::mosi::*;
-
-pub use ::gpio::{AF5, AF6};
+use ::gpio::{
+    AF5,
+    AF6, //Used for SPI3
+    //SPI1
+    //NSS
+    //PA4, PA15,
+    //SCK
+    PA5, PB3,
+    //MISO
+    PA6, PB4,
+    //MOSI
+    PA7, PB5,
+    //SPI2
+    //NSS
+    //PB9, PB12,
+    //SCK
+    PB10, PB13,
+    //MISO
+    PB14, PC2,
+    //MOSI
+    PB15, PC3,
+    //SPI3
+    //NSS
+    //PA15
+    //SCK
+    PC10,
+    //MISO
+    PC11,
+    //MOSI
+    PC12,
+};
 
 ///Describes SCK Pin
 pub trait SCK {
@@ -146,25 +89,6 @@ impl_pins_trait!(1 => {
     PINS: [PA7, PB5,]
 });
 
-#[cfg(feature = "STM32L476VG")]
-impl_pins_trait!(1 => {
-    TRAIT: SCK,
-    AF: AF5,
-    PINS: [PE13,]
-});
-#[cfg(feature = "STM32L476VG")]
-impl_pins_trait!(1 => {
-    TRAIT: MISO,
-    AF: AF5,
-    PINS: [PE14,]
-});
-#[cfg(feature = "STM32L476VG")]
-impl_pins_trait!(1 => {
-    TRAIT: MOSI,
-    AF: AF5,
-    PINS: [PE15,]
-});
-
 impl_pins_trait!(2 => {
     TRAIT: SCK,
     AF: AF5,
@@ -195,25 +119,6 @@ impl_pins_trait!(3 => {
     TRAIT: MOSI,
     AF: AF6,
     PINS: [PC12,]
-});
-
-#[cfg(feature = "STM32L476VG")]
-impl_pins_trait!(1 => {
-    TRAIT: SCK,
-    AF: AF5,
-    PINS: [PG9,]
-});
-#[cfg(feature = "STM32L476VG")]
-impl_pins_trait!(1 => {
-    TRAIT: MISO,
-    AF: AF5,
-    PINS: [PG10,]
-});
-#[cfg(feature = "STM32L476VG")]
-impl_pins_trait!(1 => {
-    TRAIT: MOSI,
-    AF: AF5,
-    PINS: [PG11,]
 });
 
 //Reference: Ch. 42.4.7 Configuration of SPI
@@ -435,7 +340,7 @@ impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> Spi<SPI, S, MI, MO> {
     ///Re-creates SPI instance from its components.
     ///
     ///Note: it is up to user to ensure that SPI has been created using [new](#method.new) previously
-    pub fn from_raw(spi: SPI, pins: (S, MI, MO)) -> Self {
+    pub unsafe fn from_raw(spi: SPI, pins: (S, MI, MO)) -> Self {
         Self {
             spi,
             pins
@@ -493,3 +398,6 @@ impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> FullDuplex<u8> for Spi<SPI, S, M
 impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> ::hal::blocking::spi::transfer::Default<u8> for Spi<SPI, S, MI, MO> {}
 
 impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> ::hal::blocking::spi::write::Default<u8> for Spi<SPI, S, MI, MO> {}
+
+#[cfg(feature = "STM32L476VG")]
+pub mod stm32l476vg;
