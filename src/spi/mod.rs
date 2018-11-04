@@ -319,12 +319,9 @@ impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> Spi<SPI, S, MI, MO> {
     ///
     /// In debug mode the function checks if index of each PIN corresponds to SPI's index.
     pub fn new(spi: SPI, pins: (S, MI, MO), freq: Hertz, mode: Mode, clocks: &Clocks, apb: &mut SPI::APB) -> Self {
-        #[cfg(debug_assertions)]
-        {
-            assert_eq!(SPI::IDX, S::SPI_IDX);
-            assert_eq!(SPI::IDX, MI::SPI_IDX);
-            assert_eq!(SPI::IDX, MO::SPI_IDX);
-        }
+        debug_assert_eq!(SPI::IDX, S::SPI_IDX);
+        debug_assert_eq!(SPI::IDX, MI::SPI_IDX);
+        debug_assert_eq!(SPI::IDX, MO::SPI_IDX);
 
         SPI::enable(apb);
 
