@@ -39,8 +39,8 @@
 </pre><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">SCK</span>, <span class="ident">MISO</span>, <span class="ident">MOSI</span>};
 
-<span class="kw">pub</span> <span class="kw">use</span> ::<span class="ident">gpio</span>::{<span class="ident">AF5</span>, <span class="ident">AF6</span>};
-<span class="kw">pub</span> <span class="kw">use</span> ::<span class="ident">gpio</span>::<span class="ident">stm32l476vg</span>::<span class="ident">gpio</span>::{<span class="ident">PE13</span>, <span class="ident">PE14</span>, <span class="ident">PE15</span>, <span class="ident">PG9</span>, <span class="ident">PG10</span>, <span class="ident">PG11</span>};
+<span class="kw">use</span> ::<span class="ident">gpio</span>::{<span class="ident">AF5</span>};
+<span class="kw">use</span> ::<span class="ident">gpio</span>::<span class="ident">stm32l476vg</span>::<span class="ident">gpio</span>::{<span class="ident">PE13</span>, <span class="ident">PE14</span>, <span class="ident">PE15</span>, <span class="ident">PG9</span>, <span class="ident">PG10</span>, <span class="ident">PG11</span>};
 
 <span class="macro">impl_pins_trait</span><span class="macro">!</span>(<span class="number">1</span> <span class="op">=&gt;</span> {
     <span class="ident">TRAIT</span>: <span class="ident">SCK</span>,
