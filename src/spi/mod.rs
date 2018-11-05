@@ -397,4 +397,4 @@ impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> ::hal::blocking::spi::transfer::
 impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> ::hal::blocking::spi::write::Default<u8> for Spi<SPI, S, MI, MO> {}
 
 #[cfg(feature = "STM32L476VG")]
-pub mod stm32l476vg;
+mod stm32l476vg;

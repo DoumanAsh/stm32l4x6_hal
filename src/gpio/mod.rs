@@ -179,6 +179,7 @@ macro_rules! impl_parts {
                 }
             }
             impl AFRH<$GPIOX> {
+                #[allow(dead_code)]
                 pub(crate) fn afr(&mut self) -> &stm32l4x6::$gpiox::AFRH {
                     unsafe { &(*$GPIOX::ptr()).afrh }
                 }
