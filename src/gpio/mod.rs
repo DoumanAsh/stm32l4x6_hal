@@ -8,7 +8,7 @@
 use marker::PhantomData;
 use ops::Deref;
 
-use hal::digital::{toggleable, OutputPin, StatefulOutputPin};
+use hal::digital::{toggleable, OutputPin, StatefulOutputPin, InputPin};
 
 use stm32l4x6;
 
@@ -299,6 +299,19 @@ macro_rules! impl_pin {
                 afr.afr().modify(|r, w| unsafe { w.bits((r.bits() & !(0b1111 << AFR_OFFSET)) | (AF::NUM << AFR_OFFSET)) });
 
                 $PXi(PhantomData)
+            }
+        }
+
+        impl<MODE> InputPin for $PXi<Input<MODE>> {
+            /// Returns whether bit is reading low.
+            fn is_low(&self) -> bool {
+                // NOTE(unsafe) atomic read with no side effects
+                unsafe { (*$GPIOX::ptr()).idr.read().bits() & (1 << $i) == 0 }
+            }
+
+            /// Returns whether bit is reading high.
+            fn is_high(&self) -> bool {
+                !self.is_low()
             }
         }
 
