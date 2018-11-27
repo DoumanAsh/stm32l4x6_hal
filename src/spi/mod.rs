@@ -170,6 +170,7 @@ pub trait InnerSpi where Self: Sized {
              .ssi().set_bit()
              .ssm().set_bit()
              .mstr().set_bit()
+             .spe().set_bit()
         });
     }
 
@@ -366,7 +367,7 @@ impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> FullDuplex<u8> for Spi<SPI, S, M
             // NOTE(read_volatile) read only 1 byte (the svd2rust API only allows
             // reading a half-word)
             return Ok(unsafe {
-                ptr::read_volatile(&self.spi.dr() as *const _ as *const u8)
+                ptr::read_volatile(self.spi.dr() as *const _ as *const u8)
             });
         } else {
             nb::Error::WouldBlock
@@ -384,7 +385,7 @@ impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> FullDuplex<u8> for Spi<SPI, S, M
             nb::Error::Other(Error::Crc)
         } else if sr.txe().bit_is_set() {
             // NOTE(write_volatile) see note above
-            unsafe { ptr::write_volatile(&self.spi.dr() as *const _ as *mut u8, byte) }
+            unsafe { ptr::write_volatile(self.spi.dr() as *const _ as *mut u8, byte) }
             return Ok(());
         } else {
             nb::Error::WouldBlock
