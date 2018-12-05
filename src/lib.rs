@@ -32,3 +32,4 @@ pub mod time;
 pub mod timer;
 pub mod spi;
 pub mod crc;
+pub mod serial;
