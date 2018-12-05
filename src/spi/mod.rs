@@ -228,7 +228,7 @@ impl InnerSpi for SPI2 {
 
     #[inline]
     fn get_clock_freq(clocks: &Clocks) -> Hertz {
-        clocks.pclk2()
+        clocks.pclk1()
     }
 
     fn cr1(&self) -> &::stm32l4x6::spi1::CR1 {
@@ -261,7 +261,7 @@ impl InnerSpi for SPI3 {
 
     #[inline]
     fn get_clock_freq(clocks: &Clocks) -> Hertz {
-        clocks.pclk2()
+        clocks.pclk1()
     }
 
     fn cr1(&self) -> &::stm32l4x6::spi1::CR1 {
