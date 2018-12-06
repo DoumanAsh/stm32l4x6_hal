@@ -2,9 +2,9 @@
 use cortex_m::peripheral::syst::SystClkSource;
 use cortex_m::peripheral::SYST;
 
-use cmp;
+use core::cmp;
 
-use rcc::Clocks;
+use crate::rcc::Clocks;
 
 /// Max possible value to set on SYST's RVR register.
 ///

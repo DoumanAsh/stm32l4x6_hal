@@ -5,14 +5,12 @@
 //! GPIO lines. In that case, you will probably not want to `use` this module directly, but instead
 //! use it re-exported by the chip module.
 
-use marker::PhantomData;
-use ops::Deref;
+use core::marker::PhantomData;
+use core::ops::Deref;
 
-use hal::digital::{toggleable, OutputPin, StatefulOutputPin, InputPin};
+use embedded_hal::digital::{toggleable, OutputPin, StatefulOutputPin, InputPin};
 
-use stm32l4x6;
-
-use rcc::AHB;
+use crate::rcc::AHB;
 
 /// Input Mode Trait
 /// Implemented only for corresponding structs.

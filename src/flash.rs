@@ -2,7 +2,7 @@
 
 use stm32l4x6::{flash, FLASH};
 
-use common::Constrain;
+use crate::common::Constrain;
 
 impl Constrain<Parts> for FLASH {
     fn constrain(self) -> Parts {

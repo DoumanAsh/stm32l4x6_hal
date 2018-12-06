@@ -2,14 +2,12 @@
 //!
 //! TODO: Work in progress
 
-use stm32l4x6;
+use crate::gpio;
+use crate::power::Power;
+use crate::rcc::clocking::RtcClkSource;
+use crate::rcc::{APB1, AHB, BDCR};
 
-use gpio;
-use power::Power;
-use rcc::clocking::RtcClkSource;
-use rcc::{APB1, AHB, BDCR};
-
-use mem;
+use core::mem;
 
 pub mod config;
 pub mod ram;

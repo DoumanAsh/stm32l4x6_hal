@@ -2,7 +2,7 @@
 
 use stm32l4x6::{pwr, PWR};
 
-use common::Constrain;
+use crate::common::Constrain;
 
 impl Constrain<Power> for PWR {
     fn constrain(self) -> Power {

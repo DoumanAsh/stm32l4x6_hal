@@ -15,19 +15,10 @@
 
 #![no_std]
 
-extern crate cast;
 pub extern crate cortex_m;
 pub extern crate nb;
 pub extern crate embedded_hal;
 pub extern crate stm32l4x6;
-
-use embedded_hal as hal;
-
-use core::cmp;
-use core::marker;
-use core::mem;
-use core::ops;
-use core::ptr;
 
 pub mod common;
 pub mod config;

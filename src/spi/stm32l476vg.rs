@@ -1,7 +1,7 @@
 use super::{SCK, MISO, MOSI};
 
-use ::gpio::{AF5};
-use ::gpio::stm32l476vg::gpio::{PE13, PE14, PE15, PG9, PG10, PG11};
+use crate::gpio::{AF5};
+use crate::gpio::stm32l476vg::gpio::{PE13, PE14, PE15, PG9, PG10, PG11};
 
 impl_pins_trait!(1 => {
     TRAIT: SCK,

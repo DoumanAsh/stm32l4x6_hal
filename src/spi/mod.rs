@@ -1,15 +1,14 @@
 //! Serial Peripheral Interface (SPI) module.
 
-use ::nb;
-use ::hal::spi::{FullDuplex, Mode, Phase, Polarity};
-use ::stm32l4x6::{SPI1, SPI2, SPI3};
+use embedded_hal::spi::{FullDuplex, Mode, Phase, Polarity};
+use stm32l4x6::{SPI1, SPI2, SPI3};
 
-use ::time::Hertz;
-use ::rcc::{APB1, APB2, Clocks};
+use crate::time::Hertz;
+use crate::rcc::{APB1, APB2, Clocks};
 
-use ::ptr;
+use core::ptr;
 
-use ::gpio::{
+use crate::gpio::{
     AF5,
     AF6, //Used for SPI3
     //SPI1
@@ -393,9 +392,9 @@ impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> FullDuplex<u8> for Spi<SPI, S, M
     }
 }
 
-impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> ::hal::blocking::spi::transfer::Default<u8> for Spi<SPI, S, MI, MO> {}
+impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> embedded_hal::blocking::spi::transfer::Default<u8> for Spi<SPI, S, MI, MO> {}
 
-impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> ::hal::blocking::spi::write::Default<u8> for Spi<SPI, S, MI, MO> {}
+impl<SPI: InnerSpi, S: SCK, MI: MISO, MO: MOSI> embedded_hal::blocking::spi::write::Default<u8> for Spi<SPI, S, MI, MO> {}
 
 #[cfg(feature = "STM32L476VG")]
 mod stm32l476vg;

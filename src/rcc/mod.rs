@@ -8,9 +8,9 @@
 
 use stm32l4x6::{rcc, PWR, RCC};
 
-use common::Constrain;
-use flash::ACR;
-use time::Hertz;
+use crate::common::Constrain;
+use crate::flash::ACR;
+use crate::time::Hertz;
 
 pub mod clocking;
 

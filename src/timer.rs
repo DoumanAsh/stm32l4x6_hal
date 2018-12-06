@@ -1,15 +1,13 @@
 //! Hardware Timers
-extern crate void;
-
-use self::void::Void;
+use void::Void;
 use cortex_m::peripheral::syst::SystClkSource;
 use cortex_m::peripheral::SYST;
-use hal::timer::{CountDown, Periodic};
+use embedded_hal::timer::{CountDown, Periodic};
 use nb;
 
-use config::SYST_MAX_RVR;
-use rcc::{APB1, APB2, Clocks};
-use time::Hertz;
+use crate::config::SYST_MAX_RVR;
+use crate::rcc::{APB1, APB2, Clocks};
+use crate::time::Hertz;
 
 use cast::{u16, u32};
 
