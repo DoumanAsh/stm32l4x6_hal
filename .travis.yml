@@ -28,6 +28,7 @@ script:
   - cargo check --target $TARGET
   - cargo check --target $TARGET --features STM32L476VG
   - cargo check --target $TARGET --features STM32L496AG
+  - cargo test
 
 after_script:
   - sh ci/build_docs.sh
