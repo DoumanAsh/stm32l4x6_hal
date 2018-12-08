@@ -12,7 +12,9 @@
 //!
 //! To use them, compose them and feed them to, e.g., sysclk.
 //!
-//! ```rust
+//! ```rust, ignore
+//! use stm32l4x6_hal::rcc::clocking;
+//!
 //! let mut rcc = RCC.constrain();
 //! let msi_clk = clocking::MediumSpeedInternalRC::new(8_000_000, false);
 //! let sys_clk_src = clocking::SysClkSource::MSI(msi_clk);

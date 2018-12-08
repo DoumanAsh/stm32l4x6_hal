@@ -265,6 +265,34 @@ impl CFGR {
         self
     }
 
+    #[inline]
+    fn calc_ahb(sys_clock: u32, hclk: Option<u32>) -> (u8, u32) {
+        match hclk.map(|hclk| sys_clock / hclk) {
+            Some(0) => unreachable!(),
+            None | Some(1) => (0b0111, sys_clock),
+            Some(2) => (0b1000, sys_clock / 2),
+            Some(3...5) => (0b1001, sys_clock / 4),
+            Some(6...11) => (0b1010, sys_clock / 8),
+            Some(12...39) => (0b1011, sys_clock / 16),
+            Some(40...95) => (0b1100, sys_clock / 64),
+            Some(96...191) => (0b1101, sys_clock / 128),
+            Some(192...383) => (0b1110, sys_clock / 256),
+            _ => (0b1111, sys_clock / 512),
+        }
+    }
+
+    #[inline]
+    fn calc_apb(ahb: u32, pclk: Option<u32>) -> (u8, u8) {
+        match pclk.map(|pclk| ahb / pclk) {
+            Some(0) => unreachable!(),
+            None | Some(1) => (0b011, 1),
+            Some(2) => (0b100, 2),
+            Some(3...5) => (0b101, 4),
+            Some(6...11) => (0b110, 8),
+            _ => (0b111, 16),
+        }
+    }
+
     /// Freezes the clock configuration, making it effective
     pub fn freeze(self, acr: &mut ACR) -> Clocks {
         let rcc = unsafe { &*RCC::ptr() };
@@ -277,39 +305,12 @@ impl CFGR {
         };
 
         //Reference Ch. 6.4.3
-        let (hpre_bits, ahb) = match self.hclk.map(|hclk| sys_clock / hclk) {
-            Some(0) => unreachable!(),
-            None | Some(1) => (0b0111, sys_clock),
-            Some(2) => (0b1000, sys_clock / 2),
-            Some(3...5) => (0b1001, sys_clock / 4),
-            Some(6...11) => (0b1010, sys_clock / 8),
-            Some(12...39) => (0b1011, sys_clock / 16),
-            Some(40...95) => (0b1100, sys_clock / 64),
-            Some(96...191) => (0b1101, sys_clock / 128),
-            Some(192...383) => (0b1110, sys_clock / 256),
-            _ => (0b1111, sys_clock / 512),
-        };
+        let (hpre_bits, ahb) = Self::calc_ahb(sys_clock, self.hclk);
 
-        let (ppre1_bits, ppre1) = match self.pclk1.map(|pclk1| ahb / pclk1) {
-            Some(0) => unreachable!(),
-            None | Some(1) => (0b011, 1),
-            Some(2) => (0b100, 2),
-            Some(3...5) => (0b101, 4),
-            Some(6...11) => (0b110, 8),
-            _ => (0b111, 16),
-        };
-
+        let (ppre1_bits, ppre1) = Self::calc_apb(ahb, self.pclk1);
         let apb1 = ahb / ppre1 as u32;
 
-        let (ppre2_bits, ppre2) = match self.pclk2.map(|pclk2| ahb / pclk2) {
-            Some(0) => unreachable!(),
-            None | Some(1) => (0b011, 1),
-            Some(2) => (0b100, 2),
-            Some(3...5) => (0b101, 4),
-            Some(6...11) => (0b110, 8),
-            _ => (0b111, 16),
-        };
-
+        let (ppre2_bits, ppre2) = Self::calc_apb(ahb, self.pclk2);
         let apb2 = ahb / ppre2 as u32;
 
         // Reference AN4621 note Figure. 4
@@ -408,5 +409,91 @@ impl Clocks {
     /// Returns the system (core) frequency
     pub fn sysclk(&self) -> Hertz {
         self.sysclk
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    pub fn calculate_apb() {
+        let ahb = SYS_CLOCK_MAX;
+
+        let pclk = None;
+        let (ppre_bits, ppre) = CFGR::calc_apb(ahb, pclk);
+        assert_eq!(ppre_bits, 0b011);
+        assert_eq!(ppre, 1);
+
+        let pclk = Some(ahb / 2);
+        let (ppre_bits, ppre) = CFGR::calc_apb(ahb, pclk);
+        assert_eq!(ppre_bits, 0b100);
+        assert_eq!(ppre, 2);
+
+        let pclk = Some(ahb / 4);
+        let (ppre_bits, ppre) = CFGR::calc_apb(ahb, pclk);
+        assert_eq!(ppre_bits, 0b101);
+        assert_eq!(ppre, 4);
+
+        let pclk = Some(ahb / 9);
+        let (ppre_bits, ppre) = CFGR::calc_apb(ahb, pclk);
+        assert_eq!(ppre_bits, 0b110);
+        assert_eq!(ppre, 8);
+
+        let pclk = Some(ahb / 20);
+        let (ppre_bits, ppre) = CFGR::calc_apb(ahb, pclk);
+        assert_eq!(ppre_bits, 0b111);
+        assert_eq!(ppre, 16);
+    }
+
+    #[test]
+    pub fn calculate_ahb() {
+        let sys_clock = SYS_CLOCK_MAX;
+        let hclk = None;
+
+        let (hpre_bits, ahb) = CFGR::calc_ahb(sys_clock, hclk);
+        assert_eq!(hpre_bits, 0b0111);
+        assert_eq!(ahb, sys_clock);
+
+        let hclk = Some(sys_clock / 2);
+        let (hpre_bits, ahb) = CFGR::calc_ahb(sys_clock, hclk);
+        assert_eq!(hpre_bits, 0b1000);
+        assert_eq!(ahb, sys_clock / 2);
+
+        let hclk = Some(sys_clock / 5);
+        let (hpre_bits, ahb) = CFGR::calc_ahb(sys_clock, hclk);
+        assert_eq!(hpre_bits, 0b1001);
+        assert_eq!(ahb, sys_clock / 4);
+
+        let hclk = Some(sys_clock / 6);
+        let (hpre_bits, ahb) = CFGR::calc_ahb(sys_clock, hclk);
+        assert_eq!(hpre_bits, 0b1010);
+        assert_eq!(ahb, sys_clock / 8);
+
+        let hclk = Some(sys_clock / 18);
+        let (hpre_bits, ahb) = CFGR::calc_ahb(sys_clock, hclk);
+        assert_eq!(hpre_bits, 0b1011);
+        assert_eq!(ahb, sys_clock / 16);
+
+        let hclk = Some(sys_clock / 40);
+        let (hpre_bits, ahb) = CFGR::calc_ahb(sys_clock, hclk);
+        assert_eq!(hpre_bits, 0b1100);
+        assert_eq!(ahb, sys_clock / 64);
+
+        let hclk = Some(sys_clock / 100);
+        let (hpre_bits, ahb) = CFGR::calc_ahb(sys_clock, hclk);
+        assert_eq!(hpre_bits, 0b1101);
+        assert_eq!(ahb, sys_clock / 128);
+
+        let hclk = Some(sys_clock / 300);
+        let (hpre_bits, ahb) = CFGR::calc_ahb(sys_clock, hclk);
+        assert_eq!(hpre_bits, 0b1110);
+        assert_eq!(ahb, sys_clock / 256);
+
+        let hclk = Some(sys_clock / 400);
+        let (hpre_bits, ahb) = CFGR::calc_ahb(sys_clock, hclk);
+        assert_eq!(hpre_bits, 0b1111);
+        assert_eq!(ahb, sys_clock / 512);
+
     }
 }
