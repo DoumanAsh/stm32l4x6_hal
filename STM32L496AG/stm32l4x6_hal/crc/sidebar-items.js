@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_INIT","Initial value for CRC's INIT"],["DEFAULT_POLY","Initial value of polynomial."]],"enum":[["PolySize","Describes possible polynomial sizes"],["ReverseInput","Describes possible ways to reverse input"]],"struct":[["CRC","CRC module"]]});
