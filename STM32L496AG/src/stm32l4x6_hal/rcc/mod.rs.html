@@ -414,6 +414,89 @@
 <span id="414">414</span>
 <span id="415">415</span>
 <span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Reset and Clock Control</span>
 
@@ -682,6 +765,34 @@
         <span class="self">self</span>
     }
 
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">fn</span> <span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>: <span class="ident">u32</span>, <span class="ident">hclk</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> (<span class="ident">u8</span>, <span class="ident">u32</span>) {
+        <span class="kw">match</span> <span class="ident">hclk</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">hclk</span><span class="op">|</span> <span class="ident">sys_clock</span> <span class="op">/</span> <span class="ident">hclk</span>) {
+            <span class="prelude-val">Some</span>(<span class="number">0</span>) <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+            <span class="prelude-val">None</span> <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="number">1</span>) <span class="op">=&gt;</span> (<span class="number">0b0111</span>, <span class="ident">sys_clock</span>),
+            <span class="prelude-val">Some</span>(<span class="number">2</span>) <span class="op">=&gt;</span> (<span class="number">0b1000</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">2</span>),
+            <span class="prelude-val">Some</span>(<span class="number">3</span>...<span class="number">5</span>) <span class="op">=&gt;</span> (<span class="number">0b1001</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">4</span>),
+            <span class="prelude-val">Some</span>(<span class="number">6</span>...<span class="number">11</span>) <span class="op">=&gt;</span> (<span class="number">0b1010</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">8</span>),
+            <span class="prelude-val">Some</span>(<span class="number">12</span>...<span class="number">39</span>) <span class="op">=&gt;</span> (<span class="number">0b1011</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">16</span>),
+            <span class="prelude-val">Some</span>(<span class="number">40</span>...<span class="number">95</span>) <span class="op">=&gt;</span> (<span class="number">0b1100</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">64</span>),
+            <span class="prelude-val">Some</span>(<span class="number">96</span>...<span class="number">191</span>) <span class="op">=&gt;</span> (<span class="number">0b1101</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">128</span>),
+            <span class="prelude-val">Some</span>(<span class="number">192</span>...<span class="number">383</span>) <span class="op">=&gt;</span> (<span class="number">0b1110</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">256</span>),
+            <span class="kw">_</span> <span class="op">=&gt;</span> (<span class="number">0b1111</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">512</span>),
+        }
+    }
+
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">fn</span> <span class="ident">calc_apb</span>(<span class="ident">ahb</span>: <span class="ident">u32</span>, <span class="ident">pclk</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> (<span class="ident">u8</span>, <span class="ident">u8</span>) {
+        <span class="kw">match</span> <span class="ident">pclk</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">pclk</span><span class="op">|</span> <span class="ident">ahb</span> <span class="op">/</span> <span class="ident">pclk</span>) {
+            <span class="prelude-val">Some</span>(<span class="number">0</span>) <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+            <span class="prelude-val">None</span> <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="number">1</span>) <span class="op">=&gt;</span> (<span class="number">0b011</span>, <span class="number">1</span>),
+            <span class="prelude-val">Some</span>(<span class="number">2</span>) <span class="op">=&gt;</span> (<span class="number">0b100</span>, <span class="number">2</span>),
+            <span class="prelude-val">Some</span>(<span class="number">3</span>...<span class="number">5</span>) <span class="op">=&gt;</span> (<span class="number">0b101</span>, <span class="number">4</span>),
+            <span class="prelude-val">Some</span>(<span class="number">6</span>...<span class="number">11</span>) <span class="op">=&gt;</span> (<span class="number">0b110</span>, <span class="number">8</span>),
+            <span class="kw">_</span> <span class="op">=&gt;</span> (<span class="number">0b111</span>, <span class="number">16</span>),
+        }
+    }
+
     <span class="doccomment">/// Freezes the clock configuration, making it effective</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">freeze</span>(<span class="self">self</span>, <span class="ident">acr</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ACR</span>) <span class="op">-&gt;</span> <span class="ident">Clocks</span> {
         <span class="kw">let</span> <span class="ident">rcc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">RCC</span>::<span class="ident">ptr</span>() };
@@ -693,43 +804,13 @@
             <span class="ident">clocking</span>::<span class="ident">SysClkSource</span>::<span class="ident">PLL</span>(<span class="ident">s</span>) <span class="op">=&gt;</span> <span class="ident">s</span>.<span class="ident">configure</span>(<span class="ident">rcc</span>),
         };
 
-        <span class="kw">let</span> <span class="ident">hpre_bits</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">hclk</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">hclk</span><span class="op">|</span> <span class="ident">sys_clock</span> <span class="op">/</span> <span class="ident">hclk</span>) {
-            <span class="prelude-val">Some</span>(<span class="number">0</span>) <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
-            <span class="prelude-val">Some</span>(<span class="number">1</span>) <span class="op">=&gt;</span> <span class="number">0b0111</span>,
-            <span class="prelude-val">Some</span>(<span class="number">2</span>) <span class="op">=&gt;</span> <span class="number">0b1000</span>,
-            <span class="prelude-val">Some</span>(<span class="number">3</span>...<span class="number">5</span>) <span class="op">=&gt;</span> <span class="number">0b1001</span>,
-            <span class="prelude-val">Some</span>(<span class="number">6</span>...<span class="number">11</span>) <span class="op">=&gt;</span> <span class="number">0b1010</span>,
-            <span class="prelude-val">Some</span>(<span class="number">12</span>...<span class="number">39</span>) <span class="op">=&gt;</span> <span class="number">0b1011</span>,
-            <span class="prelude-val">Some</span>(<span class="number">40</span>...<span class="number">95</span>) <span class="op">=&gt;</span> <span class="number">0b1100</span>,
-            <span class="prelude-val">Some</span>(<span class="number">96</span>...<span class="number">191</span>) <span class="op">=&gt;</span> <span class="number">0b1101</span>,
-            <span class="prelude-val">Some</span>(<span class="number">192</span>...<span class="number">383</span>) <span class="op">=&gt;</span> <span class="number">0b1110</span>,
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="number">0b1111</span>,
-        };
+        <span class="comment">//Reference Ch. 6.4.3</span>
+        <span class="kw">let</span> (<span class="ident">hpre_bits</span>, <span class="ident">ahb</span>) <span class="op">=</span> <span class="self">Self</span>::<span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>, <span class="self">self</span>.<span class="ident">hclk</span>);
 
-        <span class="kw">let</span> <span class="ident">ahb</span> <span class="op">=</span> <span class="ident">sys_clock</span> <span class="op">/</span> (<span class="number">1</span> <span class="op">&lt;&lt;</span> (<span class="ident">hpre_bits</span> <span class="op">-</span> <span class="number">0b0111</span>));
-
-        <span class="kw">let</span> <span class="ident">ppre1_bits</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">pclk1</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">pclk1</span><span class="op">|</span> <span class="ident">ahb</span> <span class="op">/</span> <span class="ident">pclk1</span>) {
-            <span class="prelude-val">Some</span>(<span class="number">0</span>) <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
-            <span class="prelude-val">Some</span>(<span class="number">1</span>) <span class="op">=&gt;</span> <span class="number">0b011</span>,
-            <span class="prelude-val">Some</span>(<span class="number">2</span>) <span class="op">=&gt;</span> <span class="number">0b100</span>,
-            <span class="prelude-val">Some</span>(<span class="number">3</span>...<span class="number">5</span>) <span class="op">=&gt;</span> <span class="number">0b101</span>,
-            <span class="prelude-val">Some</span>(<span class="number">6</span>...<span class="number">11</span>) <span class="op">=&gt;</span> <span class="number">0b110</span>,
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="number">0b111</span>,
-        };
-
-        <span class="kw">let</span> <span class="ident">ppre1</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;&lt;</span> (<span class="ident">ppre1_bits</span> <span class="op">-</span> <span class="number">0b011</span>);
+        <span class="kw">let</span> (<span class="ident">ppre1_bits</span>, <span class="ident">ppre1</span>) <span class="op">=</span> <span class="self">Self</span>::<span class="ident">calc_apb</span>(<span class="ident">ahb</span>, <span class="self">self</span>.<span class="ident">pclk1</span>);
         <span class="kw">let</span> <span class="ident">apb1</span> <span class="op">=</span> <span class="ident">ahb</span> <span class="op">/</span> <span class="ident">ppre1</span> <span class="kw">as</span> <span class="ident">u32</span>;
 
-        <span class="kw">let</span> <span class="ident">ppre2_bits</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">pclk2</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">pclk2</span><span class="op">|</span> <span class="ident">ahb</span> <span class="op">/</span> <span class="ident">pclk2</span>) {
-            <span class="prelude-val">Some</span>(<span class="number">0</span>) <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
-            <span class="prelude-val">Some</span>(<span class="number">1</span>) <span class="op">=&gt;</span> <span class="number">0b011</span>,
-            <span class="prelude-val">Some</span>(<span class="number">2</span>) <span class="op">=&gt;</span> <span class="number">0b100</span>,
-            <span class="prelude-val">Some</span>(<span class="number">3</span>...<span class="number">5</span>) <span class="op">=&gt;</span> <span class="number">0b101</span>,
-            <span class="prelude-val">Some</span>(<span class="number">6</span>...<span class="number">11</span>) <span class="op">=&gt;</span> <span class="number">0b110</span>,
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="number">0b111</span>,
-        };
-
-        <span class="kw">let</span> <span class="ident">ppre2</span> <span class="op">=</span> <span class="number">1</span> <span class="op">&lt;&lt;</span> (<span class="ident">ppre2_bits</span> <span class="op">-</span> <span class="number">0b011</span>);
+        <span class="kw">let</span> (<span class="ident">ppre2_bits</span>, <span class="ident">ppre2</span>) <span class="op">=</span> <span class="self">Self</span>::<span class="ident">calc_apb</span>(<span class="ident">ahb</span>, <span class="self">self</span>.<span class="ident">pclk2</span>);
         <span class="kw">let</span> <span class="ident">apb2</span> <span class="op">=</span> <span class="ident">ahb</span> <span class="op">/</span> <span class="ident">ppre2</span> <span class="kw">as</span> <span class="ident">u32</span>;
 
         <span class="comment">// Reference AN4621 note Figure. 4</span>
@@ -748,8 +829,7 @@
 
         <span class="ident">acr</span>.<span class="ident">acr</span>().<span class="ident">write</span>(<span class="op">|</span><span class="ident">w</span><span class="op">|</span> <span class="kw">unsafe</span> { <span class="ident">w</span>.<span class="ident">latency</span>().<span class="ident">bits</span>(<span class="ident">latency</span>) });
 
-        <span class="ident">rcc</span>.<span class="ident">cfgr</span>
-            .<span class="ident">modify</span>(<span class="op">|</span><span class="kw">_</span>, <span class="ident">w</span><span class="op">|</span> <span class="kw">unsafe</span> { <span class="ident">w</span>.<span class="ident">ppre2</span>().<span class="ident">bits</span>(<span class="ident">ppre2_bits</span>).<span class="ident">ppre1</span>().<span class="ident">bits</span>(<span class="ident">ppre1_bits</span>).<span class="ident">hpre</span>().<span class="ident">bits</span>(<span class="ident">hpre_bits</span>).<span class="ident">sw</span>().<span class="ident">bits</span>(<span class="ident">sw_bits</span>) });
+        <span class="ident">rcc</span>.<span class="ident">cfgr</span>.<span class="ident">modify</span>(<span class="op">|</span><span class="kw">_</span>, <span class="ident">w</span><span class="op">|</span> <span class="kw">unsafe</span> { <span class="ident">w</span>.<span class="ident">ppre2</span>().<span class="ident">bits</span>(<span class="ident">ppre2_bits</span>).<span class="ident">ppre1</span>().<span class="ident">bits</span>(<span class="ident">ppre1_bits</span>).<span class="ident">hpre</span>().<span class="ident">bits</span>(<span class="ident">hpre_bits</span>).<span class="ident">sw</span>().<span class="ident">bits</span>(<span class="ident">sw_bits</span>) });
 
         <span class="comment">// Disable BDCR write access</span>
         <span class="kw">unsafe</span> {
@@ -769,8 +849,8 @@
                 <span class="ident">clocking</span>::<span class="ident">SysClkSource</span>::<span class="ident">PLL</span>(<span class="ident">s</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">s</span>.<span class="ident">m</span>),
                 <span class="kw">_</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
             },
-            <span class="ident">ppre1</span>: <span class="ident">ppre1</span>,
-            <span class="ident">ppre2</span>: <span class="ident">ppre2</span>,
+            <span class="ident">ppre1</span>,
+            <span class="ident">ppre2</span>,
         }
     }
 }
@@ -829,6 +909,92 @@
     <span class="doccomment">/// Returns the system (core) frequency</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sysclk</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Hertz</span> {
         <span class="self">self</span>.<span class="ident">sysclk</span>
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">calculate_apb</span>() {
+        <span class="kw">let</span> <span class="ident">ahb</span> <span class="op">=</span> <span class="ident">SYS_CLOCK_MAX</span>;
+
+        <span class="kw">let</span> <span class="ident">pclk</span> <span class="op">=</span> <span class="prelude-val">None</span>;
+        <span class="kw">let</span> (<span class="ident">ppre_bits</span>, <span class="ident">ppre</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_apb</span>(<span class="ident">ahb</span>, <span class="ident">pclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ppre_bits</span>, <span class="number">0b011</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ppre</span>, <span class="number">1</span>);
+
+        <span class="kw">let</span> <span class="ident">pclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">ahb</span> <span class="op">/</span> <span class="number">2</span>);
+        <span class="kw">let</span> (<span class="ident">ppre_bits</span>, <span class="ident">ppre</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_apb</span>(<span class="ident">ahb</span>, <span class="ident">pclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ppre_bits</span>, <span class="number">0b100</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ppre</span>, <span class="number">2</span>);
+
+        <span class="kw">let</span> <span class="ident">pclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">ahb</span> <span class="op">/</span> <span class="number">4</span>);
+        <span class="kw">let</span> (<span class="ident">ppre_bits</span>, <span class="ident">ppre</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_apb</span>(<span class="ident">ahb</span>, <span class="ident">pclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ppre_bits</span>, <span class="number">0b101</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ppre</span>, <span class="number">4</span>);
+
+        <span class="kw">let</span> <span class="ident">pclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">ahb</span> <span class="op">/</span> <span class="number">9</span>);
+        <span class="kw">let</span> (<span class="ident">ppre_bits</span>, <span class="ident">ppre</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_apb</span>(<span class="ident">ahb</span>, <span class="ident">pclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ppre_bits</span>, <span class="number">0b110</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ppre</span>, <span class="number">8</span>);
+
+        <span class="kw">let</span> <span class="ident">pclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">ahb</span> <span class="op">/</span> <span class="number">20</span>);
+        <span class="kw">let</span> (<span class="ident">ppre_bits</span>, <span class="ident">ppre</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_apb</span>(<span class="ident">ahb</span>, <span class="ident">pclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ppre_bits</span>, <span class="number">0b111</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ppre</span>, <span class="number">16</span>);
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">calculate_ahb</span>() {
+        <span class="kw">let</span> <span class="ident">sys_clock</span> <span class="op">=</span> <span class="ident">SYS_CLOCK_MAX</span>;
+        <span class="kw">let</span> <span class="ident">hclk</span> <span class="op">=</span> <span class="prelude-val">None</span>;
+
+        <span class="kw">let</span> (<span class="ident">hpre_bits</span>, <span class="ident">ahb</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>, <span class="ident">hclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">hpre_bits</span>, <span class="number">0b0111</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ahb</span>, <span class="ident">sys_clock</span>);
+
+        <span class="kw">let</span> <span class="ident">hclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">2</span>);
+        <span class="kw">let</span> (<span class="ident">hpre_bits</span>, <span class="ident">ahb</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>, <span class="ident">hclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">hpre_bits</span>, <span class="number">0b1000</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ahb</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">2</span>);
+
+        <span class="kw">let</span> <span class="ident">hclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">5</span>);
+        <span class="kw">let</span> (<span class="ident">hpre_bits</span>, <span class="ident">ahb</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>, <span class="ident">hclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">hpre_bits</span>, <span class="number">0b1001</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ahb</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">4</span>);
+
+        <span class="kw">let</span> <span class="ident">hclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">6</span>);
+        <span class="kw">let</span> (<span class="ident">hpre_bits</span>, <span class="ident">ahb</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>, <span class="ident">hclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">hpre_bits</span>, <span class="number">0b1010</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ahb</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">8</span>);
+
+        <span class="kw">let</span> <span class="ident">hclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">18</span>);
+        <span class="kw">let</span> (<span class="ident">hpre_bits</span>, <span class="ident">ahb</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>, <span class="ident">hclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">hpre_bits</span>, <span class="number">0b1011</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ahb</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">16</span>);
+
+        <span class="kw">let</span> <span class="ident">hclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">40</span>);
+        <span class="kw">let</span> (<span class="ident">hpre_bits</span>, <span class="ident">ahb</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>, <span class="ident">hclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">hpre_bits</span>, <span class="number">0b1100</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ahb</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">64</span>);
+
+        <span class="kw">let</span> <span class="ident">hclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">100</span>);
+        <span class="kw">let</span> (<span class="ident">hpre_bits</span>, <span class="ident">ahb</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>, <span class="ident">hclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">hpre_bits</span>, <span class="number">0b1101</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ahb</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">128</span>);
+
+        <span class="kw">let</span> <span class="ident">hclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">300</span>);
+        <span class="kw">let</span> (<span class="ident">hpre_bits</span>, <span class="ident">ahb</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>, <span class="ident">hclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">hpre_bits</span>, <span class="number">0b1110</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ahb</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">256</span>);
+
+        <span class="kw">let</span> <span class="ident">hclk</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">400</span>);
+        <span class="kw">let</span> (<span class="ident">hpre_bits</span>, <span class="ident">ahb</span>) <span class="op">=</span> <span class="ident">CFGR</span>::<span class="ident">calc_ahb</span>(<span class="ident">sys_clock</span>, <span class="ident">hclk</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">hpre_bits</span>, <span class="number">0b1111</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ahb</span>, <span class="ident">sys_clock</span> <span class="op">/</span> <span class="number">512</span>);
+
     }
 }
 </pre>

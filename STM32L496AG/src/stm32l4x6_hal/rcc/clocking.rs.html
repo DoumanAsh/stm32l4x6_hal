@@ -300,6 +300,8 @@
 <span id="300">300</span>
 <span id="301">301</span>
 <span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! The `clocking` module contains representations of the various objects in the STM32L4x6</span>
 <span class="doccomment">//! clock tree (see Reference Manual Figs 15 and 16) useful for wiring them up.</span>
@@ -315,7 +317,9 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! To use them, compose them and feed them to, e.g., sysclk.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ```rust</span>
+<span class="doccomment">//! ```rust, ignore</span>
+<span class="doccomment">//! use stm32l4x6_hal::rcc::clocking;</span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! let mut rcc = RCC.constrain();</span>
 <span class="doccomment">//! let msi_clk = clocking::MediumSpeedInternalRC::new(8_000_000, false);</span>
 <span class="doccomment">//! let sys_clk_src = clocking::SysClkSource::MSI(msi_clk);</span>
