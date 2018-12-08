@@ -276,43 +276,40 @@ impl CFGR {
             clocking::SysClkSource::PLL(s) => s.configure(rcc),
         };
 
-        let hpre_bits = match self.hclk.map(|hclk| sys_clock / hclk) {
+        //Reference Ch. 6.4.3
+        let (hpre_bits, ahb) = match self.hclk.map(|hclk| sys_clock / hclk) {
             Some(0) => unreachable!(),
-            Some(1) => 0b0111,
-            Some(2) => 0b1000,
-            Some(3...5) => 0b1001,
-            Some(6...11) => 0b1010,
-            Some(12...39) => 0b1011,
-            Some(40...95) => 0b1100,
-            Some(96...191) => 0b1101,
-            Some(192...383) => 0b1110,
-            _ => 0b1111,
+            None | Some(1) => (0b0111, sys_clock),
+            Some(2) => (0b1000, sys_clock / 2),
+            Some(3...5) => (0b1001, sys_clock / 4),
+            Some(6...11) => (0b1010, sys_clock / 8),
+            Some(12...39) => (0b1011, sys_clock / 16),
+            Some(40...95) => (0b1100, sys_clock / 64),
+            Some(96...191) => (0b1101, sys_clock / 128),
+            Some(192...383) => (0b1110, sys_clock / 256),
+            _ => (0b1111, sys_clock / 512),
         };
 
-        let ahb = sys_clock / (1 << (hpre_bits - 0b0111));
-
-        let ppre1_bits = match self.pclk1.map(|pclk1| ahb / pclk1) {
+        let (ppre1_bits, ppre1) = match self.pclk1.map(|pclk1| ahb / pclk1) {
             Some(0) => unreachable!(),
-            Some(1) => 0b011,
-            Some(2) => 0b100,
-            Some(3...5) => 0b101,
-            Some(6...11) => 0b110,
-            _ => 0b111,
+            None | Some(1) => (0b011, 1),
+            Some(2) => (0b100, 2),
+            Some(3...5) => (0b101, 4),
+            Some(6...11) => (0b110, 8),
+            _ => (0b111, 16),
         };
 
-        let ppre1 = 1 << (ppre1_bits - 0b011);
         let apb1 = ahb / ppre1 as u32;
 
-        let ppre2_bits = match self.pclk2.map(|pclk2| ahb / pclk2) {
+        let (ppre2_bits, ppre2) = match self.pclk2.map(|pclk2| ahb / pclk2) {
             Some(0) => unreachable!(),
-            Some(1) => 0b011,
-            Some(2) => 0b100,
-            Some(3...5) => 0b101,
-            Some(6...11) => 0b110,
-            _ => 0b111,
+            None | Some(1) => (0b011, 1),
+            Some(2) => (0b100, 2),
+            Some(3...5) => (0b101, 4),
+            Some(6...11) => (0b110, 8),
+            _ => (0b111, 16),
         };
 
-        let ppre2 = 1 << (ppre2_bits - 0b011);
         let apb2 = ahb / ppre2 as u32;
 
         // Reference AN4621 note Figure. 4
@@ -331,8 +328,7 @@ impl CFGR {
 
         acr.acr().write(|w| unsafe { w.latency().bits(latency) });
 
-        rcc.cfgr
-            .modify(|_, w| unsafe { w.ppre2().bits(ppre2_bits).ppre1().bits(ppre1_bits).hpre().bits(hpre_bits).sw().bits(sw_bits) });
+        rcc.cfgr.modify(|_, w| unsafe { w.ppre2().bits(ppre2_bits).ppre1().bits(ppre1_bits).hpre().bits(hpre_bits).sw().bits(sw_bits) });
 
         // Disable BDCR write access
         unsafe {
@@ -352,8 +348,8 @@ impl CFGR {
                 clocking::SysClkSource::PLL(s) => Some(s.m),
                 _ => None,
             },
-            ppre1: ppre1,
-            ppre2: ppre2,
+            ppre1,
+            ppre2,
         }
     }
 }
