@@ -21,6 +21,9 @@ use crate::gpio::{
     PC10, PC11, PC12,
 };
 
+pub mod config;
+pub use self::config::Config;
+
 /// Interrupt event
 #[derive(PartialEq, Eq, Debug)]
 pub enum Event {
@@ -184,6 +187,16 @@ pub trait RawSerial where Self: Sized {
         &self.registers().cr1
     }
 
+    ///Retrieves reference to CR2 registers
+    fn cr2(&self) -> &crate::stm32l4x6::usart1::CR2 {
+        &self.registers().cr2
+    }
+
+    ///Retrieves reference to CR2 registers
+    fn cr3(&self) -> &crate::stm32l4x6::usart1::CR3 {
+        &self.registers().cr3
+    }
+
     ///Retrieves reference to BRR registers
     fn brr(&self) -> &crate::stm32l4x6::usart1::BRR {
         &self.registers().brr
@@ -307,8 +320,8 @@ impl<UART: RawSerial, T: TX, R: RX, C: CK> ops::Deref for Serial<UART, T, R, C> 
 impl<UART: RawSerial, T: TX, R: RX> Serial<UART, T, R, DummyPin> {
     #[inline]
     ///Initializes Serial with dummy CK
-    pub fn with_dummy(serial: UART, pins: (T, R), baud_rate: u32, clocks: &Clocks, apb: &mut UART::APB) -> Self {
-        Self::new(serial, (pins.0, pins.1, DummyPin), baud_rate, clocks, apb)
+    pub fn with_dummy<CFN: Config>(serial: UART, pins: (T, R), config: CFN, clocks: &Clocks, apb: &mut UART::APB) -> Self {
+        Self::new(serial, (pins.0, pins.1, DummyPin), config, clocks, apb)
     }
 }
 
@@ -327,7 +340,7 @@ impl<UART: RawSerial, T: TX, R: RX, C: CK> Serial<UART, T, R, C> {
     /// # Pancis:
     ///
     /// In debug mode the function checks if index of each PIN corresponds to Serial's index.
-    pub fn new(serial: UART, pins: (T, R, C), baud_rate: u32, clocks: &Clocks, apb: &mut UART::APB) -> Self {
+    pub fn new<CFN: Config>(serial: UART, pins: (T, R, C), _: CFN, clocks: &Clocks, apb: &mut UART::APB) -> Self {
         //TODO: Baurd can be auto-detected, should be configurable?
         //      See Ch. 40.5.6
         debug_assert!(T::does_belong(UART::IDX));
@@ -339,9 +352,14 @@ impl<UART: RawSerial, T: TX, R: RX, C: CK> Serial<UART, T, R, C> {
         //TODO: DMA requires to enable dmat bit
         //      Should configurable
 
-        let brr = UART::get_clock_freq(clocks).0 / baud_rate;
-        assert!(brr >= 16, "impossible baud rate");
-        serial.brr().write(|w| unsafe { w.bits(brr) });
+        //Took from stm32f4 HAL
+        let div = (UART::get_clock_freq(clocks).0 * 25) / (4 * CFN::BAUD);
+        let mantissa = div / 100;
+        let fraction = ((div - mantissa * 100) * 16 + 50) / 100;
+        serial.brr().write(|w| unsafe { w.bits(mantissa << 4 | fraction) });
+
+        serial.cr2().reset();
+        serial.cr3().reset();
 
         //Enables interface(UE), and receiver(RE) with transmitter(TE)
         serial.cr1().write(|w| w.ue().set_bit().re().set_bit().te().set_bit());
