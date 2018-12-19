@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DefaultCfg","Default configuration with baud 9_200"]],"trait":[["Config","Describes Serial Configuration"]]});
